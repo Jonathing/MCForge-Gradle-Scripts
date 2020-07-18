@@ -33,19 +33,21 @@ if (Test-Path $PWSHUpdateFile -PathType Leaf)
 $MyProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
 Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
 
-# Set the title of the Windows PowerShell console
-$MyPWSHTitle = $MyProjectName + ": Eclipse Run Configurations"
+# Set the title of the Windows PowerShell or PowerShell Core console
+$MyPWSHTitle = $MyProjectName + ": Build Project"
 [System.Console]::Title = $MyPWSHTitle
 
-# Generate the Eclipse run configs
-$MyTask2Message = "Generating the Eclipse run configurations for " + $MyProjectName + "..."
-Write-Host $MyTask2Message
+# Build Blue Skies
+$MyTaskMessage = "Building " + $MyProjectName + "..."
+Write-Host $MyTaskMessage
 Write-Host ""
-.\gradlew genEclipseRuns --warning-mode none
+.\gradlew build --warning-mode none
 Write-Host ""
 
-$MyExitMessage = "Finished generating the Eclipse run configurations."
+$MyExitMessage = "Finished building " + $MyProjectName + "."
 Write-Host $MyExitMessage
+$MyExitMessage2 = "If the build was successful, the output should be located under build\libs"
+Write-Host $MyExitMessage2
 
 Set-Location '.\Scripts\PowerShell Scripts\'
 Pause

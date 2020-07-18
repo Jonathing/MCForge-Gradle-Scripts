@@ -1,14 +1,21 @@
 #!/bin/bash
 
-# bash Shell Scripts for Minecraft Forge Projects
-# Created, updated, and maintained by Jonathing
-# Version 0.2.0
+MyBASHAuthor="Jonathing"
+MyBASHVersion="0.2.0"
+
+# Print script information
+echo "MCGradle Scripts (for GNU bash)"
+echo "Version $MyBASHVersion"
+echo "Written and Maintained by $MyBASHAuthor"
+echo ""
+
+. ./internal/check_update.sh
 
 cd ../..
 
 MyProjectName=`grep 'displayName=' src/main/resources/META-INF/mods.toml -m 1`
 MyProjectName=${MyProjectName#*'"'}; MyProjectName=${MyProjectName%'"'*}
-echo "$s"
+# echo "$MyProjectName"
 
 # Generate the Eclipse run configs
 echo "Generating the IntelliJ IDEA run configurations for $MyProjectName..."
@@ -19,6 +26,6 @@ echo ""
 echo "Finished generating the IntelliJ IDEA run configurations for $MyProjectName."
 
 cd Scripts/bash\ Scripts/
-read -s -n 1 -p "Press any key to continue . . ."
+read -s -n 1 -p "Press any key to continue . . . "
 echo ""
 exit 0
