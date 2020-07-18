@@ -1,6 +1,6 @@
 try {
     $MyResponse = Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCForge-Gradle-Scripts/master/VERSIONS.txt -OutFile '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt'
-    $StatusCode = $Response.StatusCode
+    $StatusCode = $MyResponse.StatusCode
 }
 catch {
     $StatusCode = $_.Exception.Response.StatusCode.value__
