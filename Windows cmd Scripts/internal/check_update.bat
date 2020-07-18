@@ -23,9 +23,8 @@ IF defined CANUPDATE (
     IF %MyCMDVersion%==%MyCMDUpdateVer% (
         REM EMPTY METHOD
     ) ELSE (
-        echo An update is available for MCGradle Scripts!
-        echo To update, read the "UPDATE.md" on how to update the submodule in your repository.
-        echo The latest version is %MyCMDUpdateVer%
+        echo An update is available for MCGradle Scripts! The latest version is %MyCMDUpdateVer%
+        echo To update, read "UPDATE.md" on how to update the submodule in your repository.
         echo.
     )
 )
