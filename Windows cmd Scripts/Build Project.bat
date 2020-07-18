@@ -21,15 +21,16 @@ cd ..\..
 call "Scripts\Windows cmd Scripts\internal\get_title.bat"
 
 :: Set the title of the Command Prompt console
-IF defined PWSHPOLICY (title %MyProjectName%: Eclipse Run Configurations) ELSE (title Eclipse Run Configurations)
+IF defined PWSHPOLICY (title %MyProjectName%: Build Project) ELSE (title Build Project)
 
-:: Generate the Eclipse run configs
-echo Generating the Eclipse run configurations for %MyProjectName%...
+:: Build Blue Skies
+echo Building %MyProjectName%...
 echo.
-call gradlew.bat genEclipseRuns --warning-mode none
+call gradlew.bat build --warning-mode none
 echo.
 
-echo Finished generating the Eclipse run configurations for %MyProjectName%.
+echo Finished building %MyProjectName%.
+echo If the build was successful, the output should be located under build\libs
 
 cd "Scripts\Windows cmd Scripts"
 pause
