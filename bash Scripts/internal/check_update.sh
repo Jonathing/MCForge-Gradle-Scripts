@@ -2,11 +2,13 @@
 
 CANNOTUPDATE=0
 
+# Check for curl
 if ! command -v curl &> /dev/null
 then
     CANNOTUPDATE=1
 fi
 
+# Cancel update if curl is not found
 if [ $CANNOTUPDATE -eq 1 ]
 then
     echo "We couldn't find curl in your Linux system."
@@ -14,6 +16,7 @@ then
     echo ""
 fi
 
+# Download the update file and check the current script version
 if [ $CANNOTUPDATE -ne 1 ]
 then
     MyBASHUpdateVer=`curl --fail --silent https://raw.githubusercontent.com/Jonathing/MCForge-Gradle-Scripts/master/VERSIONS.txt | grep 'BASHVERSION='`

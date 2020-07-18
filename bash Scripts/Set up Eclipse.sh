@@ -9,13 +9,15 @@ echo "Version $MyBASHVersion"
 echo "Written and Maintained by $MyBASHAuthor"
 echo ""
 
+# Check for update
 . ./internal/check_update.sh
 
+# Go to root directory
 cd ../..
 
+# Get Forge mod name
 MyProjectName=`grep 'displayName=' src/main/resources/META-INF/mods.toml -m 1`
 MyProjectName=${MyProjectName#*'"'}; MyProjectName=${MyProjectName%'"'*}
-# echo "$MyProjectName"
 
 # Set up the initial Eclipse workspace
 echo "Setting up the initial Eclipse workspace for $MyProjectName..."
@@ -28,11 +30,13 @@ echo "Generating the Eclipse run configurations for $MyProjectName..."
 echo ""
 ./gradlew genEclipseRuns --warning-mode none
 echo ""
-
 echo "Initial set up for Eclipse complete."
 echo "If you need to generate the run configurations again, run the \"Make Eclipse Runs.ps1\" script."
 
+# Return to scripts directory
 cd Scripts/bash\ Scripts/
+
+# END OF SCRIPT
 read -s -n 1 -p "Press any key to continue . . . "
 echo ""
 exit 0
