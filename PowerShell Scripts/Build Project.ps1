@@ -29,8 +29,6 @@ if (Test-Path $PWSHUpdateFile -PathType Leaf)
     }
 }
 
-Pause
-
 & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
 $MyProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
 Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
