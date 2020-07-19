@@ -45,7 +45,7 @@ IF defined CANUPDATE (
         REM EMPTY METHOD
     ) ELSE (
         ECHO An update is available for MCGradle Scripts! The latest version is %MyCMDUpdateVer%
-        ECHO To update, read "UPDATE.md" on how to update the submodule in your repository.
+        ECHO To update, read "UPDATE.md" on how to update MCGradle Scripts in your repository.
         ECHO.
     )
 )

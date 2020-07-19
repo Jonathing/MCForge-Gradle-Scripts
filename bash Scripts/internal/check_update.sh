@@ -32,7 +32,7 @@ then
         if [ $MyBASHVersion != $MyBASHUpdateVer ]
         then
             echo "An update is available for MCGradle Scripts! The latest version is $MyBASHUpdateVer"
-            echo "To update, read \"UPDATE.md\" on how to update the submodule in your repository."
+            echo "To update, read \"UPDATE.md\" on how to update MCGradle Scripts in your repository."
             echo ""
         fi
     fi

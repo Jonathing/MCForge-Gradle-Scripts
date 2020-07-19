@@ -26,7 +26,7 @@ if (Test-Path $PWSHUpdateFile -PathType Leaf)
     if ($NewPWSHVersion -ne $MyPWSHVersion)
     {
         $MyPWSHUpdateMsg1 = "An update is available for MCGradle Scripts! The latest version is " + $NewPWSHVersion
-        $MyPWSHUpdateMsg2 = "To update, read " + [char]0x0022 + "UPDATE.md" + [char]0x0022 + " on how to update the submodule in your repository."
+        $MyPWSHUpdateMsg2 = "To update, read " + [char]0x0022 + "UPDATE.md" + [char]0x0022 + " on how to update MCGradle Scripts in your repository."
         Write-Host $MyPWSHUpdateMsg1
         Write-Host $MyPWSHUpdateMsg2
         Write-Host ""
