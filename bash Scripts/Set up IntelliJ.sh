@@ -29,6 +29,6 @@ echo ""
 cd Scripts/bash\ Scripts/
 
 # END OF SCRIPT
-read -s -n 1 -p "Press any key to continue . . . "
+read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
 echo ""
 exit 0

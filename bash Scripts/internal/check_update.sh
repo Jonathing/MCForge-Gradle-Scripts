@@ -16,15 +16,19 @@ then
     echo ""
 fi
 
-# Download the update file and check the current script version
+# Continue of curl is found
 if [ $CANNOTUPDATE -ne 1 ]
 then
+    # Download the update file
     MyBASHUpdateVer=`curl --fail --silent https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt | grep 'BASHVERSION='`
 
+    # Continue if update file was downloaded successfully
     if [ $MyBASHUpdateVer ]
     then
+        # Extract string within double quotes
         MyBASHUpdateVer=${MyBASHUpdateVer#*'"'}; MyBASHUpdateVer=${MyBASHUpdateVer%'"'*}
 
+        # Inform the user if MCGradle Scripts can be updated
         if [ $MyBASHVersion != $MyBASHUpdateVer ]
         then
             echo "An update is available for MCGradle Scripts! The latest version is $MyBASHUpdateVer"
@@ -33,6 +37,7 @@ then
         fi
     fi
 
+    # Cancel if the update file download failed
     if [ ! $MyBASHUpdateVer ]
     then
         echo "MCGradle Scripts failed to check for updates!"

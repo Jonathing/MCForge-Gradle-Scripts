@@ -38,7 +38,7 @@ SET /p MyCMDUpdateVer=<"CMDVERSION"
 :: Delete the downloaded update file
 DEL "CMDVERSION"
 
-:: Inform the user if MCGradle Scripts can be update
+:: Inform the user if MCGradle Scripts can be updated
 SET CANUPDATE=1
 IF defined CANUPDATE (
     IF %MyCMDVersion%==%MyCMDUpdateVer% (

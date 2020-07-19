@@ -37,6 +37,6 @@ echo "If you need to generate the run configurations again, run the \"Make Eclip
 cd Scripts/bash\ Scripts/
 
 # END OF SCRIPT
-read -s -n 1 -p "Press any key to continue . . . "
+read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
 echo ""
 exit 0
