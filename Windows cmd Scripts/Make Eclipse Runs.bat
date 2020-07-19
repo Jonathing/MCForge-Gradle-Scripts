@@ -14,13 +14,11 @@ ECHO Originally Written by Jonathing and Bailey
 ECHO Maintained by %MyCMDAuthor%
 ECHO.
 
-:: Check for update
-CD internal
-CALL check_update.bat
-CD ..
-
 :: Go to root project directory
 CD ..\..
+
+:: Check for update
+PowerShell -ExecutionPolicy Bypass -NoLogo -NoProfile -File "Scripts\PowerShell Scripts\internal\check_update.ps1" %MyCMDVersion%
 
 :: Get Forge mod title
 CALL "Scripts\Windows cmd Scripts\internal\get_title.bat"
