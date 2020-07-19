@@ -10,9 +10,10 @@ SET MyCMDVersion=0.4.0
 :: Print script information
 ECHO MCGradle Scripts (for Windows Command Prompt)
 ECHO Version %MyCMDVersion%
-ECHO Originally Written by Jonathing and Bailey
-ECHO Maintained by %MyCMDAuthor%
+ECHO Written and Maintained by Jonathing
 ECHO.
+
+:: TODO make proper credits section to credit Bailey
 
 :: Go to root project directory
 CD ..\..
@@ -20,8 +21,8 @@ CD ..\..
 :: Check for update
 PowerShell -ExecutionPolicy Bypass -NoLogo -NoProfile -File "Scripts\PowerShell Scripts\internal\check_update.ps1" %MyCMDVersion%
 
-:: Get Forge mod title
-CALL "Scripts\Windows cmd Scripts\internal\get_title.bat"
+:: Get Forge mod name
+CALL "Scripts\Windows cmd Scripts\internal\get_name.bat"
 
 :: Set the title of the Command Prompt console
 title %MyProjectName%: Eclipse Workspace
