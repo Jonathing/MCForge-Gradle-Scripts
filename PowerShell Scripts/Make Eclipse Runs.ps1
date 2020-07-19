@@ -10,6 +10,7 @@ Write-Host $MyPWSHGreeting2
 Write-Host $MyPWSHGreeting3
 Write-Host ""
 
+# Go to root project directory
 Set-Location ..\..
 
 # Check for update
@@ -29,11 +30,12 @@ if (Test-Path $PWSHUpdateFile -PathType Leaf)
     }
 }
 
+# Get Forge mod name
 & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
 $MyProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
 Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
 
-# Set the title of the Windows PowerShell console
+# Set the title of the Windows PowerShell or PowerShell Core console
 $MyPWSHTitle = $MyProjectName + ": Eclipse Run Configurations"
 [System.Console]::Title = $MyPWSHTitle
 
@@ -43,10 +45,13 @@ Write-Host $MyTask2Message
 Write-Host ""
 .\gradlew genEclipseRuns --warning-mode none
 Write-Host ""
-
 $MyExitMessage = "Finished generating the Eclipse run configurations."
 Write-Host $MyExitMessage
 
+# Return to scripts directory
 Set-Location '.\Scripts\PowerShell Scripts\'
+
+# END OF SCRIPT
 Pause
+Write-Host ""
 exit 0

@@ -1,3 +1,6 @@
+# THIS SCRIPT IS COMPLETELY UNUSED! DON'T BOTHER MODIFYING IT!
+# It is only kept in the repo in case I need to use this code again at some point.
+
 # $CanRunScripts = 1
 
 # # Check if running Windows PowerShell

@@ -10,6 +10,7 @@ Write-Host $MyPWSHGreeting2
 Write-Host $MyPWSHGreeting3
 Write-Host ""
 
+# Go to root project directory
 Set-Location ..\..
 
 # Check for update
@@ -29,6 +30,7 @@ if (Test-Path $PWSHUpdateFile -PathType Leaf)
     }
 }
 
+# Get Forge mod name
 & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
 $MyProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
 Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
@@ -43,10 +45,13 @@ Write-Host $MyTaskMessage
 Write-Host ""
 .\gradlew genIntellijRuns --warning-mode none
 Write-Host ""
-
 $MyExitMessage = "Finished generating the IntelliJ IDEA run configurations for " + $MyProjectName + "."
 Write-Host $MyExitMessage
 
+# Return to scripts directory
 Set-Location '.\Scripts\PowerShell Scripts\'
+
+# END OF SCRIPT
 Pause
+Write-Host ""
 exit 0

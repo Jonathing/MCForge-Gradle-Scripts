@@ -12,7 +12,7 @@ echo ""
 # Check for update
 . ./internal/check_update.sh
 
-# Go to root directory
+# Go to root project directory
 cd ../..
 
 # Get Forge mod name
@@ -25,7 +25,7 @@ echo ""
 ./gradlew eclipse --warning-mode none
 echo ""
 
-# Generate the Eclipse run configurations...
+# Generate the Eclipse run configs
 echo "Generating the Eclipse run configurations for $MyProjectName..."
 echo ""
 ./gradlew genEclipseRuns --warning-mode none

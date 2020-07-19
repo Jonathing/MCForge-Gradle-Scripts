@@ -1,23 +1,35 @@
-try {
+# Attempt downloading the update file
+try
+{
     $MyResponse = Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCForge-Gradle-Scripts/master/VERSIONS.txt -OutFile '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt'
     $StatusCode = $MyResponse.StatusCode
 }
-catch {
+catch
+{
     $StatusCode = $_.Exception.Response.StatusCode.value__
 }
 
-if ($StatusCode) {
+if ($StatusCode)
+{
+    # Inform user that the update check failed.
     $MyUpdFailMsg1 = "Unable to check for updates! Got a " + $StatusCode + " error when downloading latest version file."
     $MyUpdFailMsg2 = "Please report this to the MCGradle Scripts issue tracker!"
     $MyUpdFailMsg3 = "https://github.com/Jonathing/MCForge-Gradle-Scripts/issues"
-
     Write-Host $MyUpdFailMsg1
     Write-Host $MyUpdFailMsg2
     Write-Host $MyUpdFailMsg3
-} else {
+}
+else
+{
+    # Get the PWSHVERSION line from the update file
     $MyUpdateVer = Get-Content '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt' | Where-Object {$_ -like '*PWSHVERSION=*'}
+
+    # Extract string within double quotes
     $TrueUpdateVer = $MyUpdateVer|%{$_.split('"')[1]}
-    # Write-Host $TrueUpdateVer
+    
+    # Delete the downloaded update file
     Remove-Item '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt'
+
+    # Create a new file with the updated versions
     Set-Content -Path '.\Scripts\PowerShell Scripts\internal\PWSHVERSION' -Value $TrueUpdateVer
 }

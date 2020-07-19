@@ -10,6 +10,7 @@ Write-Host $MyPWSHGreeting2
 Write-Host $MyPWSHGreeting3
 Write-Host ""
 
+# Go to root project directory
 Set-Location ..\..
 
 # Check for update
@@ -29,6 +30,7 @@ if (Test-Path $PWSHUpdateFile -PathType Leaf)
     }
 }
 
+# Get Forge mod name
 & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
 $MyProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
 Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
@@ -37,18 +39,21 @@ Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
 $MyPWSHTitle = $MyProjectName + ": Build Project"
 [System.Console]::Title = $MyPWSHTitle
 
-# Build Blue Skies
+# Build the project
 $MyTaskMessage = "Building " + $MyProjectName + "..."
 Write-Host $MyTaskMessage
 Write-Host ""
 .\gradlew build --warning-mode none
 Write-Host ""
-
 $MyExitMessage = "Finished building " + $MyProjectName + "."
 Write-Host $MyExitMessage
 $MyExitMessage2 = "If the build was successful, the output should be located under build\libs"
 Write-Host $MyExitMessage2
 
+# Return to scripts directory
 Set-Location '.\Scripts\PowerShell Scripts\'
+
+# END OF SCRIPT
 Pause
+Write-Host ""
 exit 0

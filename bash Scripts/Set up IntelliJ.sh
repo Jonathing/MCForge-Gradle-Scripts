@@ -12,7 +12,7 @@ echo ""
 # Check for update
 . ./internal/check_update.sh
 
-# Go to root directory
+# Go to root project directory
 cd ../..
 
 # Get Forge mod name
