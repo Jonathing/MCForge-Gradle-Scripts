@@ -20,12 +20,25 @@ fi
 if [ $CANNOTUPDATE -ne 1 ]
 then
     MyBASHUpdateVer=`curl --fail --silent https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt | grep 'BASHVERSION='`
-    MyBASHUpdateVer=${MyBASHUpdateVer#*'"'}; MyBASHUpdateVer=${MyBASHUpdateVer%'"'*}
 
-    if [ $MyBASHVersion != $MyBASHUpdateVer ]
+    if [ $MyBASHUpdateVer ]
     then
-        echo "An update is available for MCGradle Scripts! The latest version is $MyBASHUpdateVer"
-        echo "To update, read \"UPDATE.md\" on how to update the submodule in your repository."
+        MyBASHUpdateVer=${MyBASHUpdateVer#*'"'}; MyBASHUpdateVer=${MyBASHUpdateVer%'"'*}
+
+        if [ $MyBASHVersion != $MyBASHUpdateVer ]
+        then
+            echo "An update is available for MCGradle Scripts! The latest version is $MyBASHUpdateVer"
+            echo "To update, read \"UPDATE.md\" on how to update the submodule in your repository."
+            echo ""
+        fi
+    fi
+
+    if [ ! $MyBASHUpdateVer ]
+    then
+        echo "MCGradle Scripts failed to check for updates!"
+        echo "We weren't able to download the update file from GitHub."
+        echo "If you are connected to the internet without issues, report this to the issue tracker!"
+        echo "https://github.com/Jonathing/MCForge-Gradle-Scripts/issues"
         echo ""
     fi
 fi
