@@ -26,7 +26,7 @@ CD ..\..
 CALL "Scripts\Windows cmd Scripts\internal\get_title.bat"
 
 :: Set the title of the Command Prompt console
-IF defined PWSHPOLICY (title %MyProjectName%: IntelliJ IDEA Run Configurations) ELSE (title IntelliJ IDEA Run Configurations)
+title %MyProjectName%: IntelliJ IDEA Run Configurations
 
 :: Generate the IntelliJ IDEA run configs
 ECHO Generating the IntelliJ IDEA run configurations for %MyProjectName%...

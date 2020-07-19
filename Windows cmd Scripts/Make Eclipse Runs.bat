@@ -26,7 +26,7 @@ CD ..\..
 CALL "Scripts\Windows cmd Scripts\internal\get_title.bat"
 
 :: Set the title of the Command Prompt console
-IF defined PWSHPOLICY (title %MyProjectName%: Eclipse Run Configurations) ELSE (title Eclipse Run Configurations)
+title %MyProjectName%: Eclipse Run Configurations
 
 :: Generate the Eclipse run configs
 ECHO Generating the Eclipse run configurations for %MyProjectName%...
