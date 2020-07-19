@@ -2,7 +2,7 @@
 @ECHO off
 
 SET MyCMDAuthor=Jonathing
-SET MyCMDVersion=0.3.2
+SET MyCMDVersion=0.4.0
 
 :: Print script information
 ECHO MCGradle Scripts (for Windows Command Prompt)

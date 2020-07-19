@@ -1,5 +1,5 @@
 $MyPWSHAuthor = "Jonathing"
-$MyPWSHVersion = "0.2.1"
+$MyPWSHVersion = "0.4.0"
 
 # Print script information
 $MyPWSHGreeting1 = "MCGradle Scripts (for Windows PowerShell and PowerShell Core)"

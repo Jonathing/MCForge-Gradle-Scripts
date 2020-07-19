@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MyBASHAuthor="Jonathing"
-MyBASHVersion="0.2.0"
+MyBASHVersion="0.4.0"
 
 # Print script information
 echo "MCGradle Scripts (for GNU bash)"
