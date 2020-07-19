@@ -1,3 +1,8 @@
+# Get version number from arguments
+$MyCurrentVersion = $args[0]
+
+# Write-Host $MyCurrentVersion
+
 # Attempt downloading the update file
 try
 {
@@ -15,23 +20,47 @@ if ($StatusCode)
     $MyUpdFailMsg1 = "MCGradle Scripts failed to check for updates!"
     $MyUpdFailMsg2 = "We got a " + $StatusCode + " error when downloading latest version file."
     $MyUpdFailMsg3 = "Please report this to the MCGradle Scripts issue tracker!"
-    $MyUpdFailMsg4 = "https://github.com/Jonathing/MCForge-Gradle-Scripts/issues"
+    $MyUpdFailMsg4 = "https://github.com/Jonathing/MCGradle-Scripts/issues"
     Write-Host $MyUpdFailMsg1
     Write-Host $MyUpdFailMsg2
     Write-Host $MyUpdFailMsg3
     Write-Host $MyUpdFailMsg4
+    Write-Host ""
 }
 else
 {
-    # Get the PWSHVERSION line from the update file
-    $MyUpdateVer = Get-Content '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt' | Where-Object {$_ -like '*PWSHVERSION=*'}
+    # Get the LATESTVERSION line from the update file
+    $MyUpdateVer = Get-Content '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt' | Where-Object {$_ -like '*LATESTVERSION=*'}
 
-    # Extract string within double quotes
-    $TrueUpdateVer = $MyUpdateVer|%{$_.split('"')[1]}
-    
-    # Delete the downloaded update file
+    # Ddelete the update file
     Remove-Item '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt'
 
-    # Create a new file with the updated versions
-    Set-Content -Path '.\Scripts\PowerShell Scripts\internal\PWSHVERSION' -Value $TrueUpdateVer
+    if ($MyUpdateVer)
+    {
+        # Extract string within double quotes
+        $TrueUpdateVer = $MyUpdateVer|%{$_.split('"')[1]}
+    }
+}
+
+if ($TrueUpdateVer)
+{
+    if ($TrueUpdateVer -ne $MyCurrentVersion)
+    {
+        $MyPWSHUpdateMsg1 = "An update is available for MCGradle Scripts! The latest version is " + $TrueUpdateVer
+        $MyPWSHUpdateMsg2 = "To update, read " + [char]0x0022 + "UPDATE.md" + [char]0x0022 + " on how to update MCGradle Scripts in your repository."
+        Write-Host $MyPWSHUpdateMsg1
+        Write-Host $MyPWSHUpdateMsg2
+        Write-Host ""
+    }
+}
+else
+{
+    # Inform user that the update check failed.
+    $MyUpdFailMsg1 = "MCGradle Scripts failed to check for updates!"
+    $MyUpdFailMsg2 = "Please report this to the MCGradle Scripts issue tracker!"
+    $MyUpdFailMsg3 = "https://github.com/Jonathing/MCGradle-Scripts/issues"
+    Write-Host $MyUpdFailMsg1
+    Write-Host $MyUpdFailMsg2
+    Write-Host $MyUpdFailMsg3
+    Write-Host ""
 }

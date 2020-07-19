@@ -30,7 +30,7 @@ Right now, MCGradle Scripts:
 - Is fully compatible with ForgeGradle 3.
 - Can get your mod's display name from mods.toml (it only picks up the first occurrence of `displayName=`.
 - Can change the title of your terminal shell (if possible, I couldn't find a way to do this for bash).
-- Can check for updates from this repo by reading the `VERSIONS.txt` file (`CMDVERSION.txt` for the batch scripts).
+- Can check for updates from this repo by reading the `VERSIONS.txt` file.
 
 Some of the planned features for MCGradle Scripts are to:
 
@@ -50,16 +50,12 @@ To run one of the batch scripts, do one of the following:
 - Double click the batch script in Windows Explorer.
 - Run the script manually from the command line.
 
-**Important Notice:** Currently, the batch scripts use a PowerShell script to get the mod name and display it in MCGradle Scripts, so if your Windows PowerShell execution policy is not set to RemoteSigned or Unrestricted, MCGradle Scripts will ask if you would like to run a script with admin privileges that changes the execution policy to RemoteSigned.
-
 ### PowerShell
 
 To run one of the PowerShell scripts, do one of the following:
 
 - For Windows PowerShell, right click on the script and click on `Run with PowerShell`.
 - For PowerShell Core, run the script manually from the command line. It is written to work for both Windows PowerShell and PowerShell Core.
-
-**Important Notice for Windows PowerShell:** Since you are running the script via `Run with PowerShell`, there is no need for you to change your execution policy to RemoteSigned, since you are already running a PowerShell Script.
 
 ### GNU bash
 

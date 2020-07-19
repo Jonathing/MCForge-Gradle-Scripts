@@ -5,28 +5,27 @@
 CLS
 
 SET MyCMDAuthor=Jonathing
-SET MyCMDVersion=0.4.0
+SET MyCMDVersion=0.4.1
 
 :: Print script information
 ECHO MCGradle Scripts (for Windows Command Prompt)
 ECHO Version %MyCMDVersion%
-ECHO Originally Written by Jonathing and Bailey
-ECHO Maintained by %MyCMDAuthor%
+ECHO Written and Maintained by Jonathing
 ECHO.
 
-:: Check for update
-CD internal
-CALL check_update.bat
-CD ..
+:: TODO make proper credits section to credit Bailey
 
 :: Go to root project directory
 CD ..\..
 
-:: Get Forge mod title
-CALL "Scripts\Windows cmd Scripts\internal\get_title.bat"
+:: Check for update
+PowerShell -ExecutionPolicy Bypass -NoLogo -NoProfile -File "Scripts\PowerShell Scripts\internal\check_update.ps1" %MyCMDVersion%
+
+:: Get Forge mod name
+CALL "Scripts\Windows cmd Scripts\internal\get_name.bat"
 
 :: Set the title of the Command Prompt console
-IF defined PWSHPOLICY (title %MyProjectName%: Eclipse Run Configurations) ELSE (title Eclipse Run Configurations)
+title %MyProjectName%: Eclipse Run Configurations
 
 :: Generate the Eclipse run configs
 ECHO Generating the Eclipse run configurations for %MyProjectName%...

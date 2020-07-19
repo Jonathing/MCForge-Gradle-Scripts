@@ -11,7 +11,7 @@ fi
 # Cancel update if curl was not found
 if [ $CANNOTUPDATE -eq 1 ]
 then
-    echo "We couldn't find curl in your Linux system."
+    echo "curl was not found on your Linux system!"
     echo "MCGradle Scripts will not be able to check for updates."
     echo ""
 fi
@@ -20,7 +20,7 @@ fi
 if [ $CANNOTUPDATE -ne 1 ]
 then
     # Download the update file
-    MyBASHUpdateVer=`curl --fail --silent https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt | grep 'BASHVERSION='`
+    MyBASHUpdateVer=`curl --fail --silent https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt | grep 'LATESTVERSION='`
 
     # Continue if update file was downloaded successfully
     if [ $MyBASHUpdateVer ]
@@ -41,9 +41,8 @@ then
     if [ ! $MyBASHUpdateVer ]
     then
         echo "MCGradle Scripts failed to check for updates!"
-        echo "We weren't able to download the update file from GitHub."
         echo "If you are connected to the internet without issues, report this to the issue tracker!"
-        echo "https://github.com/Jonathing/MCForge-Gradle-Scripts/issues"
+        echo "https://github.com/Jonathing/MCGradle-Scripts/issues"
         echo ""
     fi
 fi
