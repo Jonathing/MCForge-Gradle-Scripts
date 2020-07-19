@@ -1,28 +1,34 @@
-# Clear the screen
-Clear-Host
+# Get arguments
+$MCGradleArg = $args[0]
 
-$MCGradleAuthor = "Jonathing"
-$MCGradleVersion = "0.4.1"
+if ($MCGradleArg -ne "FromHub")
+{
+    # Clear the screen
+    Clear-Host
 
-# Print script information
-$MCGradleGreeting1 = "MCGradle Scripts (for Windows PowerShell and PowerShell Core)"
-$MCGradleGreeting2 = "Version " + $MCGradleVersion
-$MCGradleGreeting3 = "Written and Maintained by " + $MCGradleAuthor
-Write-Host $MCGradleGreeting1
-Write-Host $MCGradleGreeting2
-Write-Host $MCGradleGreeting3
-Write-Host ""
+    $MCGradleAuthor = "Jonathing"
+    $MCGradleVersion = "0.4.1"
 
-# Go to root project directory
-Set-Location ..\..
+    # Print script information
+    $MCGradleGreeting1 = "MCGradle Scripts (for Windows PowerShell and PowerShell Core)"
+    $MCGradleGreeting2 = "Version " + $MCGradleVersion
+    $MCGradleGreeting3 = "Written and Maintained by " + $MCGradleAuthor
+    Write-Host $MCGradleGreeting1
+    Write-Host $MCGradleGreeting2
+    Write-Host $MCGradleGreeting3
+    Write-Host ""
 
-# Check for update
-& '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MCGradleVersion
+    # Go to root project directory
+    Set-Location ..\..
 
-# Get Forge mod name
-& '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
-$MCProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
-Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
+    # Check for update
+    & '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MCGradleVersion
+
+    # Get Forge mod name
+    & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
+    $MCProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
+    Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
+}
 
 # Set the title of the Windows PowerShell console
 $MCGradleTitle = $MCProjectName + ": IntelliJ IDEA Run Configurations"
@@ -37,10 +43,21 @@ Write-Host ""
 $MCExitMessage = "Finished generating the IntelliJ IDEA run configurations for " + $MCProjectName + "."
 Write-Host $MCExitMessage
 
-# Return to scripts directory
-Set-Location '.\Scripts\PowerShell Scripts\'
+if ($MCGradleArg -ne "FromHub")
+{
+    # Return to scripts directory
+    Set-Location '.\Scripts\PowerShell Scripts\'
+}
 
 # END OF SCRIPT
 Pause
+
+if ($MCGradleArg -eq "FromHub")
+{
+    # Set the title of the Windows PowerShell or PowerShell Core console
+    $MCGradleTitle = $MCProjectName + ": MCGradle Scripts Hub"
+    [System.Console]::Title = $MCGradleTitle
+}
+
 Write-Host ""
 exit 0
