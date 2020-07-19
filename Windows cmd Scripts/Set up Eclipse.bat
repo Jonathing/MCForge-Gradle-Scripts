@@ -26,7 +26,7 @@ CD ..\..
 CALL "Scripts\Windows cmd Scripts\internal\get_title.bat"
 
 :: Set the title of the Command Prompt console
-IF defined PWSHPOLICY (title %MyProjectName%: Eclipse Workspace) ELSE (title Eclipse Workspace)
+title %MyProjectName%: Eclipse Workspace
 
 :: Set up the initial Eclipse workspace
 ECHO Setting up the initial Eclipse workspace for %MyProjectName%...

@@ -26,7 +26,7 @@ CD ..\..
 CALL "Scripts\Windows cmd Scripts\internal\get_title.bat"
 
 :: Set the title of the Command Prompt console
-IF defined PWSHPOLICY (title %MyProjectName%: Build Project) ELSE (title Build Project)
+title %MyProjectName%: Build Project
 
 :: Build the project
 ECHO Building %MyProjectName%...
