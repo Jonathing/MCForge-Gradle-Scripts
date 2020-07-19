@@ -1,7 +1,7 @@
 # Attempt downloading the update file
 try
 {
-    $MyResponse = Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCForge-Gradle-Scripts/master/VERSIONS.txt -OutFile '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt'
+    $MyResponse = Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt -OutFile '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt'
     $StatusCode = $MyResponse.StatusCode
 }
 catch

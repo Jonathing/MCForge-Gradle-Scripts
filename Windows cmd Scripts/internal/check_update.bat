@@ -17,7 +17,7 @@ IF %MyWin10Build% lss 17063 (
 )
 
 :: Download the update file
-curl -o CMDVERSION --fail --silent https://raw.githubusercontent.com/Jonathing/MCForge-Gradle-Scripts/master/CMDVERSION.txt
+curl -o CMDVERSION --fail --silent https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/CMDVERSION.txt
 
 :: Put the new version in a variable
 SET /p MyCMDUpdateVer=<"CMDVERSION"
