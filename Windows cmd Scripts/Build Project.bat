@@ -26,12 +26,15 @@ CD ..\..
 CALL "Scripts\Windows cmd Scripts\internal\get_title.bat"
 
 :: Set the title of the Command Prompt console
-IF defined PWSHPOLICY (title %MyProjectName%: IntelliJ IDEA Workspace) ELSE (title IntelliJ IDEA Workspace)
+IF defined PWSHPOLICY (title %MyProjectName%: Build Project) ELSE (title Build Project)
 
-ECHO The IntelliJ IDEA workspace for Forge is no longer set up through a command.
-ECHO To import the project to IntelliJ IDEA, simply open the "build.gradle" file as a project.
-ECHO Gradle will do the rest for you as it imports and indexes the project into IntelliJ.
+:: Build the project
+ECHO Building %MyProjectName%...
 ECHO.
+CALL gradlew.bat build --warning-mode none
+ECHO.
+ECHO Finished building %MyProjectName%.
+ECHO If the build was successful, the output should be located under build\libs
 
 :: Return to scripts directory
 CD "Scripts\Windows cmd Scripts"

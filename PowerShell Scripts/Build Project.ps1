@@ -38,18 +38,20 @@ if (Test-Path $PWSHUpdateFile -PathType Leaf)
 $MyProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
 Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
 
-# Set the title of the Windows PowerShell console
-$MyPWSHTitle = $MyProjectName + ": IntelliJ IDEA Workspace"
+# Set the title of the Windows PowerShell or PowerShell Core console
+$MyPWSHTitle = $MyProjectName + ": Build Project"
 [System.Console]::Title = $MyPWSHTitle
 
-# Inform user that IntelliJ set up is done by IntelliJ IDEA
-$MyIntellijMessage1 = "The IntelliJ IDEA workspace for Forge is no longer set up through a command."
-$MyIntellijMessage2 = "To import the project to IntelliJ IDEA, simply open " + [char]0x0022 + "build.gradle" + [char]0x0022 + " as a project."
-$MyIntellijMessage3 = "Gradle will do the rest for you as it imports and indexes the project into IntelliJ."
-Write-Host $MyIntellijMessage1
-Write-Host $MyIntellijMessage2
-Write-Host $MyIntellijMessage3
+# Build the project
+$MyTaskMessage = "Building " + $MyProjectName + "..."
+Write-Host $MyTaskMessage
 Write-Host ""
+.\gradlew build --warning-mode none
+Write-Host ""
+$MyExitMessage = "Finished building " + $MyProjectName + "."
+Write-Host $MyExitMessage
+$MyExitMessage2 = "If the build was successful, the output should be located under build\libs"
+Write-Host $MyExitMessage2
 
 # Return to scripts directory
 Set-Location '.\Scripts\PowerShell Scripts\'

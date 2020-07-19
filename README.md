@@ -1,1 +1,3 @@
-# MCForge-Gradle-Scripts
+# MCGradle Scripts
+
+README.md coming soon!

@@ -22,12 +22,13 @@ cd ../..
 MyProjectName=`grep 'displayName=' src/main/resources/META-INF/mods.toml -m 1`
 MyProjectName=${MyProjectName#*'"'}; MyProjectName=${MyProjectName%'"'*}
 
-# Generate the Eclipse run configs
-echo "Generating the Eclipse run configurations for $MyProjectName..."
+# Build the project
+echo "Building $MyProjectName..."
 echo ""
-./gradlew genEclipseRuns --warning-mode none
+./gradlew build --warning-mode none
 echo ""
-echo "Finished generating the Eclipse run configurations for $MyProjectName."
+echo "Finished building $MyProjectName."
+echo "If the build was successful, the output should be located under build\libs"
 
 # Return to scripts directory
 cd Scripts/bash\ Scripts/
