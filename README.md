@@ -6,6 +6,23 @@ Welcome to the official repository of MCGradle Scripts! MCGradle Scripts is a fo
 
 In a nutshell, MCGradle Scripts makes building, running, or setting up your workspace for your mod easier for users and developers alike, since it makes doing some Gradle tasks much easier since all you need to do is point and double click (in most cases).
 
+## Installation
+
+You can install MCGradle Scripts either manually by downloading the `MCGradle-Scripts.zip` file in [GitHub Releases](https://github.com/Jonathing/MCGradle-Scripts/releases/) or as a Git submodule.
+
+### Download Manually (Recommended)
+
+To install MCGradle Scripts manually without using a Git submodule, go to [GitHub Releases](https://github.com/Jonathing/MCGradle-Scripts/releases/) and download the latest `MCGradle-Scripts.zip` file! Then, unzip the file as-is in your root project directory. Please don't change any of the folder names, I haven't yet added support for that in the scripts.
+
+### Install via Git Submodule
+
+To install MCGradle Scripts as a Git submodule:
+
+- Open your terminal of choice your root project directory.
+- Run `git submodule add https://github.com/Jonathing/MCGradle-Scripts.git`.
+
+If MCGradle Scripts checks that an update is available, you can install the update by reading the instructions in the UPDATE.md file.
+
 ## Features
 
 Right now, MCGradle Scripts:
