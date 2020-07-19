@@ -17,21 +17,7 @@ Write-Host ""
 Set-Location ..\..
 
 # Check for update
-& '.\Scripts\PowerShell Scripts\internal\check_update.ps1'
-$PWSHUpdateFile = '.\Scripts\PowerShell Scripts\internal\PWSHVERSION'
-if (Test-Path $PWSHUpdateFile -PathType Leaf)
-{
-    $NewPWSHVersion = Get-Content '.\Scripts\PowerShell Scripts\internal\PWSHVERSION'
-    Remove-Item '.\Scripts\PowerShell Scripts\internal\PWSHVERSION'
-    if ($NewPWSHVersion -ne $MyPWSHVersion)
-    {
-        $MyPWSHUpdateMsg1 = "An update is available for MCGradle Scripts! The latest version is " + $NewPWSHVersion
-        $MyPWSHUpdateMsg2 = "To update, read " + [char]0x0022 + "UPDATE.md" + [char]0x0022 + " on how to update MCGradle Scripts in your repository."
-        Write-Host $MyPWSHUpdateMsg1
-        Write-Host $MyPWSHUpdateMsg2
-        Write-Host ""
-    }
-}
+& '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MyPWSHVersion
 
 # Get Forge mod name
 & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
