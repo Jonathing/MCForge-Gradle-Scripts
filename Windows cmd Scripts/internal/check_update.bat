@@ -9,15 +9,28 @@ DEL "CURRENTBUILD"
 :: Decide if Windows is new enough for MCGradle Scripts to check for updates
 SET "CANUPDATE="
 IF %MyWin10Build% lss 17063 (
-    ECHO MCGradle Scripts will not be able to check for updates.
+    ECHO MCGradle Scripts failed to check for updates!
     ECHO You need to have at least Windows 10 April 2018 Update.
-    SET PWSHPOLICY=1
     ECHO.
+    SET PWSHPOLICY=1
     exit /B
 )
 
 :: Download the update file
 curl -o CMDVERSION --fail --silent https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/CMDVERSION.txt
+
+IF EXIST "CMDVERSION" (
+    REM EMPTY METHOD
+) ELSE (
+    ECHO MCGradle Scripts failed to check for updates!
+    ECHO We weren't able to download the update file from GitHub.
+    ECHO If you are connected to the internet without issues, report this to the issue tracker!
+    ECHO https://github.com/Jonathing/MCForge-Gradle-Scripts/issues
+    ECHO.
+    SET PWSHPOLICY=1
+    exit /B
+)
+
 
 :: Put the new version in a variable
 SET /p MyCMDUpdateVer=<"CMDVERSION"
@@ -36,3 +49,5 @@ IF defined CANUPDATE (
         ECHO.
     )
 )
+
+

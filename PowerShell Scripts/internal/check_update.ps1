@@ -12,12 +12,14 @@ catch
 if ($StatusCode)
 {
     # Inform user that the update check failed.
-    $MyUpdFailMsg1 = "Unable to check for updates! Got a " + $StatusCode + " error when downloading latest version file."
-    $MyUpdFailMsg2 = "Please report this to the MCGradle Scripts issue tracker!"
-    $MyUpdFailMsg3 = "https://github.com/Jonathing/MCForge-Gradle-Scripts/issues"
+    $MyUpdFailMsg1 = "MCGradle Scripts failed to check for updates!"
+    $MyUpdFailMsg2 = "We got a " + $StatusCode + " error when downloading latest version file."
+    $MyUpdFailMsg3 = "Please report this to the MCGradle Scripts issue tracker!"
+    $MyUpdFailMsg4 = "https://github.com/Jonathing/MCForge-Gradle-Scripts/issues"
     Write-Host $MyUpdFailMsg1
     Write-Host $MyUpdFailMsg2
     Write-Host $MyUpdFailMsg3
+    Write-Host $MyUpdFailMsg4
 }
 else
 {
