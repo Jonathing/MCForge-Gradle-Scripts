@@ -4,13 +4,13 @@
 :: Clear the screen
 CLS
 
-SET MyCMDAuthor=Jonathing
-SET MyCMDVersion=0.4.1
+SET MCGradleAuthor=Jonathing
+SET MCGradleVersion=0.4.1
 
 :: Print script information
 ECHO MCGradle Scripts (for Windows Command Prompt)
-ECHO Version %MyCMDVersion%
-ECHO Written and Maintained by Jonathing
+ECHO Version %MCGradleVersion%
+ECHO Written and Maintained by %MCGradleAuthor%
 ECHO.
 
 :: TODO make proper credits section to credit Bailey
@@ -19,20 +19,20 @@ ECHO.
 CD ..\..
 
 :: Check for update
-PowerShell -ExecutionPolicy Bypass -NoLogo -NoProfile -File "Scripts\PowerShell Scripts\internal\check_update.ps1" %MyCMDVersion%
+PowerShell -ExecutionPolicy Bypass -NoLogo -NoProfile -File "Scripts\PowerShell Scripts\internal\check_update.ps1" %MCGradleVersion%
 
 :: Get Forge mod name
 CALL "Scripts\Windows cmd Scripts\internal\get_name.bat"
 
 :: Set the title of the Command Prompt console
-title %MyProjectName%: Build Project
+title %MCProjectName%: Build Project
 
 :: Build the project
-ECHO Building %MyProjectName%...
+ECHO Building %MCProjectName%...
 ECHO.
 CALL gradlew.bat build --warning-mode none
 ECHO.
-ECHO Finished building %MyProjectName%.
+ECHO Finished building %MCProjectName%.
 ECHO If the build was successful, the output should be located under build\libs
 
 :: Return to scripts directory

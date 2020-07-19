@@ -3,13 +3,13 @@
 # Clear the screen
 clear
 
-MyBASHAuthor="Jonathing"
-MyBASHVersion="0.4.1"
+MCGradleAuthor="Jonathing"
+MCGradleVersion="0.4.1"
 
 # Print script information
 echo "MCGradle Scripts (for GNU bash)"
-echo "Version $MyBASHVersion"
-echo "Written and Maintained by $MyBASHAuthor"
+echo "Version $MCGradleVersion"
+echo "Written and Maintained by $MCGradleAuthor"
 echo ""
 
 # Check for update
@@ -19,15 +19,15 @@ echo ""
 cd ../..
 
 # Get Forge mod name
-MyProjectName=`grep 'displayName=' src/main/resources/META-INF/mods.toml -m 1`
-MyProjectName=${MyProjectName#*'"'}; MyProjectName=${MyProjectName%'"'*}
+MCProjectName=`grep 'displayName=' src/main/resources/META-INF/mods.toml -m 1`
+MCProjectName=${MCProjectName#*'"'}; MCProjectName=${MCProjectName%'"'*}
 
 # Generate the Eclipse run configs
-echo "Generating the Eclipse run configurations for $MyProjectName..."
+echo "Generating the Eclipse run configurations for $MCProjectName..."
 echo ""
 ./gradlew genEclipseRuns --warning-mode none
 echo ""
-echo "Finished generating the Eclipse run configurations for $MyProjectName."
+echo "Finished generating the Eclipse run configurations for $MCProjectName."
 
 # Return to scripts directory
 cd Scripts/bash\ Scripts/

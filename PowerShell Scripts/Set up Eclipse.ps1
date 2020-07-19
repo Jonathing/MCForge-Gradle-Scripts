@@ -1,50 +1,50 @@
 # Clear the screen
 Clear-Host
 
-$MyPWSHAuthor = "Jonathing"
-$MyPWSHVersion = "0.4.1"
+$MCGradleAuthor = "Jonathing"
+$MCGradleVersion = "0.4.1"
 
 # Print script information
-$MyPWSHGreeting1 = "MCGradle Scripts (for Windows PowerShell and PowerShell Core)"
-$MyPWSHGreeting2 = "Version " + $MyPWSHVersion
-$MyPWSHGreeting3 = "Written and Maintained by " + $MyPWSHAuthor
-Write-Host $MyPWSHGreeting1
-Write-Host $MyPWSHGreeting2
-Write-Host $MyPWSHGreeting3
+$MCGradleGreeting1 = "MCGradle Scripts (for Windows PowerShell and PowerShell Core)"
+$MCGradleGreeting2 = "Version " + $MCGradleVersion
+$MCGradleGreeting3 = "Written and Maintained by " + $MCGradleAuthor
+Write-Host $MCGradleGreeting1
+Write-Host $MCGradleGreeting2
+Write-Host $MCGradleGreeting3
 Write-Host ""
 
 # Go to root project directory
 Set-Location ..\..
 
 # Check for update
-& '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MyPWSHVersion
+& '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MCGradleVersion
 
 # Get Forge mod name
 & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
-$MyProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
+$MCProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
 Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
 
 # Set the title of the Windows PowerShell console
-$MyPWSHTitle = $MyProjectName + ": Eclipse Workspace"
-[System.Console]::Title = $MyPWSHTitle
+$MCGradleTitle = $MCProjectName + ": Eclipse Workspace"
+[System.Console]::Title = $MCGradleTitle
 
 # Set up the initial Eclipse workspace
-$MyTaskMessage = "Setting up the initial Eclipse workspace for " + $MyProjectName + "..."
-Write-Host $MyTaskMessage
+$MCTaskMessage = "Setting up the initial Eclipse workspace for " + $MCProjectName + "..."
+Write-Host $MCTaskMessage
 Write-Host ""
 .\gradlew eclipse --warning-mode none
 Write-Host""
 
 # Generate the Eclipse run configs
-$MyTask2Message = "Generating the Eclipse run configurations for " + $MyProjectName + "..."
-Write-Host $MyTask2Message
+$MCTask2Message = "Generating the Eclipse run configurations for " + $MCProjectName + "..."
+Write-Host $MCTask2Message
 Write-Host ""
 .\gradlew genEclipseRuns --warning-mode none
 Write-Host ""
-$MyExitMessage = "Initial set up for Eclipse complete."
-Write-Host $MyExitMessage
-$MyExitMessage2 = "If you need to generate the run configurations again, run the " + [char]0x0022 + "Make Eclipse Runs.ps1" + [char]0x0022 + " script."
-Write-Host $MyExitMessage2
+$MCExitMessage = "Initial set up for Eclipse complete."
+Write-Host $MCExitMessage
+$MCExitMessage2 = "If you need to generate the run configurations again, run the " + [char]0x0022 + "Make Eclipse Runs.ps1" + [char]0x0022 + " script."
+Write-Host $MCExitMessage2
 
 # Return to scripts directory
 Set-Location '.\Scripts\PowerShell Scripts\'

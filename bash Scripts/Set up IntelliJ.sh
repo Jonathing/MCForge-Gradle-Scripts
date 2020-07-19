@@ -3,13 +3,13 @@
 # Clear the screen
 clear
 
-MyBASHAuthor="Jonathing"
-MyBASHVersion="0.4.1"
+MCGradleAuthor="Jonathing"
+MCGradleVersion="0.4.1"
 
 # Print script information
 echo "MCGradle Scripts (for GNU bash)"
-echo "Version $MyBASHVersion"
-echo "Written and Maintained by $MyBASHAuthor"
+echo "Version $MCGradleVersion"
+echo "Written and Maintained by $MCGradleAuthor"
 echo ""
 
 # Check for update
@@ -19,8 +19,8 @@ echo ""
 cd ../..
 
 # Get Forge mod name
-MyProjectName=`grep 'displayName=' src/main/resources/META-INF/mods.toml -m 1`
-MyProjectName=${MyProjectName#*'"'}; MyProjectName=${MyProjectName%'"'*}
+MCProjectName=`grep 'displayName=' src/main/resources/META-INF/mods.toml -m 1`
+MCProjectName=${MCProjectName#*'"'}; MCProjectName=${MCProjectName%'"'*}
 
 # Inform user that IntelliJ set up is done by IntelliJ IDEA
 echo "The IntelliJ IDEA workspace for Forge is no longer set up through a command."

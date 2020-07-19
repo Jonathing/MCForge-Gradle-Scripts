@@ -3,13 +3,13 @@
 # Clear the screen
 clear
 
-MyBASHAuthor="Jonathing"
-MyBASHVersion="0.4.1"
+MCGradleAuthor="Jonathing"
+MCGradleVersion="0.4.1"
 
 # Print script information
 echo "MCGradle Scripts (for GNU bash)"
-echo "Version $MyBASHVersion"
-echo "Written and Maintained by $MyBASHAuthor"
+echo "Version $MCGradleAuthor"
+echo "Written and Maintained by $MCGradleVersion"
 echo ""
 
 # Check for update
@@ -19,15 +19,15 @@ echo ""
 cd ../..
 
 # Get Forge mod name
-MyProjectName=`grep 'displayName=' src/main/resources/META-INF/mods.toml -m 1`
-MyProjectName=${MyProjectName#*'"'}; MyProjectName=${MyProjectName%'"'*}
+MCProjectName=`grep 'displayName=' src/main/resources/META-INF/mods.toml -m 1`
+MCProjectName=${MCProjectName#*'"'}; MCProjectName=${MCProjectName%'"'*}
 
 # Build the project
-echo "Building $MyProjectName..."
+echo "Building $MCProjectName..."
 echo ""
 ./gradlew build --warning-mode none
 echo ""
-echo "Finished building $MyProjectName."
+echo "Finished building $MCProjectName."
 echo "If the build was successful, the output should be located under build\libs"
 
 # Return to scripts directory
