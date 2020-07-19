@@ -42,7 +42,7 @@ then
     then
         echo "MCGradle Scripts failed to check for updates!"
         echo "If you are connected to the internet without issues, report this to the issue tracker!"
-        echo "https://github.com/Jonathing/MCForge-Gradle-Scripts/issues"
+        echo "https://github.com/Jonathing/MCGradle-Scripts/issues"
         echo ""
     fi
 fi

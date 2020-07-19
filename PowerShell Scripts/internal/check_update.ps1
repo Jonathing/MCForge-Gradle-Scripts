@@ -20,7 +20,7 @@ if ($StatusCode)
     $MyUpdFailMsg1 = "MCGradle Scripts failed to check for updates!"
     $MyUpdFailMsg2 = "We got a " + $StatusCode + " error when downloading latest version file."
     $MyUpdFailMsg3 = "Please report this to the MCGradle Scripts issue tracker!"
-    $MyUpdFailMsg4 = "https://github.com/Jonathing/MCForge-Gradle-Scripts/issues"
+    $MyUpdFailMsg4 = "https://github.com/Jonathing/MCGradle-Scripts/issues"
     Write-Host $MyUpdFailMsg1
     Write-Host $MyUpdFailMsg2
     Write-Host $MyUpdFailMsg3
@@ -58,7 +58,7 @@ else
     # Inform user that the update check failed.
     $MyUpdFailMsg1 = "MCGradle Scripts failed to check for updates!"
     $MyUpdFailMsg2 = "Please report this to the MCGradle Scripts issue tracker!"
-    $MyUpdFailMsg3 = "https://github.com/Jonathing/MCForge-Gradle-Scripts/issues"
+    $MyUpdFailMsg3 = "https://github.com/Jonathing/MCGradle-Scripts/issues"
     Write-Host $MyUpdFailMsg1
     Write-Host $MyUpdFailMsg2
     Write-Host $MyUpdFailMsg3
