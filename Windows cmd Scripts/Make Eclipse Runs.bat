@@ -5,7 +5,7 @@
 CLS
 
 SET MyCMDAuthor=Jonathing
-SET MyCMDVersion=0.4.0
+SET MyCMDVersion=0.4.1
 
 :: Print script information
 ECHO MCGradle Scripts (for Windows Command Prompt)

@@ -4,7 +4,7 @@
 clear
 
 MyBASHAuthor="Jonathing"
-MyBASHVersion="0.4.0"
+MyBASHVersion="0.4.1"
 
 # Print script information
 echo "MCGradle Scripts (for GNU bash)"

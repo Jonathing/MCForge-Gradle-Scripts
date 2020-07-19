@@ -1,5 +1,12 @@
 # MCGradle Scripts Changelog
 
+## 0.4.1
+
+- The Windows Command Prompt scripts no longer need admin privileges to get the mod name from `mods.toml`.
+- Deleted unused scripts that are no longer needed.
+- The Windows Command Prompt scripts now use PowerShell to check for updates.
+- Fixed error message displaying a broken link to the issue tracker.
+
 ## 0.4.0
 
 - This project is now named MCGradle Scripts. It was previously unnamed.
