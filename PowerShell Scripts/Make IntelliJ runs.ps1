@@ -1,3 +1,6 @@
+# Clear the screen
+Clear-Host
+
 $MyPWSHAuthor = "Jonathing"
 $MyPWSHVersion = "0.4.0"
 

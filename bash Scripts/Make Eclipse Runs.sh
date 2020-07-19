@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Clear the screen
+clear
+
 MyBASHAuthor="Jonathing"
 MyBASHVersion="0.4.0"
 

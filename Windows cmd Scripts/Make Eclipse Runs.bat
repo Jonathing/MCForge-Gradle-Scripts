@@ -1,6 +1,9 @@
 :: Disable echoing commands onto the console
 @ECHO off
 
+:: Clear the screen
+CLS
+
 SET MyCMDAuthor=Jonathing
 SET MyCMDVersion=0.4.0
 

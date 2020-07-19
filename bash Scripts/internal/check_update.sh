@@ -8,7 +8,7 @@ then
     CANNOTUPDATE=1
 fi
 
-# Cancel update if curl is not found
+# Cancel update if curl was not found
 if [ $CANNOTUPDATE -eq 1 ]
 then
     echo "We couldn't find curl in your Linux system."
@@ -16,7 +16,7 @@ then
     echo ""
 fi
 
-# Continue of curl is found
+# Continue if curl was found
 if [ $CANNOTUPDATE -ne 1 ]
 then
     # Download the update file
