@@ -1,3 +1,7 @@
+:: I am aware that a Version 4 of this script exists.
+:: I have tested it with MCGradle Scripts and it doesn't seem to work.
+:: I will continue to use Version 2 of the script for the foreseeable future.
+
 ::::::::::::::::::::::::::::::::::::::::::::
 :: Automatically check & get admin rights V2
 ::::::::::::::::::::::::::::::::::::::::::::

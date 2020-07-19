@@ -1,37 +1,41 @@
 :: Disable echoing commands onto the console
-@echo off
+@ECHO off
 
-set MyCMDAuthor=Jonathing
-set MyCMDVersion=0.3.2
+SET MyCMDAuthor=Jonathing
+SET MyCMDVersion=0.3.2
 
 :: Print script information
-echo MCGradle Scripts (for Windows Command Prompt)
-echo Version %MyCMDVersion%
-echo Originally Written by Jonathing and Bailey
-echo Maintained by %MyCMDAuthor%
-echo.
+ECHO MCGradle Scripts (for Windows Command Prompt)
+ECHO Version %MyCMDVersion%
+ECHO Originally Written by Jonathing and Bailey
+ECHO Maintained by %MyCMDAuthor%
+ECHO.
 
 :: Check for update
-cd internal
-call check_update.bat
-cd ..
+CD internal
+CALL check_update.bat
+CD ..
 
-cd ..\..
+:: Go to root project directory
+CD ..\..
 
-call "Scripts\Windows cmd Scripts\internal\get_title.bat"
+:: Get Forge mod title
+CALL "Scripts\Windows cmd Scripts\internal\get_title.bat"
 
 :: Set the title of the Command Prompt console
 IF defined PWSHPOLICY (title %MyProjectName%: Build Project) ELSE (title Build Project)
 
-:: Build Blue Skies
-echo Building %MyProjectName%...
-echo.
-call gradlew.bat build --warning-mode none
-echo.
+:: Build the project
+ECHO Building %MyProjectName%...
+ECHO.
+CALL gradlew.bat build --warning-mode none
+ECHO.
+ECHO Finished building %MyProjectName%.
+ECHO If the build was successful, the output should be located under build\libs
 
-echo Finished building %MyProjectName%.
-echo If the build was successful, the output should be located under build\libs
+:: Return to scripts directory
+CD "Scripts\Windows cmd Scripts"
 
-cd "Scripts\Windows cmd Scripts"
-pause
-exit /B 0
+:: END OF SCRIPT
+PAUSE
+EXIT /B 0
