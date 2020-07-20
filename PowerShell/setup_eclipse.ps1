@@ -11,7 +11,7 @@ if ($MCGradleArg -ne "FromHub")
     {
         $MCCurrentTitle = [System.Console]::Title
     }
-
+    
     $MCGradleAuthor = "Jonathing"
     $MCGradleVersion = "0.5.0"
 
@@ -26,31 +26,40 @@ if ($MCGradleArg -ne "FromHub")
     Set-Location ..\..
 
     # Check for update
-    & '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MCGradleVersion
+    & '.\Scripts\PowerShell\internal\check_update.ps1' $MCGradleVersion
 
     # Get Forge mod name
-    & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
-    $MCProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
-    Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
+    & '.\Scripts\PowerShell\internal\get_mod_name.ps1'
+    $MCProjectName = Get-Content '.\Scripts\PowerShell\internal\MODNAME'
+    Remove-Item '.\Scripts\PowerShell\internal\MODNAME'
 }
 
 # Set the title of the Windows PowerShell console
-$MCGradleTitle = $MCProjectName + ": IntelliJ IDEA Run Configurations"
+$MCGradleTitle = $MCProjectName + ": Eclipse Workspace"
 [System.Console]::Title = $MCGradleTitle
 
-# Generate the IntelliJ IDEA run configs
-$MCTask2Message = "Generating the IntelliJ IDEA run configurations for " + $MCProjectName + "..."
+# Set up the initial Eclipse workspace
+$MCTaskMessage = "Setting up the initial Eclipse workspace for " + $MCProjectName + "..."
 Write-Host $MCTaskMessage
 Write-Host ""
-.\gradlew genIntellijRuns --warning-mode none
+.\gradlew eclipse --warning-mode none
+Write-Host""
+
+# Generate the Eclipse run configs
+$MCTask2Message = "Generating the Eclipse run configurations for " + $MCProjectName + "..."
+Write-Host $MCTask2Message
 Write-Host ""
-$MCExitMessage = "Finished generating the IntelliJ IDEA run configurations for " + $MCProjectName + "."
+.\gradlew genEclipseRuns --warning-mode none
+Write-Host ""
+$MCExitMessage = "Initial set up for Eclipse complete."
 Write-Host $MCExitMessage
+$MCExitMessage2 = "If you need to generate the run configurations again, run the " + [char]0x0022 + "Make Eclipse Runs.ps1" + [char]0x0022 + " script."
+Write-Host $MCExitMessage2
 
 if ($MCGradleArg -ne "FromHub")
 {
     # Return to scripts directory
-    Set-Location '.\Scripts\PowerShell Scripts\'
+    Set-Location '.\Scripts\PowerShell\'
 }
 
 # END OF SCRIPT

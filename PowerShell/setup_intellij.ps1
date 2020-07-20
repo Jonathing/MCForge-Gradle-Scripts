@@ -26,12 +26,12 @@ if ($MCGradleArg -ne "FromHub")
     Set-Location ..\..
 
     # Check for update
-    & '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MCGradleVersion
+    & '.\Scripts\PowerShell\internal\check_update.ps1' $MCGradleVersion
 
     # Get Forge mod name
-    & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
-    $MCProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
-    Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
+    & '.\Scripts\PowerShell\internal\get_mod_name.ps1'
+    $MCProjectName = Get-Content '.\Scripts\PowerShell\internal\MODNAME'
+    Remove-Item '.\Scripts\PowerShell\internal\MODNAME'
 }
 
 # Set the title of the Windows PowerShell console
@@ -50,7 +50,7 @@ Write-Host ""
 if ($MCGradleArg -ne "FromHub")
 {
     # Return to scripts directory
-    Set-Location '.\Scripts\PowerShell Scripts\'
+    Set-Location '.\Scripts\PowerShell\'
 }
 
 # END OF SCRIPT

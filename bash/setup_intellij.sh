@@ -29,17 +29,16 @@ then
     MCProjectName=${MCProjectName#*'"'}; MCProjectName=${MCProjectName%'"'*}
 fi
 
-# Generate the Eclipse run configs
-echo "Generating the Eclipse run configurations for $MCProjectName..."
+# Inform user that IntelliJ set up is done by IntelliJ IDEA
+echo "The IntelliJ IDEA workspace for Forge is no longer set up through a command."
+echo "To import the project to IntelliJ IDEA, simply open the \"build.gradle\" file as a project."
+echo "Gradle will do the rest for you as it imports and indexes the project into IntelliJ."
 echo ""
-./gradlew genEclipseRuns --warning-mode none
-echo ""
-echo "Finished generating the Eclipse run configurations for $MCProjectName."
 
 if [ "$MCGradleArgs" != "FromHub" ]
 then
     # Return to scripts directory
-    cd Scripts/bash\ Scripts/
+    cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
     echo ""
     echo -e "\e[31mQuitting MCGradle Scripts...\e[39m"

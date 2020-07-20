@@ -39,12 +39,12 @@ Write-Host ""
 Set-Location ..
 
 # Check for update
-& '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MCGradleVersion
+& '.\Scripts\PowerShell\internal\check_update.ps1' $MCGradleVersion
 
 # Get Forge mod name
-& '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
-$MCProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
-Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
+& '.\Scripts\PowerShell\internal\get_mod_name.ps1'
+$MCProjectName = Get-Content '.\Scripts\PowerShell\internal\MODNAME'
+Remove-Item '.\Scripts\PowerShell\internal\MODNAME'
 
 # Set the title of the Windows PowerShell or PowerShell Core console
 $MCGradleTitle = $MCProjectName + ": MCGradle Scripts Hub"
@@ -117,11 +117,11 @@ do
 
     Switch ($MCGradleCommand)
     {
-        1 { & '.\Scripts\PowerShell Scripts\Build Project.ps1' "FromHub" }
-        2 { & '.\Scripts\PowerShell Scripts\Set up Eclipse.ps1' "FromHub" }
-        3 { & '.\Scripts\PowerShell Scripts\Set up IntelliJ.ps1' "FromHub" }
-        4 { & '.\Scripts\PowerShell Scripts\Make Eclipse Runs.ps1' "FromHub" }
-        5 { & '.\Scripts\PowerShell Scripts\Make IntelliJ Runs.ps1' "FromHub" }
+        1 { & '.\Scripts\PowerShell\build.ps1' "FromHub" }
+        2 { & '.\Scripts\PowerShell\setup_eclipse.ps1' "FromHub" }
+        3 { & '.\Scripts\PowerShell\setup_intellij.ps1' "FromHub" }
+        4 { & '.\Scripts\PowerShell\genEclipseRuns.ps1' "FromHub" }
+        5 { & '.\Scripts\PowerShell\genIntellijRuns.ps1' "FromHub" }
         97 { Clear-Host }
         98
         {

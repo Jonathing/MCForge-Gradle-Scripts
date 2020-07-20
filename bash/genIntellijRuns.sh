@@ -39,7 +39,7 @@ echo "Finished generating the IntelliJ IDEA run configurations for $MCProjectNam
 if [ "$MCGradleArgs" != "FromHub" ]
 then
     # Return to scripts directory
-    cd Scripts/bash\ Scripts/
+    cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
     echo ""
     echo -e "\e[31mQuitting MCGradle Scripts...\e[39m"

@@ -20,7 +20,7 @@ echo ""
 cd ..
 
 # Check for update
-. ./Scripts/bash\ Scripts/internal/check_update.sh
+. ./Scripts/bash/internal/check_update.sh
 
 # Get Forge mod name
 MCProjectName=`grep 'displayName=' src/main/resources/META-INF/mods.toml -m 1`
@@ -73,65 +73,48 @@ while [ "$MCGradleCommand" -ne 99 ]; do
         echo ""
 
         case $MCReadHost in
-
         1)
             MCHasChosen=1
             MCGradleCommand=1
             ;;
-
         2)
             MCHasChosen=1
             MCGradleCommand=2
             ;;
-
         3)
             MCHasChosen=1
             MCGradleCommand=3
             ;;
-
         4)
             MCHasChosen=1
             MCGradleCommand=4
             ;;
-
         5)
             MCHasChosen=1
             MCGradleCommand=5
             ;;
-
         C)
             MCHasChosen=1
             MCGradleCommand=97
             MCShowOptionsAgain=1
             ;;
-
         A)
             MCHasChosen=1
             MCGradleCommand=98
             ;;
-
         Q)
             MCHasChosen=1
             MCGradleCommand=99
             ;;
-
         R)
             MCHasChosen=0
             MCShowOptionsAgain=1
             ;;
-
         *)
             MCHasChosen=0
             MCGradleCommand=0
             ;;
-        
         esac
-
-        # echo ""
-        # echo "$MCHasChosen"
-        # echo "$MCGradleCommand"
-        # echo "$MCShowOptionsAgain"
-        # echo ""
 
         if [ "$MCHasChosen" -eq 0 -a "$MCShowOptionsAgain" -eq 0 ]
         then
@@ -140,37 +123,30 @@ while [ "$MCGradleCommand" -ne 99 ]; do
     done
 
     case $MCGradleCommand in
-
     1)
-        . ./Scripts/bash\ Scripts/Build\ Project.sh FromHub
+        . ./Scripts/bash/build.sh FromHub
         MCHasChosen=0
         ;;
-
     2)
-        . ./Scripts/bash\ Scripts/Set\ up\ Eclipse.sh FromHub
+        . ./Scripts/bash/setup_eclipse.sh FromHub
         MCHasChosen=0
         ;;
-
     3)
-        . ./Scripts/bash\ Scripts/Set\ up\ IntelliJ.sh FromHub
+        . ./Scripts/bash/setup_intellij.sh FromHub
         MCHasChosen=0
         ;;
-
     4)
-        . ./Scripts/bash\ Scripts/Make\ Eclipse\ Runs.sh FromHub
+        . ./Scripts/bash/genEclipseRuns.sh FromHub
         MCHasChosen=0
         ;;
-
     5)
-        . ./Scripts/bash\ Scripts/Make\ IntelliJ\ Runs.sh FromHub
+        . ./Scripts/bash/genIntellijRuns.sh FromHub
         MCHasChosen=0
         ;;
-
     97)
         clear
         MCHasChosen=0
         ;;
-
     98)
         echo "MCGradle Scripts"
         echo "$MCGradleGreeting2"
@@ -186,17 +162,14 @@ while [ "$MCGradleCommand" -ne 99 ]; do
         echo ""
         MCHasChosen=0
         ;;
-
     99)
         echo -e "\e[31mQuitting MCGradle Scripts...\e[39m"
         MCHasChosen=0
         ;;
-
     *)
         echo -e "\e[31mAn error has occured.\e[39m"
         MCHasChosen=0
         ;;
-    
     esac
 done
 

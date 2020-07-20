@@ -26,31 +26,31 @@ if ($MCGradleArg -ne "FromHub")
     Set-Location ..\..
 
     # Check for update
-    & '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MCGradleVersion
+    & '.\Scripts\PowerShell\internal\check_update.ps1' $MCGradleVersion
 
     # Get Forge mod name
-    & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
-    $MCProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
-    Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
+    & '.\Scripts\PowerShell\internal\get_mod_name.ps1'
+    $MCProjectName = Get-Content '.\Scripts\PowerShell\internal\MODNAME'
+    Remove-Item '.\Scripts\PowerShell\internal\MODNAME'
 }
 
-# Set the title of the Windows PowerShell or PowerShell Core console
-$MCGradleTitle = $MCProjectName + ": Eclipse Run Configurations"
+# Set the title of the Windows PowerShell console
+$MCGradleTitle = $MCProjectName + ": IntelliJ IDEA Run Configurations"
 [System.Console]::Title = $MCGradleTitle
 
-# Generate the Eclipse run configs
-$MCTask2Message = "Generating the Eclipse run configurations for " + $MCProjectName + "..."
-Write-Host $MCTask2Message
+# Generate the IntelliJ IDEA run configs
+$MCTask2Message = "Generating the IntelliJ IDEA run configurations for " + $MCProjectName + "..."
+Write-Host $MCTaskMessage
 Write-Host ""
-.\gradlew genEclipseRuns --warning-mode none
+.\gradlew genIntellijRuns --warning-mode none
 Write-Host ""
-$MCExitMessage = "Finished generating the Eclipse run configurations."
+$MCExitMessage = "Finished generating the IntelliJ IDEA run configurations for " + $MCProjectName + "."
 Write-Host $MCExitMessage
 
 if ($MCGradleArg -ne "FromHub")
 {
     # Return to scripts directory
-    Set-Location '.\Scripts\PowerShell Scripts\'
+    Set-Location '.\Scripts\PowerShell\'
 }
 
 # END OF SCRIPT

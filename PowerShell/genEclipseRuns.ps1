@@ -26,33 +26,31 @@ if ($MCGradleArg -ne "FromHub")
     Set-Location ..\..
 
     # Check for update
-    & '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MCGradleVersion
+    & '.\Scripts\PowerShell\internal\check_update.ps1' $MCGradleVersion
 
     # Get Forge mod name
-    & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
-    $MCProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
-    Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
+    & '.\Scripts\PowerShell\internal\get_mod_name.ps1'
+    $MCProjectName = Get-Content '.\Scripts\PowerShell\internal\MODNAME'
+    Remove-Item '.\Scripts\PowerShell\internal\MODNAME'
 }
 
 # Set the title of the Windows PowerShell or PowerShell Core console
-$MCGradleTitle = $MCProjectName + ": Build Project"
+$MCGradleTitle = $MCProjectName + ": Eclipse Run Configurations"
 [System.Console]::Title = $MCGradleTitle
 
-# Build the project
-$MCTaskMessage = "Building " + $MCProjectName + "..."
-Write-Host $MCTaskMessage
+# Generate the Eclipse run configs
+$MCTask2Message = "Generating the Eclipse run configurations for " + $MCProjectName + "..."
+Write-Host $MCTask2Message
 Write-Host ""
-.\gradlew build --warning-mode none
+.\gradlew genEclipseRuns --warning-mode none
 Write-Host ""
-$MCExitMessage = "Finished building " + $MCProjectName + "."
+$MCExitMessage = "Finished generating the Eclipse run configurations."
 Write-Host $MCExitMessage
-$MCExitMessage2 = "If the build was successful, the output should be located under build\libs"
-Write-Host $MCExitMessage2
 
 if ($MCGradleArg -ne "FromHub")
 {
     # Return to scripts directory
-    Set-Location '.\Scripts\PowerShell Scripts\'
+    Set-Location '.\Scripts\PowerShell\'
 }
 
 # END OF SCRIPT
