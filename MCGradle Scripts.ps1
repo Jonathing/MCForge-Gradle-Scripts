@@ -4,6 +4,21 @@ Clear-Host
 # Get arguments
 $MCGradleArg = $args[0]
 
+# Get PowerShell version
+if ($PSVersionTable.PSVersion.Major -le 5)
+{
+    $MCGradlePlatform = "Windows PowerShell"
+}
+else
+{
+    $MCGradlePlatform = "PowerShell Core"
+}
+
+if ($MCGradleArg -eq "FromCMD")
+{
+    $MCGradlePlatform += "via Windows Command Prompt"
+}
+
 # Get current PowerShell title (Windows Only)
 if ($PSVersionTable.Platform -eq "Win32NT")
 {
@@ -112,23 +127,16 @@ do
         97 { Clear-Host }
         98
         {
-            $MCGradleAbout1 = "MCGradle Scripts is available on the following platforms:"
-            $MCGradleAbout2 = "Windows - Windows Commant Prompt, Windows PowerShell, PowerShell Core"
-            $MCGradleAbout3 = "macOS - PowerShell Core, GNU bash"
-            $MCGradleAbout4 = "GNU/Linux - PowerShell Core, GNU bash"
+            $MCGradlePlatformMsg = "Running on " + $MCGradlePlatform
 
             $MCGradleThanks1 = "Original Windows batch scripts written by Bailey (KingPhygieBoo)"
 
             Write-Host $MCGradleGreeting1
             Write-Host $MCGradleGreeting2
+            Write-Host $MCGradlePlatformMsg
             Write-Host $MCGradleGreeting3
             Write-Host ""
             Write-Host $MCGradleThanks1
-            Write-Host ""
-            Write-Host $MCGradleAbout1
-            Write-Host $MCGradleAbout2
-            Write-Host $MCGradleAbout3
-            Write-Host $MCGradleAbout4
             Write-Host ""
 
             Pause
