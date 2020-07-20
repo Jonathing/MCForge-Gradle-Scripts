@@ -177,6 +177,7 @@ while [ "$MCGradleCommand" -ne 99 ]; do
     98)
         echo "$MCGradleGreeting1"
         echo "$MCGradleGreeting2"
+        echo "Running on GNU bash"
         echo "$MCGradleGreeting3"
         echo ""
         echo "Original Windows batch scripts written by Bailey (KingPhygieBoo)"

@@ -16,7 +16,7 @@ else
 
 if ($MCGradleArg -eq "FromCMD")
 {
-    $MCGradlePlatform += "via Windows Command Prompt"
+    $MCGradlePlatform += " via Windows Command Prompt"
 }
 
 # Get current PowerShell title (Windows Only)
