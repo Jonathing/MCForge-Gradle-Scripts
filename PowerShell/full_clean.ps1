@@ -1,0 +1,113 @@
+# Get arguments
+$MCGradleArg = $args[0]
+
+if ($MCGradleArg -ne "FromHub")
+{
+    # Clear the screen
+    Clear-Host
+
+    # Get current PowerShell title (Windows Only)
+    if ($PSVersionTable.Platform -eq "Win32NT")
+    {
+        $MCCurrentTitle = [System.Console]::Title
+    }
+    
+    $MCGradleAuthor = "Jonathing"
+    $MCGradleVersion = "0.5.0"
+
+    # Print script information
+    $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
+    $MCGradleGreeting2 = "Version " + $MCGradleVersion
+    Write-Host $MCGradleGreeting1
+    Write-Host $MCGradleGreeting2
+    Write-Host ""
+
+    # Go to root project directory
+    Set-Location ..\..
+
+    # Check for update
+    & '.\Scripts\PowerShell\internal\check_update.ps1' $MCGradleVersion
+
+    # Get Forge mod name
+    & '.\Scripts\PowerShell\internal\get_mod_name.ps1'
+    $MCProjectName = Get-Content '.\Scripts\PowerShell\internal\MODNAME'
+    Remove-Item '.\Scripts\PowerShell\internal\MODNAME'
+}
+
+# Set the title of the Windows PowerShell console
+$MCGradleTitle = $MCProjectName + ": Clean Up Workspace"
+[System.Console]::Title = $MCGradleTitle
+
+$MCHasChosen = 0
+Write-Host "WARNING: THIS ACTION WILL DELETE YOUR BUILD, ECLIPSE, AND RUN FOLDERS, ALONG WITH ANY RUN CONFIGURATIONS!" -ForegroundColor Yellow
+Write-Host "ARE YOU SURE YOU WANT TO DO THIS?" -ForegroundColor Yellow -NoNewline
+Write-Host " THIS ACTION CANNOT BE UNDONE! " -ForegroundColor RED -NoNewline
+Write-Host "[ Y/N ] " -ForegroundColor Yellow -NoNewline
+$Readhost = Read-Host
+Switch ($ReadHost)
+{
+    Y { $MCHasConfirmed = 1; $MCHasChosen = 1 }
+    N { $MCHasConfirmed = 0; $MCHasChosen = 1 }
+    Default { $MCHasChosen = 0 }
+}
+
+if ($MCHasConfirmed -eq 1)
+{
+    Write-Host ""
+
+    # Delete all run configs for eclipse
+    Write-Host "Deleting" (Get-ChildItem run*.launch | Measure-Object).Count "Eclipse run configs"
+    Pause
+    Remove-Item '.\run*.launch'
+
+    Pause
+
+    # Set up the initial Eclipse workspace
+    $MCTaskMessage = "Setting up the initial Eclipse workspace for " + $MCProjectName + "..."
+    Write-Host $MCTaskMessage
+    Write-Host ""
+    .\gradlew eclipse --warning-mode none
+    Write-Host""
+
+    # Generate the Eclipse run configs
+    $MCTask2Message = "Generating the Eclipse run configurations for " + $MCProjectName + "..."
+    Write-Host $MCTask2Message
+    Write-Host ""
+    .\gradlew genEclipseRuns --warning-mode none
+    Write-Host ""
+    $MCExitMessage = "Initial set up for Eclipse complete."
+    Write-Host $MCExitMessage
+    $MCExitMessage2 = "If you need to generate the run configurations again, run the " + [char]0x0022 + "Make Eclipse Runs.ps1" + [char]0x0022 + " script."
+    Write-Host $MCExitMessage2
+
+    if ($MCGradleArg -ne "FromHub")
+    {
+        # Return to scripts directory
+        Set-Location '.\Scripts\PowerShell\'
+    }
+
+    # END OF SCRIPT
+    Pause
+}
+
+if ($MCGradleArg -eq "FromHub")
+{
+    # Set the title of the Windows PowerShell or PowerShell Core console
+    $MCGradleTitle = $MCProjectName + ": MCGradle Scripts Hub"
+    [System.Console]::Title = $MCGradleTitle
+}
+else
+{
+    # Revert PowerShell title (Windows Only)
+    if ($PSVersionTable.Platform -eq "Win32NT")
+    {
+        [System.Console]::Title = $MCCurrentTitle
+    }
+    else
+    {
+        [System.Console]::Title = ""
+    }
+}
+
+Write-Host ""
+exit 0
