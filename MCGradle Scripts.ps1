@@ -29,12 +29,10 @@ $MCGradleAuthor = "Jonathing"
 $MCGradleVersion = "0.5.0"
 
 # Print script information
-$MCGradleGreeting1 = "MCGradle Scripts"
+$MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
 $MCGradleGreeting2 = "Version " + $MCGradleVersion
-$MCGradleGreeting3 = "Written and Maintained by " + $MCGradleAuthor
 Write-Host $MCGradleGreeting1
 Write-Host $MCGradleGreeting2
-Write-Host $MCGradleGreeting3
 Write-Host ""
 
 # Go to root project directory
@@ -127,14 +125,16 @@ do
         97 { Clear-Host }
         98
         {
+            $MCGradleAbout1 = "MCGradle Scripts"
+            $MCGradleAbout2 = "Written and Maintained by " + $MCGradleAuthor
             $MCGradlePlatformMsg = "Running on " + $MCGradlePlatform
 
             $MCGradleThanks1 = "Original Windows batch scripts written by Bailey (KingPhygieBoo)"
 
-            Write-Host $MCGradleGreeting1
+            Write-Host $MCGradleAbout1
             Write-Host $MCGradleGreeting2
             Write-Host $MCGradlePlatformMsg
-            Write-Host $MCGradleGreeting3
+            Write-Host $MCGradleAbout2
             Write-Host ""
             Write-Host $MCGradleThanks1
             Write-Host ""

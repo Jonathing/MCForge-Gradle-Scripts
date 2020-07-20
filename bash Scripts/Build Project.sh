@@ -12,9 +12,10 @@ then
     MCGradleVersion="0.5.0"
 
     # Print script information
-    echo "MCGradle Scripts"
-    echo "Version $MCGradleVersion"
-    echo "Written and Maintained by $MCGradleAuthor"
+    MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
+    MCGradleGreeting2="Version $MCGradleVersion"
+    echo "$MCGradleGreeting1"
+    echo "$MCGradleGreeting2"
     echo ""
 
     # Check for update
@@ -41,10 +42,11 @@ then
     # Return to scripts directory
     cd Scripts/bash\ Scripts/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
+    echo ""
+    echo -e "\e[31mQuitting MCGradle Scripts...\e[39m"
 else
     read -s -n 1 -p "Press any key to return to the MCGradle Scripts Hub..."
 fi
 
 # END OF SCRIPT
-echo ""
 echo ""

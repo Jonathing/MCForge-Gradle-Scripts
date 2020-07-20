@@ -6,22 +6,20 @@ if ($MCGradleArg -ne "FromHub")
     # Clear the screen
     Clear-Host
 
-    $MCGradleAuthor = "Jonathing"
-    $MCGradleVersion = "0.5.0"
-
     # Get current PowerShell title (Windows Only)
     if ($PSVersionTable.Platform -eq "Win32NT")
     {
         $MCCurrentTitle = [System.Console]::Title
     }
+    
+    $MCGradleAuthor = "Jonathing"
+    $MCGradleVersion = "0.5.0"
 
     # Print script information
-    $MCGradleGreeting1 = "MCGradle Scripts"
+    $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
     $MCGradleGreeting2 = "Version " + $MCGradleVersion
-    $MCGradleGreeting3 = "Written and Maintained by " + $MCGradleAuthor
     Write-Host $MCGradleGreeting1
     Write-Host $MCGradleGreeting2
-    Write-Host $MCGradleGreeting3
     Write-Host ""
 
     # Go to root project directory

@@ -16,12 +16,10 @@ if ($MCGradleArg -ne "FromHub")
     $MCGradleVersion = "0.5.0"
 
     # Print script information
-    $MCGradleGreeting1 = "MCGradle Scripts"
+    $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
     $MCGradleGreeting2 = "Version " + $MCGradleVersion
-    $MCGradleGreeting3 = "Written and Maintained by " + $MCGradleAuthor
     Write-Host $MCGradleGreeting1
     Write-Host $MCGradleGreeting2
-    Write-Host $MCGradleGreeting3
     Write-Host ""
 
     # Go to root project directory

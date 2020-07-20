@@ -10,13 +10,10 @@ MCGradleAuthor="Jonathing"
 MCGradleVersion="0.5.0"
 
 # Print script information
-
-MCGradleGreeting1="MCGradle Scripts"
+MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
 MCGradleGreeting2="Version $MCGradleVersion"
-MCGradleGreeting3="Written and Maintained by $MCGradleAuthor"
 echo "$MCGradleGreeting1"
 echo "$MCGradleGreeting2"
-echo "$MCGradleGreeting3"
 echo ""
 
 # Go to root project directory
@@ -175,17 +172,12 @@ while [ "$MCGradleCommand" -ne 99 ]; do
         ;;
 
     98)
-        echo "$MCGradleGreeting1"
+        echo "MCGradle Scripts"
         echo "$MCGradleGreeting2"
         echo "Running on GNU bash"
-        echo "$MCGradleGreeting3"
+        echo "Written and Maintained by $MCGradleAuthor"
         echo ""
         echo "Original Windows batch scripts written by Bailey (KingPhygieBoo)"
-        echo ""
-        echo "MCGradle Scripts is available on the following platforms:"
-        echo "Windows - Windows Commant Prompt, Windows PowerShell, PowerShell Core"
-        echo "macOS - PowerShell Core, GNU bash"
-        echo "GNU/Linux - PowerShell Core, GNU bash"
         echo ""
 
         read -s -n 1 -p "Press any key to continue..."
