@@ -39,7 +39,8 @@ $MCGradleTitle = $MCProjectName + ": Clean Up Workspace"
 [System.Console]::Title = $MCGradleTitle
 
 $MCHasChosen = 0
-Write-Host "WARNING: THIS ACTION WILL DELETE YOUR BUILD, ECLIPSE, AND RUN FOLDERS, ALONG WITH ANY RUN CONFIGURATIONS!" -ForegroundColor Yellow
+Write-Host "WARNING: THIS ACTION WILL DELETE YOUR BUILD FOLDER, ECLIPSE/INTELLIJ WORKSPACE, AND ANY RUN CONFIGURATIONS!" -ForegroundColor Yellow
+Write-Host "THE RUN FOLDER WILL NOT BE DELETED BECAUSE IT IS NOT REQUIRED FOR A FULL CLEANUP." -ForegroundColor Yellow
 Write-Host "ARE YOU SURE YOU WANT TO DO THIS?" -ForegroundColor Yellow -NoNewline
 Write-Host " THIS ACTION CANNOT BE UNDONE! " -ForegroundColor RED -NoNewline
 Write-Host "[ Y/N ] " -ForegroundColor Yellow -NoNewline
@@ -56,34 +57,65 @@ if ($MCHasConfirmed -eq 1)
     Write-Host ""
 
     # Delete all run configs for eclipse
-    Write-Host "Deleting" (Get-ChildItem run*.launch | Measure-Object).Count "Eclipse run configs"
-    Pause
-    Remove-Item '.\run*.launch'
+    Write-Host "Deleting Eclipse run configs and other cache files..."
+    Remove-Item '.\*.launch'
+    if (Test-Path -Path './.settings' -Type Container) { Remove-Item -Force -Recurse './.settings' }
 
-    Pause
+    # Delete IntelliJ IDEA run configs and other build files
+    Write-Host "Deleting IntelliJ IDEA run configs and other cache files..."
+    if (Test-Path -Path './.idea/run*' -Type Container) { Remove-Item -Recurse './.idea/run*' }
+    if (Test-Path -Path './out' -Type Container) { Remove-Item -Recurse './out' }
+    if (Test-Path -Path './.idea/modules' -Type Container) { Remove-Item -Recurse './.idea/modules' }
+    if (Test-Path -Path './.idea/$CACHE_FILE$' -Type Leaf) { Remove-Item './.idea/$CACHE_FILE$' }
+    if (Test-Path -Path './.idea/*.xml' -Type Leaf) { Remove-Item './.idea/*.xml' }
+    if (Test-Path -Path './.idea/.name' -Type Leaf) { Remove-Item './.idea/.name' }
+    if (Test-Path -Path './*.ipr' -Type Leaf) { Remove-Item './*.ipr' }
+    if (Test-Path -Path './*.iws' -Type Leaf) { Remove-Item './*.iws' }
+    if (Test-Path -Path './*.iml' -Type Leaf) { Remove-Item './*.iml' }
 
-    # Set up the initial Eclipse workspace
-    $MCTaskMessage = "Setting up the initial Eclipse workspace for " + $MCProjectName + "..."
-    Write-Host $MCTaskMessage
-    Write-Host ""
-    .\gradlew eclipse --warning-mode none
-    Write-Host""
+    $MCHasBuildFolder = 0
+    $MCHasEclipse = 0
 
-    # Generate the Eclipse run configs
-    $MCTask2Message = "Generating the Eclipse run configurations for " + $MCProjectName + "..."
-    Write-Host $MCTask2Message
-    Write-Host ""
-    .\gradlew genEclipseRuns --warning-mode none
-    Write-Host ""
-    $MCExitMessage = "Initial set up for Eclipse complete."
-    Write-Host $MCExitMessage
-    $MCExitMessage2 = "If you need to generate the run configurations again, run the " + [char]0x0022 + "Make Eclipse Runs.ps1" + [char]0x0022 + " script."
-    Write-Host $MCExitMessage2
-
-    if ($MCGradleArg -ne "FromHub")
+    if (Test-Path -Path './build' -Type Container)
     {
-        # Return to scripts directory
-        Set-Location '.\Scripts\PowerShell\'
+        $MCHasBuildFolder = 1
+    }
+    
+    if (Test-Path -Path './.classpath' -Type Leaf)
+    {
+        $MCHasEclipse = 1
+    }
+
+    if ($MCHasBuildFolder -eq 1 -And $MCHasEclipse -eq 1)
+    {
+        # Delete the folders via Gradle
+        $MCTaskMessage = "Calling Gradle to clean up the Eclipse workspace and build output..."
+        Write-Host $MCTaskMessage
+        Write-Host ""
+        .\gradlew clean cleanEclipse --warning-mode none
+        Write-Host ""
+    }
+    elseif ($MCHasBuildFolder -eq 1)
+    {
+        # Delete the build folder via Gradle
+        $MCTaskMessage = "Calling Gradle to clean up the build output..."
+        Write-Host $MCTaskMessage
+        Write-Host ""
+        .\gradlew clean --warning-mode none
+        Write-Host ""
+    }
+    elseif ($MCHasEclipse -eq 1)
+    {
+        # Delete the eclipse via Gradle
+        $MCTaskMessage = "Calling Gradle to clean up the Eclipse workspace..."
+        Write-Host $MCTaskMessage
+        Write-Host ""
+        .\gradlew cleanEclipse --warning-mode none
+        Write-Host ""
+    }
+    else
+    {
+        # EMPTY METHOD
     }
 
     # END OF SCRIPT
@@ -98,6 +130,9 @@ if ($MCGradleArg -eq "FromHub")
 }
 else
 {
+    # Return to scripts directory
+    Set-Location '.\Scripts\PowerShell\'
+
     # Revert PowerShell title (Windows Only)
     if ($PSVersionTable.Platform -eq "Win32NT")
     {

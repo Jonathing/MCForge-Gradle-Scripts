@@ -56,6 +56,7 @@ $MCGradleOption2 = "2. Set up your Eclipse workspace"
 $MCGradleOption3 = "3. Set up your IntelliJ IDEA workspace"
 $MCGradleOption4 = "4. Generate the Eclipse run configurations"
 $MCGradleOption5 = "5. Generate the IntelliJ IDEA run configurations"
+$MCGradleOption6 = "6. Do a full cleanup of the workspace"
 $MCGradleOptionInfo2 = "MCGradle Scripts Options"
 $MCGradleOptionC = "C. Clear the screen"
 $MCGradleOptionR = "R. Show the options again"
@@ -77,6 +78,7 @@ do
             Write-Host $MCGradleOption3
             Write-Host $MCGradleOption4
             Write-Host $MCGradleOption5
+            Write-Host $MCGradleOption6
             Write-Host ""
             Write-Host $MCGradleOptionInfo2
             Write-Host $MCGradleOptionC
@@ -90,7 +92,7 @@ do
             Write-Host "Press R to see the options again." -ForegroundColor Yellow
         }
         $MCShowOptionsAgain = 0
-        Write-Host "Please pick an option [ 1-5, R, Q, ... ] " -ForegroundColor Yellow -NoNewline
+        Write-Host "Please pick an option [ 1-6, R, Q, ... ] " -ForegroundColor Yellow -NoNewline
         $Readhost = Read-Host
         Switch ($ReadHost)
         { 
@@ -99,6 +101,7 @@ do
             3 { $MCHasChosen = 1; $MCGradleCommand = 3 }
             4 { $MCHasChosen = 1; $MCGradleCommand = 4 }
             5 { $MCHasChosen = 1; $MCGradleCommand = 5 }
+            6 { $MCHasChosen = 1; $MCGradleCommand = 6 }
             C { $MCHasChosen = 1; $MCGradleCommand = 97; $MCShowOptionsAgain = 1 }
             A { $MCHasChosen = 1; $MCGradleCommand = 98 }
             Q { $MCHasChosen = 1; $MCGradleCommand = 99 }
@@ -122,6 +125,7 @@ do
         3 { & '.\Scripts\PowerShell\setup_intellij.ps1' "FromHub" }
         4 { & '.\Scripts\PowerShell\genEclipseRuns.ps1' "FromHub" }
         5 { & '.\Scripts\PowerShell\genIntellijRuns.ps1' "FromHub" }
+        6 { & '.\Scripts\PowerShell\full_clean.ps1' "FromHub" }
         97 { Clear-Host }
         98
         {
