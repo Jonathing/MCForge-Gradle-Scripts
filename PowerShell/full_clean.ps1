@@ -43,13 +43,12 @@ Write-Host "WARNING: THIS ACTION WILL DELETE YOUR BUILD FOLDER, ECLIPSE/INTELLIJ
 Write-Host "THE RUN FOLDER WILL NOT BE DELETED BECAUSE IT IS NOT REQUIRED FOR A FULL CLEANUP." -ForegroundColor Yellow
 Write-Host "ARE YOU SURE YOU WANT TO DO THIS?" -ForegroundColor Yellow -NoNewline
 Write-Host " THIS ACTION CANNOT BE UNDONE! " -ForegroundColor RED -NoNewline
-Write-Host "[ Y/N ] " -ForegroundColor Yellow -NoNewline
+Write-Host "[ y/N ] " -ForegroundColor Yellow -NoNewline
 $Readhost = Read-Host
 Switch ($ReadHost)
 {
-    Y { $MCHasConfirmed = 1; $MCHasChosen = 1 }
-    N { $MCHasConfirmed = 0; $MCHasChosen = 1 }
-    Default { $MCHasChosen = 0 }
+    Y { $MCHasConfirmed = 1}
+    Default { $MCHasConfirmed = 0}
 }
 
 if ($MCHasConfirmed -eq 1)
