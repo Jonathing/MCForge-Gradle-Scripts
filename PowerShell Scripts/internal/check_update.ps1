@@ -1,8 +1,6 @@
 # Get version number from arguments
 $MCGradleCurrentVer = $args[0]
 
-# Write-Host $MCGradleCurrentVer
-
 try
 {
     # Hide download progress from user

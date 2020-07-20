@@ -6,6 +6,12 @@ if ($MCGradleArg -ne "FromHub")
     # Clear the screen
     Clear-Host
 
+    # Get current PowerShell title (Windows Only)
+    if ($PSVersionTable.Platform -eq "Win32NT")
+    {
+        $MCCurrentTitle = [System.Console]::Title
+    }
+
     $MCGradleAuthor = "Jonathing"
     $MCGradleVersion = "0.5.0"
 
@@ -57,6 +63,18 @@ if ($MCGradleArg -eq "FromHub")
     # Set the title of the Windows PowerShell or PowerShell Core console
     $MCGradleTitle = $MCProjectName + ": MCGradle Scripts Hub"
     [System.Console]::Title = $MCGradleTitle
+}
+else
+{
+    # Revert PowerShell title (Windows Only)
+    if ($PSVersionTable.Platform -eq "Win32NT")
+    {
+        [System.Console]::Title = $MCCurrentTitle
+    }
+    else
+    {
+        [System.Console]::Title = ""
+    }
 }
 
 Write-Host ""

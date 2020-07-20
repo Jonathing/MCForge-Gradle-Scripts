@@ -4,6 +4,12 @@ Clear-Host
 # Get arguments
 $MCGradleArg = $args[0]
 
+# Get current PowerShell title (Windows Only)
+if ($PSVersionTable.Platform -eq "Win32NT")
+{
+    $MCCurrentTitle = [System.Console]::Title
+}
+
 $MCGradleAuthor = "Jonathing"
 $MCGradleVersion = "0.5.0"
 
@@ -137,6 +143,16 @@ while ($MCGradleCommand -ne 99)
 
 # Return to scripts directory
 Set-Location .\Scripts\
+
+# Revert PowerShell title (Windows Only)
+if ($PSVersionTable.Platform -eq "Win32NT")
+{
+    [System.Console]::Title = $MCCurrentTitle
+}
+else
+{
+    [System.Console]::Title = ""
+}
 
 Write-Host ""
 exit 0
