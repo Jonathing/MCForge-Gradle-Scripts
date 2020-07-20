@@ -93,6 +93,7 @@ if ($MCHasConfirmed -eq 1)
         Write-Host $MCTaskMessage
         Write-Host ""
         .\gradlew clean cleanEclipse --warning-mode none
+        [System.Console]::Title = $MCGradleTitle
         Write-Host ""
     }
     elseif ($MCHasBuildFolder -eq 1)
@@ -102,6 +103,7 @@ if ($MCHasConfirmed -eq 1)
         Write-Host $MCTaskMessage
         Write-Host ""
         .\gradlew clean --warning-mode none
+        [System.Console]::Title = $MCGradleTitle
         Write-Host ""
     }
     elseif ($MCHasEclipse -eq 1)
@@ -111,6 +113,7 @@ if ($MCHasConfirmed -eq 1)
         Write-Host $MCTaskMessage
         Write-Host ""
         .\gradlew cleanEclipse --warning-mode none
+        [System.Console]::Title = $MCGradleTitle
         Write-Host ""
     }
     else

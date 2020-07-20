@@ -43,6 +43,7 @@ $MCTask2Message = "Generating the IntelliJ IDEA run configurations for " + $MCPr
 Write-Host $MCTaskMessage
 Write-Host ""
 .\gradlew genIntellijRuns --warning-mode none
+[System.Console]::Title = $MCGradleTitle
 Write-Host ""
 $MCExitMessage = "Finished generating the IntelliJ IDEA run configurations for " + $MCProjectName + "."
 Write-Host $MCExitMessage

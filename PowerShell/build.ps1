@@ -43,6 +43,7 @@ $MCTaskMessage = "Building " + $MCProjectName + "..."
 Write-Host $MCTaskMessage
 Write-Host ""
 .\gradlew build --warning-mode none
+[System.Console]::Title = $MCGradleTitle
 Write-Host ""
 $MCExitMessage = "Finished building " + $MCProjectName + "."
 Write-Host $MCExitMessage

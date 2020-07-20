@@ -43,6 +43,7 @@ $MCTask2Message = "Generating the Eclipse run configurations for " + $MCProjectN
 Write-Host $MCTask2Message
 Write-Host ""
 .\gradlew genEclipseRuns --warning-mode none
+[System.Console]::Title = $MCGradleTitle
 Write-Host ""
 $MCExitMessage = "Finished generating the Eclipse run configurations."
 Write-Host $MCExitMessage

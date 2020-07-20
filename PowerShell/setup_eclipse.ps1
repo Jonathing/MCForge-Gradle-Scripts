@@ -43,6 +43,7 @@ $MCTaskMessage = "Setting up the initial Eclipse workspace for " + $MCProjectNam
 Write-Host $MCTaskMessage
 Write-Host ""
 .\gradlew eclipse --warning-mode none
+[System.Console]::Title = $MCGradleTitle
 Write-Host ""
 
 # Generate the Eclipse run configs
@@ -50,6 +51,7 @@ $MCTask2Message = "Generating the Eclipse run configurations for " + $MCProjectN
 Write-Host $MCTask2Message
 Write-Host ""
 .\gradlew genEclipseRuns --warning-mode none
+[System.Console]::Title = $MCGradleTitle
 Write-Host ""
 $MCExitMessage = "Initial set up for Eclipse complete."
 Write-Host $MCExitMessage
