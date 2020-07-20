@@ -9,10 +9,10 @@ then
     clear
 
     MCGradleAuthor="Jonathing"
-    MCGradleVersion="0.4.1"
+    MCGradleVersion="0.5.0"
 
     # Print script information
-    echo "MCGradle Scripts (for GNU bash)"
+    echo "MCGradle Scripts"
     echo "Version $MCGradleVersion"
     echo "Written and Maintained by $MCGradleAuthor"
     echo ""

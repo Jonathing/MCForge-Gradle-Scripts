@@ -7,10 +7,10 @@ if ($MCGradleArg -ne "FromHub")
     Clear-Host
 
     $MCGradleAuthor = "Jonathing"
-    $MCGradleVersion = "0.4.1"
+    $MCGradleVersion = "0.5.0"
 
     # Print script information
-    $MCGradleGreeting1 = "MCGradle Scripts (for Windows PowerShell and PowerShell Core)"
+    $MCGradleGreeting1 = "MCGradle Scripts"
     $MCGradleGreeting2 = "Version " + $MCGradleVersion
     $MCGradleGreeting3 = "Written and Maintained by " + $MCGradleAuthor
     Write-Host $MCGradleGreeting1

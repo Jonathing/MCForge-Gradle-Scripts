@@ -5,7 +5,7 @@ Clear-Host
 $MCGradleArg = $args[0]
 
 $MCGradleAuthor = "Jonathing"
-$MCGradleVersion = "0.4.1"
+$MCGradleVersion = "0.5.0"
 
 # Print script information
 $MCGradleGreeting1 = "MCGradle Scripts"
