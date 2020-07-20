@@ -1,5 +1,14 @@
 # MCGradle Scripts Changelog
 
+## 0.5.0
+
+- Cleaned up the scripts and made them easier to read.
+- Introducing: MCGradle Scripts Hub!
+  - Access all the Gradle commands from a single batch file!
+  - Features easy-to-read menus.
+  - Makes running the scripts 100x easier! Simply launch the main MCGradle Scripts script and get going!
+- The scripts are no longer being written for Windows Command Prompt. Windows Command Prompt now simply acts as a wrapper for the PowerShell scripts.
+
 ## 0.4.1
 
 - The Windows Command Prompt scripts no longer need admin privileges to get the mod name from `mods.toml`.

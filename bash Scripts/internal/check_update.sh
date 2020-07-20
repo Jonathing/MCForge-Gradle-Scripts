@@ -20,25 +20,25 @@ fi
 if [ $CANNOTUPDATE -ne 1 ]
 then
     # Download the update file
-    MyBASHUpdateVer=`curl --fail --silent https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt | grep 'LATESTVERSION='`
+    MCGradleUpdateVer=`curl --fail --silent https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt | grep 'LATESTVERSION='`
 
     # Continue if update file was downloaded successfully
-    if [ $MyBASHUpdateVer ]
+    if [ $MCGradleUpdateVer ]
     then
         # Extract string within double quotes
-        MyBASHUpdateVer=${MyBASHUpdateVer#*'"'}; MyBASHUpdateVer=${MyBASHUpdateVer%'"'*}
+        MCGradleUpdateVer=${MCGradleUpdateVer#*'"'}; MCGradleUpdateVer=${MCGradleUpdateVer%'"'*}
 
         # Inform the user if MCGradle Scripts can be updated
-        if [ $MyBASHVersion != $MyBASHUpdateVer ]
+        if [ $MCGradleVersion != $MCGradleUpdateVer ]
         then
-            echo "An update is available for MCGradle Scripts! The latest version is $MyBASHUpdateVer"
+            echo "An update is available for MCGradle Scripts! The latest version is $MCGradleUpdateVer"
             echo "To update, read \"UPDATE.md\" on how to update MCGradle Scripts in your repository."
             echo ""
         fi
     fi
 
     # Cancel if the update file download failed
-    if [ ! $MyBASHUpdateVer ]
+    if [ ! $MCGradleUpdateVer ]
     then
         echo "MCGradle Scripts failed to check for updates!"
         echo "If you are connected to the internet without issues, report this to the issue tracker!"

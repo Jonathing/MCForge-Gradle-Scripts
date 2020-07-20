@@ -45,18 +45,17 @@ MCGradle Scripts is written in three different languages for three different she
 
 ### Windows Command Prompt
 
-To run one of the batch scripts, do one of the following:
+To launch MCGradle Scripts, simply double click the `MCGradle Scripts.bat` file in the Scripts directory.
 
-- Double click the batch script in Windows Explorer.
-- Run the script manually from the command line.
+Windows Command Prompt now acts as a wrapper for the PowerShell scripts! Writing MCGradle Scripts has never been easier for me, and launching MCGradle Scripts has never been easier for you!
 
 ### PowerShell
 
-To run one of the PowerShell scripts, do one of the following:
+Are you a PowerShell supremecist? Not a problem! To run one of the PowerShell scripts, do one of the following:
 
 - For Windows PowerShell, right click on the script and click on `Run with PowerShell`.
 - For PowerShell Core, run the script manually from the command line. It is written to work for both Windows PowerShell and PowerShell Core.
 
 ### GNU bash
 
-To run one of the shell scripts, run the script manually from the command line. If for some reason the shell script is not executable, run `chmod +x [script name here].sh` in your terminal, and then run the script.
+Tired of Microsft spying on you? I've made MCGradle Scripts for bash as well! To run one of the shell scripts, run the script manually from the command line. If for some reason the shell script is not executable, run `chmod +x [script name here].sh` in your terminal, and then run the script.
