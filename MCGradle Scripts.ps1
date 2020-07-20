@@ -1,6 +1,9 @@
 # Clear the screen
 Clear-Host
 
+# Get arguments
+$MCGradleArg = $args[0]
+
 $MCGradleAuthor = "Jonathing"
 $MCGradleVersion = "0.4.1"
 
@@ -104,7 +107,7 @@ do
         98
         {
             $MCGradleAbout1 = "MCGradle Scripts is available on the following platforms:"
-            $MCGradleAbout2 = "Windows - Windows Command Prompt, Windows PowerShell, PowerShell Core"
+            $MCGradleAbout2 = "Windows - Windows Commant Prompt, Windows PowerShell, PowerShell Core"
             $MCGradleAbout3 = "macOS - PowerShell Core, GNU bash"
             $MCGradleAbout4 = "GNU/Linux - PowerShell Core, GNU bash"
 
@@ -132,4 +135,8 @@ do
 }
 while ($MCGradleCommand -ne 99)
 
+# Return to scripts directory
 Set-Location .\Scripts\
+
+Write-Host ""
+exit 0
