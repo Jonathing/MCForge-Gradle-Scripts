@@ -3,8 +3,7 @@
 # Get arguments
 MCGradleArgs=$1
 
-if [ "$MCGradleArgs" != "FromHub" ]
-then
+if [ "$MCGradleArgs" != "FromHub" ]; then
     # Clear the screen
     clear
 
@@ -46,11 +45,43 @@ esac
 
 if [ "$MCHasConfirmed" -eq 1 ]
 then
-    if ls "./*.launch" 1> /dev/null 2>&1; then
-        echo "files do exist"
-    else
-        echo "files do not exist"
+    echo "Deleting Eclipse run configs and other cache files..."
+    if ls ./*.launch 1> /dev/null 2>&1; then
+        rm *.launch
     fi
+    if [ -d "./.settings" ]; then
+        rm -r ./.settings
+    fi
+
+    echo "Deleting IntelliJ run configs and other cache files..."
+    if [ -d "./.idea/runConfigurations" ]; then
+        rm -r ./.idea/runConfigurations
+    fi
+    if [ -d "./out" ]; then
+        rm -r ./out
+    fi
+    if [ -d "./.idea/modules" ]; then
+        rm -r ./.idea/modules
+    fi
+    if [ -f "./.idea/\$CACHE_FILE\$" ]; then
+        rm ./.idea/\$CACHE_FILE\$
+    fi
+    if ls ./.idea/*.xml 1> /dev/null 2>&1; then
+        rm ./.idea/*.xml
+    fi
+    if [ -f "./.idea/.name" ]; then
+        rm ./.idea/.name
+    fi
+    if ls ./*.ipr 1> /dev/null 2>&1; then
+        rm ./*.ipr
+    fi
+    if ls ./*.iws 1> /dev/null 2>&1; then
+        rm ./*.iws
+    fi
+    if ls ./*.iml 1> /dev/null 2>&1; then
+        rm ./*.iml
+    fi
+    
 fi
 
 # [ -d "${d}" ] &&  echo "Directory $d found." || echo "Directory $d not found."

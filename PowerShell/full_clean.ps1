@@ -38,7 +38,6 @@ if ($MCGradleArg -ne "FromHub")
 $MCGradleTitle = $MCProjectName + ": Clean Up Workspace"
 [System.Console]::Title = $MCGradleTitle
 
-$MCHasChosen = 0
 Write-Host "WARNING: THIS ACTION WILL DELETE YOUR BUILD FOLDER, ECLIPSE/INTELLIJ WORKSPACE, AND ANY RUN CONFIGURATIONS!" -ForegroundColor Yellow
 Write-Host "THE RUN FOLDER WILL NOT BE DELETED BECAUSE IT IS NOT REQUIRED FOR A FULL CLEANUP." -ForegroundColor Yellow
 Write-Host "ARE YOU SURE YOU WANT TO DO THIS?" -ForegroundColor Yellow -NoNewline
@@ -62,7 +61,7 @@ if ($MCHasConfirmed -eq 1)
 
     # Delete IntelliJ IDEA run configs and other build files
     Write-Host "Deleting IntelliJ IDEA run configs and other cache files..."
-    if (Test-Path -Path './.idea/run*' -Type Container) { Remove-Item -Recurse './.idea/run*' }
+    if (Test-Path -Path './.idea/runConfigurations' -Type Container) { Remove-Item -Recurse './.idea/runConfigurations' }
     if (Test-Path -Path './out' -Type Container) { Remove-Item -Recurse './out' }
     if (Test-Path -Path './.idea/modules' -Type Container) { Remove-Item -Recurse './.idea/modules' }
     if (Test-Path -Path './.idea/$CACHE_FILE$' -Type Leaf) { Remove-Item './.idea/$CACHE_FILE$' }
