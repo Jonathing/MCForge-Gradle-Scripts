@@ -93,20 +93,20 @@ while [ "$MCGradleCommand" -ne 99 ]; do
             MCHasChosen=1
             MCGradleCommand=5
             ;;
-        C)
+        C | c)
             MCHasChosen=1
             MCGradleCommand=97
             MCShowOptionsAgain=1
             ;;
-        A)
+        A | a)
             MCHasChosen=1
             MCGradleCommand=98
             ;;
-        Q)
+        Q | q)
             MCHasChosen=1
             MCGradleCommand=99
             ;;
-        R)
+        R | r)
             MCHasChosen=0
             MCShowOptionsAgain=1
             ;;
