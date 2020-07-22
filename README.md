@@ -8,20 +8,7 @@ In a nutshell, MCGradle Scripts makes building, running, or setting up your work
 
 ## Installation
 
-You can install MCGradle Scripts either manually by downloading the `MCGradle-Scripts.zip` file in [GitHub Releases](https://github.com/Jonathing/MCGradle-Scripts/releases/) or as a Git submodule.
-
-### Download Manually (Recommended)
-
-To install MCGradle Scripts manually without using a Git submodule, go to [GitHub Releases](https://github.com/Jonathing/MCGradle-Scripts/releases/) and download the latest `MCGradle-Scripts.zip` file! Then, unzip the file as-is in your root project directory. Please don't change any of the folder names, I haven't yet added support for that in the scripts.
-
-### Install via Git Submodule
-
-To install MCGradle Scripts as a Git submodule:
-
-- Open your terminal of choice your root project directory.
-- Run `git submodule add https://github.com/Jonathing/MCGradle-Scripts.git`.
-
-If MCGradle Scripts checks that an update is available, you can install the update by reading the instructions in the UPDATE.md file.
+To install MCGradle Scripts, go to [GitHub Releases](https://github.com/Jonathing/MCGradle-Scripts/releases/) and download the latest `MCGradle-Scripts.zip` file! Then, unzip the file as-is in your root project directory. Please don't change any of the folder names, I haven't yet added support for that in the scripts.
 
 ## Features
 
@@ -31,12 +18,13 @@ Right now, MCGradle Scripts:
 - Can get your mod's display name from mods.toml (it only picks up the first occurrence of `displayName=`.
 - Can change the title of your terminal shell (if possible, I couldn't find a way to do this for bash).
 - Can check for updates from this repo by reading the `VERSIONS.txt` file.
+- Has a main script where all the other scripts can be executed through.
+- Has a fully-fledged auto-updater.
 
 Some of the planned features for MCGradle Scripts are to:
 
 - Have full compatability with ForgeGradle 2 and Fabric workspaces.
 - Be able to decide what to run depending if the workspace is for ForgeGradle 3, ForgeGradle 2, or Fabric.
-- Have a main script where all the other scripts can be executed through.
 - And some other things I may not have thought up as of right now!
 
 ## How to Run

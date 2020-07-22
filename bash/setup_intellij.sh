@@ -9,7 +9,7 @@ then
     clear
 
     MCGradleAuthor="Jonathing"
-    MCGradleVersion="0.5.1"
+    MCGradleVersion="0.5.2"
 
     # Print script information
     MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
