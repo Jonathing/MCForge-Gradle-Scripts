@@ -28,10 +28,10 @@ if ($StatusCode)
     $MCGradleFailMsg2 = "We got a " + $StatusCode + " error when downloading latest version file."
     $MCGradleFailMsg3 = "Please report this to the MCGradle Scripts issue tracker!"
     $MCGradleFailMsg4 = "https://github.com/Jonathing/MCGradle-Scripts/issues"
-    Write-Host $MCGradleFailMsg1
-    Write-Host $MCGradleFailMsg2
-    Write-Host $MCGradleFailMsg3
-    Write-Host $MCGradleFailMsg4
+    Write-Host $MCGradleFailMsg1 -ForegroundColor Red
+    Write-Host $MCGradleFailMsg2 -ForegroundColor Red
+    Write-Host $MCGradleFailMsg3 -ForegroundColor Red
+    Write-Host $MCGradleFailMsg4 -ForegroundColor Red
     Write-Host ""
 }
 else
@@ -60,9 +60,9 @@ if ($MCTrueUpdateVer)
         if ($MCTrueUpdateVer -ne $MCGradleCurrentVer)
         {
             $MCGradleUpdateMsg1 = "An update is available for MCGradle Scripts! The latest version is " + $MCTrueUpdateVer
-            $MCGradleUpdateMsg2 = "To update, read " + [char]0x0022 + "UPDATE.md" + [char]0x0022 + " on how to update MCGradle Scripts in your repository."
-            Write-Host $MCGradleUpdateMsg1
-            Write-Host $MCGradleUpdateMsg2
+            $MCGradleUpdateMsg2 = "To update, run the main script and follow through with the update process."
+            Write-Host $MCGradleUpdateMsg1 -ForegroundColor Green
+            Write-Host $MCGradleUpdateMsg2 -ForegroundColor Green
             Write-Host ""
         }
     }

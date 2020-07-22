@@ -42,10 +42,11 @@ if ($MCHubUpdVer -ne $MCGradleVersion)
 {
     $MCWantsToUpdate = 0
     $MCHasUpdated = 0
-    Write-Host "An update is available for MCGradle Scripts!"
+    $MCGradleUpdateMsg1 = "An update is available for MCGradle Scripts! The latest version is " + $MCHubUpdVer
+    Write-Host $MCGradleUpdateMsg1 -ForegroundColor Green
     do
     {
-        Write-Host "Would you like to update now? This might take some time. [ y/N ] " -NoNewline
+        Write-Host "Would you like to update now? This might take some time. [ y/N ] " -ForegroundColor Yellow -NoNewline
         $Readhost = Read-Host
         Switch ($ReadHost)
         {
@@ -119,6 +120,13 @@ if ($MCHubUpdVer -ne $MCGradleVersion)
         }
 
         $ErrorActionPreference = $MCOldPreference
+    }
+    else
+    {
+        Write-Host "You have decided not to update MCGradle Scripts."
+        Write-Host "If you change your mind, run the main script again."
+        Write-Host "Continuing to the hub..."
+        Write-Host ""
     }
 }
 
