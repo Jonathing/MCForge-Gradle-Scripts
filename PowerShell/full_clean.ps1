@@ -134,7 +134,14 @@ else
     Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
     
     # Return to scripts directory
-    Set-Location '.\Scripts\PowerShell\'
+    if ($MCGradleArg -eq "FromCMD")
+    {
+        Set-Location '.\Scripts\Windows\'
+    }
+    else
+    {
+        Set-Location '.\Scripts\PowerShell\'
+    }
 
     # Revert PowerShell title (Windows Only)
     if ($PSVersionTable.Platform -eq "Win32NT")
