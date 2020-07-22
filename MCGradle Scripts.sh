@@ -65,11 +65,11 @@ while [ "$MCGradleCommand" -ne 99 ]; do
             echo "$MCGradleOptionQ"
             echo ""
         else
-            echo -e "\e[33mPress R to see the options again.\e[39m"
+            echo -e "\e[93mPress R to see the options again.\e[39m"
         fi
         
         MCShowOptionsAgain=0
-        printf "\e[33mPlease pick an option [ 1-5, R, Q, ... ] \e[39m"
+        printf "\e[93mPlease pick an option [ 1-6, R, Q, ... ] \e[39m"
 
         read MCReadHost
         echo ""
@@ -124,7 +124,7 @@ while [ "$MCGradleCommand" -ne 99 ]; do
 
         if [ "$MCHasChosen" -eq 0 -a "$MCShowOptionsAgain" -eq 0 ]
         then
-            echo -e "\e[33mThat's not a valid option.\e[39m"
+            echo -e "\e[93mThat's not a valid option.\e[39m"
         fi
     done
 
@@ -173,11 +173,11 @@ while [ "$MCGradleCommand" -ne 99 ]; do
         MCHasChosen=0
         ;;
     99)
-        echo -e "\e[31mQuitting MCGradle Scripts...\e[39m"
+        echo -e "\e[91mQuitting MCGradle Scripts...\e[39m"
         MCHasChosen=0
         ;;
     *)
-        echo -e "\e[31mAn error has occured.\e[39m"
+        echo -e "\e[91mAn error has occured.\e[39m"
         MCHasChosen=0
         ;;
     esac

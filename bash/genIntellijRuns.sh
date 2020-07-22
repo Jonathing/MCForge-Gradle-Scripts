@@ -42,7 +42,7 @@ then
     cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
     echo ""
-    echo -e "\e[31mQuitting MCGradle Scripts...\e[39m"
+    echo -e "\e[91mQuitting MCGradle Scripts...\e[39m"
 else
     read -s -n 1 -p "Press any key to return to the MCGradle Scripts Hub..."
 fi

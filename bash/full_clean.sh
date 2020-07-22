@@ -28,9 +28,9 @@ if [ "$MCGradleArgs" != "FromHub" ]; then
     MCProjectName=${MCProjectName#*'"'}; MCProjectName=${MCProjectName%'"'*}
 fi
 
-echo -e "\e[33mWARNING: THIS ACTION WILL DELETE YOUR BUILD FOLDER, ECLIPSE/INTELLIJ WORKSPACE, AND ANY RUN CONFIGURATIONS!"
+echo -e "\e[93mWARNING: THIS ACTION WILL DELETE YOUR BUILD FOLDER, ECLIPSE/INTELLIJ WORKSPACE, AND ANY RUN CONFIGURATIONS!"
 echo "THE RUN FOLDER WILL NOT BE DELETED BECAUSE IT IS NOT REQUIRED FOR A FULL CLEANUP."
-printf "ARE YOU SURE YOU WANT TO DO THIS? \e[31mTHIS ACTION CANNOT BE UNDONE! \e[33m[ y/N ] \e[39m"
+printf "ARE YOU SURE YOU WANT TO DO THIS? \e[91mTHIS ACTION CANNOT BE UNDONE! \e[93m[ y/N ] \e[39m"
 read MCReadHost
 echo ""
 
@@ -125,7 +125,7 @@ if [ "$MCHasConfirmed" -eq 1 ]; then
         cd Scripts/bash/
         read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
         echo ""
-        echo -e "\e[31mQuitting MCGradle Scripts...\e[39m"
+        echo -e "\e[91mQuitting MCGradle Scripts...\e[39m"
     else
         read -s -n 1 -p "Press any key to return to the MCGradle Scripts Hub..."
         echo ""
