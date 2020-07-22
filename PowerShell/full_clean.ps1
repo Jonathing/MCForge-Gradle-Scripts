@@ -131,6 +131,8 @@ if ($MCGradleArg -eq "FromHub")
 }
 else
 {
+    Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
+    
     # Return to scripts directory
     Set-Location '.\Scripts\PowerShell\'
 

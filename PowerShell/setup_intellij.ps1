@@ -47,12 +47,6 @@ Write-Host $MCIntellijMessage2
 Write-Host $MCIntellijMessage3
 Write-Host ""
 
-if ($MCGradleArg -ne "FromHub")
-{
-    # Return to scripts directory
-    Set-Location '.\Scripts\PowerShell\'
-}
-
 # END OF SCRIPT
 Pause
 
@@ -64,6 +58,11 @@ if ($MCGradleArg -eq "FromHub")
 }
 else
 {
+    Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
+
+    # Return to scripts directory
+    Set-Location '.\Scripts\PowerShell\'
+
     # Revert PowerShell title (Windows Only)
     if ($PSVersionTable.Platform -eq "Win32NT")
     {

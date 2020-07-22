@@ -50,12 +50,6 @@ Write-Host $MCExitMessage
 $MCExitMessage2 = "If the build was successful, the output should be located under build\libs"
 Write-Host $MCExitMessage2
 
-if ($MCGradleArg -ne "FromHub")
-{
-    # Return to scripts directory
-    Set-Location '.\Scripts\PowerShell\'
-}
-
 # END OF SCRIPT
 Pause
 
@@ -67,6 +61,11 @@ if ($MCGradleArg -eq "FromHub")
 }
 else
 {
+    Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
+
+    # Return to scripts directory
+    Set-Location '.\Scripts\PowerShell\'
+
     # Revert PowerShell title (Windows Only)
     if ($PSVersionTable.Platform -eq "Win32NT")
     {

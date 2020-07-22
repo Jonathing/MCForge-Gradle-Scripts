@@ -58,12 +58,6 @@ Write-Host $MCExitMessage
 $MCExitMessage2 = "If you need to generate the run configurations again, run the " + [char]0x0022 + "Make Eclipse Runs.ps1" + [char]0x0022 + " script."
 Write-Host $MCExitMessage2
 
-if ($MCGradleArg -ne "FromHub")
-{
-    # Return to scripts directory
-    Set-Location '.\Scripts\PowerShell\'
-}
-
 # END OF SCRIPT
 Pause
 
@@ -75,6 +69,11 @@ if ($MCGradleArg -eq "FromHub")
 }
 else
 {
+    Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
+
+    # Return to scripts directory
+    Set-Location '.\Scripts\PowerShell\'
+    
     # Revert PowerShell title (Windows Only)
     if ($PSVersionTable.Platform -eq "Win32NT")
     {

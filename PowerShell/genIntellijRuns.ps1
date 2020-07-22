@@ -39,7 +39,7 @@ $MCGradleTitle = $MCProjectName + ": IntelliJ IDEA Run Configurations"
 [System.Console]::Title = $MCGradleTitle
 
 # Generate the IntelliJ IDEA run configs
-$MCTask2Message = "Generating the IntelliJ IDEA run configurations for " + $MCProjectName + "..."
+$MCTaskMessage = "Generating the IntelliJ IDEA run configurations for " + $MCProjectName + "..."
 Write-Host $MCTaskMessage
 Write-Host ""
 .\gradlew genIntellijRuns --warning-mode none
@@ -47,12 +47,6 @@ Write-Host ""
 Write-Host ""
 $MCExitMessage = "Finished generating the IntelliJ IDEA run configurations for " + $MCProjectName + "."
 Write-Host $MCExitMessage
-
-if ($MCGradleArg -ne "FromHub")
-{
-    # Return to scripts directory
-    Set-Location '.\Scripts\PowerShell\'
-}
 
 # END OF SCRIPT
 Pause
@@ -65,6 +59,11 @@ if ($MCGradleArg -eq "FromHub")
 }
 else
 {
+    Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
+
+    # Return to scripts directory
+    Set-Location '.\Scripts\PowerShell\'
+
     # Revert PowerShell title (Windows Only)
     if ($PSVersionTable.Platform -eq "Win32NT")
     {
