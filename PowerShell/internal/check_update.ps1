@@ -1,5 +1,6 @@
 # Get version number from arguments
 $MCGradleCurrentVer = $args[0]
+$MCGradleArgs = $args[1]
 
 try
 {
@@ -50,13 +51,20 @@ else
 
 if ($MCTrueUpdateVer)
 {
-    if ($MCTrueUpdateVer -ne $MCGradleCurrentVer)
+    if ($MCGradleArgs -eq "FromHub")
     {
-        $MCGradleUpdateMsg1 = "An update is available for MCGradle Scripts! The latest version is " + $MCTrueUpdateVer
-        $MCGradleUpdateMsg2 = "To update, read " + [char]0x0022 + "UPDATE.md" + [char]0x0022 + " on how to update MCGradle Scripts in your repository."
-        Write-Host $MCGradleUpdateMsg1
-        Write-Host $MCGradleUpdateMsg2
-        Write-Host ""
+        $MCHubUpdVer = $MCTrueUpdateVer
+    }
+    else
+    {
+        if ($MCTrueUpdateVer -ne $MCGradleCurrentVer)
+        {
+            $MCGradleUpdateMsg1 = "An update is available for MCGradle Scripts! The latest version is " + $MCTrueUpdateVer
+            $MCGradleUpdateMsg2 = "To update, read " + [char]0x0022 + "UPDATE.md" + [char]0x0022 + " on how to update MCGradle Scripts in your repository."
+            Write-Host $MCGradleUpdateMsg1
+            Write-Host $MCGradleUpdateMsg2
+            Write-Host ""
+        }
     }
 }
 else

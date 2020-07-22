@@ -36,90 +36,93 @@ Write-Host $MCGradleGreeting2
 Write-Host ""
 
 # Check for update
-& '.\PowerShell\internal\check_update.ps1' $MCGradleVersion
+. .\PowerShell\internal\check_update.ps1 $MCGradleVersion "FromHub"
 
-$MCWantsToUpdate = 0
-$MCHasUpdated = 0
-Write-Host "An update is available for MCGradle Scripts!"
-do
+if ($MCHubUpdVer -ne $MCGradleVersion)
 {
-    Write-Host "Would you like to update now? This might take some time. [ y/N ] " -NoNewline
-    $Readhost = Read-Host
-    Switch ($ReadHost)
+    $MCWantsToUpdate = 0
+    $MCHasUpdated = 0
+    Write-Host "An update is available for MCGradle Scripts!"
+    do
     {
-        Y { $MCHasChosen = 1; $MCWantsToUpdate = 1 }
-        N { $MCHasChosen = 1 }
-        Default { $MCHasChosen = 0 }
-    }
-
-    Write-Host ""
-
-    if ($MCHasChosen -eq 0)
-    {
-        Write-Host "That's not a valid option." -ForegroundColor Yellow
-    }
-}
-while ($MCHasChosen -eq 0)
-
-if ($MCWantsToUpdate -eq 1)
-{
-    Write-Host "We want to update."
-
-    $MCOldPreference = $ErrorActionPreference
-    $ErrorActionPreference = "SilentlyContinue"
-
-    if (Get-Command git)
-    {
-        Write-Host "Downloading MCGradle Scripts..."
-        git clone https://github.com/Jonathing/MCGradle-Scripts.git update -q
-
-        Write-Host "Installing MCGradle Scripts..."
-        Remove-Item -Force -Recurse '.\Windows\'
-        Remove-Item -Force -Recurse '.\PowerShell\'
-        Remove-Item -Force -Recurse '.\bash\'
-        Remove-Item -Force '.\MCGradle Scripts.bat'
-        Remove-Item -Force '.\MCGradle Scripts.ps1'
-        Remove-Item -Force '.\MCGradle Scripts.sh'
-        Remove-Item -Force '.\CHANGELOG.md'
-        Remove-Item -Force '.\README.md'
-        Remove-Item -Force '.\UPDATE.md'
-        Remove-Item -Force '.\.gitignore'
-
-        Move-Item -Force '.\update\Windows\' '.\Windows\'
-        Move-Item -Force '.\update\PowerShell\' '.\PowerShell\'
-        Move-Item -Force '.\update\bash\' '.\bash\'
-        Move-Item -Force '.\update\MCGradle Scripts.bat' '.\MCGradle Scripts.bat'
-        Move-Item -Force '.\update\MCGradle Scripts.ps1' '.\MCGradle Scripts.ps1'
-        Move-Item -Force '.\update\MCGradle Scripts.sh' '.\MCGradle Scripts.sh'
-        Move-Item -Force '.\update\CHANGELOG.md' '.\CHANGELOG.md'
-        Move-Item -Force '.\update\README.md' '.\README.md'
-        Move-Item -Force '.\update\UPDATE.md' '.\UPDATE.md'
-        Move-Item -Force '.\update\.gitignore' '.\.gitignore'
-
-        Write-Host "Cleaning up..."
-        Remove-Item -Force -Recurse .\update\
+        Write-Host "Would you like to update now? This might take some time. [ y/N ] " -NoNewline
+        $Readhost = Read-Host
+        Switch ($ReadHost)
+        {
+            Y { $MCHasChosen = 1; $MCWantsToUpdate = 1 }
+            N { $MCHasChosen = 1 }
+            Default { $MCHasChosen = 0 }
+        }
 
         Write-Host ""
-        Write-Host "MCGradle Scripts has been successfully updated!"
-        Write-Host "Restarting MCGradle Scripts..."
 
-        Start-Sleep -s 3
-
-        $MCHasUpdated = 1
-
-        & '.\MCGradle Scripts.ps1'
+        if ($MCHasChosen -eq 0)
+        {
+            Write-Host "That's not a valid option." -ForegroundColor Yellow
+        }
     }
-    else
+    while ($MCHasChosen -eq 0)
+
+    if ($MCWantsToUpdate -eq 1)
     {
-        Write-Host "We weren't able to find git on your system!"
-        Write-Host "MCGradle Scripts will not be able to update."
-        Write-Host ""
-    }
+        Write-Host "We want to update."
 
-    $ErrorActionPreference = $MCOldPreference
+        $MCOldPreference = $ErrorActionPreference
+        $ErrorActionPreference = "SilentlyContinue"
+
+        if (Get-Command git)
+        {
+            Write-Host "Downloading MCGradle Scripts..."
+            git clone https://github.com/Jonathing/MCGradle-Scripts.git update -q
+
+            Write-Host "Installing MCGradle Scripts..."
+            Remove-Item -Force -Recurse '.\Windows\'
+            Remove-Item -Force -Recurse '.\PowerShell\'
+            Remove-Item -Force -Recurse '.\bash\'
+            Remove-Item -Force '.\MCGradle Scripts.bat'
+            Remove-Item -Force '.\MCGradle Scripts.ps1'
+            Remove-Item -Force '.\MCGradle Scripts.sh'
+            Remove-Item -Force '.\CHANGELOG.md'
+            Remove-Item -Force '.\README.md'
+            Remove-Item -Force '.\UPDATE.md'
+            Remove-Item -Force '.\.gitignore'
+
+            Move-Item -Force '.\update\Windows\' '.\Windows\'
+            Move-Item -Force '.\update\PowerShell\' '.\PowerShell\'
+            Move-Item -Force '.\update\bash\' '.\bash\'
+            Move-Item -Force '.\update\MCGradle Scripts.bat' '.\MCGradle Scripts.bat'
+            Move-Item -Force '.\update\MCGradle Scripts.ps1' '.\MCGradle Scripts.ps1'
+            Move-Item -Force '.\update\MCGradle Scripts.sh' '.\MCGradle Scripts.sh'
+            Move-Item -Force '.\update\CHANGELOG.md' '.\CHANGELOG.md'
+            Move-Item -Force '.\update\README.md' '.\README.md'
+            Move-Item -Force '.\update\UPDATE.md' '.\UPDATE.md'
+            Move-Item -Force '.\update\.gitignore' '.\.gitignore'
+
+            Write-Host "Cleaning up..."
+            Remove-Item -Force -Recurse .\update\
+
+            Write-Host ""
+            Write-Host "MCGradle Scripts has been successfully updated!"
+            Write-Host "Restarting MCGradle Scripts..."
+
+            Start-Sleep -s 3
+
+            $MCHasUpdated = 1
+
+            & '.\MCGradle Scripts.ps1'
+        }
+        else
+        {
+            Write-Host "We weren't able to find git on your system!"
+            Write-Host "MCGradle Scripts will not be able to update."
+            Write-Host ""
+        }
+
+        $ErrorActionPreference = $MCOldPreference
+    }
 }
 
-if ($MCHasUpdated -eq 0)
+if ($MCHasUpdated -ne 1)
 {
     # Go to root project directory
     Set-Location ..
