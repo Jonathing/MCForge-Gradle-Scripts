@@ -35,6 +35,58 @@ Write-Host $MCGradleGreeting1
 Write-Host $MCGradleGreeting2
 Write-Host ""
 
+$MCWantsToUpdate = 0
+Write-Host "An update is available for MCGradle Scripts!"
+do
+{
+    Write-Host "Would you like to update now? This might take some time. [ y/N ] " -NoNewline
+    $Readhost = Read-Host
+    Switch ($ReadHost)
+    {
+        Y { $MCHasChosen = 1; $MCWantsToUpdate = 1 }
+        N { $MCHasChosen = 1 }
+        Default { $MCHasChosen = 0 }
+    }
+
+    Write-Host ""
+
+    if ($MCHasChosen -eq 0 -And $MCShowOptionsAgain -eq 0)
+    {
+        Write-Host "That's not a valid option." -ForegroundColor Yellow
+    }
+}
+while ($MCHasChosen -eq 0)
+
+if ($MCWantsToUpdate -eq 1)
+{
+    Write-Host "We want to update."
+
+    $MCOldPreference = $ErrorActionPreference
+    $ErrorActionPreference = "SilentlyContinue"
+
+    if (Get-Command git)
+    {
+        git clone https://github.com/Jonathing/MCGradle-Scripts.git update -q
+
+        Remove-Item -Force -Recurse .\Windows\
+        Remove-Item -Force -Recurse .\PowerShell\
+        Remove-Item -Force -Recurse .\bash\
+
+        Move-Item -Force .\update\Windows\ .\Windows\
+        Move-Item -Force .\update\PowerShell\ .\PowerShell\
+        Move-Item -Force .\update\bash\ .\bash\
+    }
+    else
+    {
+        Write-Host "We weren't able to find git on your system!"
+        Write-Host "MCGradle Scripts will not be able to update."
+    }
+
+    $ErrorActionPreference = $MCOldPreference
+}
+
+Pause
+
 # Go to root project directory
 Set-Location ..
 
