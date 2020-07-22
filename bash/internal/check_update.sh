@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Get arguments
+MCGradleArgs=$1
+
 CANNOTUPDATE=0
 
 # Check for curl
@@ -27,12 +30,18 @@ then
         # Extract string within double quotes
         MCGradleUpdateVer=${MCGradleUpdateVer#*'"'}; MCGradleUpdateVer=${MCGradleUpdateVer%'"'*}
 
-        # Inform the user if MCGradle Scripts can be updated
-        if [ $MCGradleVersion != $MCGradleUpdateVer ]
+        if [ "$MCGradleArgs" = "FromHub" ]
         then
-            printf "An update is available for MCGradle Scripts! The latest version is $MCGradleUpdateVer\n"
-            printf "To update, read \"UPDATE.md\" on how to update MCGradle Scripts in your repository.\n\n"
+            MCHubUpdVer="$MCGradleUpdateVer"
+        else
+            # Inform the user if MCGradle Scripts can be updated
+            if [ $MCGradleVersion != $MCGradleUpdateVer ]
+            then
+                printf "An update is available for MCGradle Scripts! The latest version is $MCGradleUpdateVer\n"
+                printf "To update, read \"UPDATE.md\" on how to update MCGradle Scripts in your repository.\n\n"
+            fi
         fi
+
     fi
 
     # Cancel if the update file download failed
