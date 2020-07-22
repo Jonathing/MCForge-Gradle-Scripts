@@ -13,7 +13,7 @@ if ($MCGradleArg -ne "FromHub")
     }
     
     $MCGradleAuthor = "Jonathing"
-    $MCGradleVersion = "0.5.1"
+    $MCGradleVersion = "0.5.2"
 
     # Print script information
     $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
@@ -22,11 +22,12 @@ if ($MCGradleArg -ne "FromHub")
     Write-Host $MCGradleGreeting2
     Write-Host ""
 
-    # Go to root project directory
-    Set-Location ..\..
-
     # Check for update
-    & '.\Scripts\PowerShell\internal\check_update.ps1' $MCGradleVersion
+    Set-Location ..
+    & '.\PowerShell\internal\check_update.ps1' $MCGradleVersion
+
+    # Go to root project directory
+    Set-Location ..
 
     # Get Forge mod name
     & '.\Scripts\PowerShell\internal\get_mod_name.ps1'

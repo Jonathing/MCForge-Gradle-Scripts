@@ -1,5 +1,10 @@
 # MCGradle Scripts Changelog
 
+## 0.5.2
+
+- Added an auto-updater for the PowerShell scripts. Support for the bash scripts coming soon!
+- Fixed `genIntellijRuns.bat` crashing on launch.
+
 ## 0.5.1
 
 - MCGradle Scripts is now licensed under GNU General Public License Version 2.

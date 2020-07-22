@@ -1,5 +1,6 @@
 # Get version number from arguments
 $MCGradleCurrentVer = $args[0]
+$MCGradleArgs = $args[1]
 
 try
 {
@@ -7,7 +8,7 @@ try
     $ProgressPreference = 'SilentlyContinue'
 
     # Attempt to download the update file
-    $MCResponse = Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt -OutFile '.\Scripts\PowerShell\internal\VERSIONS.txt'
+    $MCResponse = Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt -OutFile '.\PowerShell\internal\VERSIONS.txt'
     
     # Revert environment variable change
     $ProgressPreference = 'Continue'
@@ -27,19 +28,19 @@ if ($StatusCode)
     $MCGradleFailMsg2 = "We got a " + $StatusCode + " error when downloading latest version file."
     $MCGradleFailMsg3 = "Please report this to the MCGradle Scripts issue tracker!"
     $MCGradleFailMsg4 = "https://github.com/Jonathing/MCGradle-Scripts/issues"
-    Write-Host $MCGradleFailMsg1
-    Write-Host $MCGradleFailMsg2
-    Write-Host $MCGradleFailMsg3
-    Write-Host $MCGradleFailMsg4
+    Write-Host $MCGradleFailMsg1 -ForegroundColor Red
+    Write-Host $MCGradleFailMsg2 -ForegroundColor Red
+    Write-Host $MCGradleFailMsg3 -ForegroundColor Red
+    Write-Host $MCGradleFailMsg4 -ForegroundColor Red
     Write-Host ""
 }
 else
 {
     # Get the LATESTVERSION line from the update file
-    $MCGradleUpdateVer = Get-Content '.\Scripts\PowerShell\internal\VERSIONS.txt' | Where-Object {$_ -like '*LATESTVERSION=*'}
+    $MCGradleUpdateVer = Get-Content '.\PowerShell\internal\VERSIONS.txt' | Where-Object {$_ -like '*LATESTVERSION=*'}
 
     # Ddelete the update file
-    Remove-Item '.\Scripts\PowerShell\internal\VERSIONS.txt'
+    Remove-Item '.\PowerShell\internal\VERSIONS.txt'
 
     if ($MCGradleUpdateVer)
     {
@@ -50,13 +51,20 @@ else
 
 if ($MCTrueUpdateVer)
 {
-    if ($MCTrueUpdateVer -ne $MCGradleCurrentVer)
+    if ($MCGradleArgs -eq "FromHub")
     {
-        $MCGradleUpdateMsg1 = "An update is available for MCGradle Scripts! The latest version is " + $MCTrueUpdateVer
-        $MCGradleUpdateMsg2 = "To update, read " + [char]0x0022 + "UPDATE.md" + [char]0x0022 + " on how to update MCGradle Scripts in your repository."
-        Write-Host $MCGradleUpdateMsg1
-        Write-Host $MCGradleUpdateMsg2
-        Write-Host ""
+        $MCHubUpdVer = $MCTrueUpdateVer
+    }
+    else
+    {
+        if ($MCTrueUpdateVer -ne $MCGradleCurrentVer)
+        {
+            $MCGradleUpdateMsg1 = "An update is available for MCGradle Scripts! The latest version is " + $MCTrueUpdateVer
+            $MCGradleUpdateMsg2 = "To update, run the main script and follow through with the update process."
+            Write-Host $MCGradleUpdateMsg1 -ForegroundColor Green
+            Write-Host $MCGradleUpdateMsg2 -ForegroundColor Green
+            Write-Host ""
+        }
     }
 }
 else
