@@ -2,6 +2,7 @@
 
 ## 0.5.1
 
+- MCGradle Scripts is now licensed under GNU General Public License Version 2.
 - Tweaked PowerShell title change at the end of the script.
   - Windows: The title will revert to what it was before the script ran.
   - macOS and Linux: The title will be set to null.
