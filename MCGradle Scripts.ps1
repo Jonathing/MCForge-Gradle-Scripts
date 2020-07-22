@@ -4,28 +4,47 @@ Clear-Host
 # Get arguments
 $MCGradleArg = $args[0]
 
+# Get PowerShell version
+if ($PSVersionTable.PSVersion.Major -le 5)
+{
+    $MCGradlePlatform = "Windows PowerShell"
+}
+else
+{
+    $MCGradlePlatform = "PowerShell Core"
+}
+
+if ($MCGradleArg -eq "FromCMD")
+{
+    $MCGradlePlatform += " via Windows Command Prompt"
+}
+
+# Get current PowerShell title (Windows Only)
+if ($PSVersionTable.Platform -eq "Win32NT")
+{
+    $MCCurrentTitle = [System.Console]::Title
+}
+
 $MCGradleAuthor = "Jonathing"
-$MCGradleVersion = "0.5.0"
+$MCGradleVersion = "0.5.1"
 
 # Print script information
-$MCGradleGreeting1 = "MCGradle Scripts"
+$MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
 $MCGradleGreeting2 = "Version " + $MCGradleVersion
-$MCGradleGreeting3 = "Written and Maintained by " + $MCGradleAuthor
 Write-Host $MCGradleGreeting1
 Write-Host $MCGradleGreeting2
-Write-Host $MCGradleGreeting3
 Write-Host ""
 
 # Go to root project directory
 Set-Location ..
 
 # Check for update
-& '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MCGradleVersion
+& '.\Scripts\PowerShell\internal\check_update.ps1' $MCGradleVersion
 
 # Get Forge mod name
-& '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
-$MCProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
-Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
+& '.\Scripts\PowerShell\internal\get_mod_name.ps1'
+$MCProjectName = Get-Content '.\Scripts\PowerShell\internal\MODNAME'
+Remove-Item '.\Scripts\PowerShell\internal\MODNAME'
 
 # Set the title of the Windows PowerShell or PowerShell Core console
 $MCGradleTitle = $MCProjectName + ": MCGradle Scripts Hub"
@@ -37,6 +56,7 @@ $MCGradleOption2 = "2. Set up your Eclipse workspace"
 $MCGradleOption3 = "3. Set up your IntelliJ IDEA workspace"
 $MCGradleOption4 = "4. Generate the Eclipse run configurations"
 $MCGradleOption5 = "5. Generate the IntelliJ IDEA run configurations"
+$MCGradleOption6 = "6. Do a full cleanup of the workspace"
 $MCGradleOptionInfo2 = "MCGradle Scripts Options"
 $MCGradleOptionC = "C. Clear the screen"
 $MCGradleOptionR = "R. Show the options again"
@@ -58,6 +78,7 @@ do
             Write-Host $MCGradleOption3
             Write-Host $MCGradleOption4
             Write-Host $MCGradleOption5
+            Write-Host $MCGradleOption6
             Write-Host ""
             Write-Host $MCGradleOptionInfo2
             Write-Host $MCGradleOptionC
@@ -71,7 +92,7 @@ do
             Write-Host "Press R to see the options again." -ForegroundColor Yellow
         }
         $MCShowOptionsAgain = 0
-        Write-Host "Please pick an option [ 1-5, R, Q, ... ] " -ForegroundColor Yellow -NoNewline
+        Write-Host "Please pick an option [ 1-6, R, Q, ... ] " -ForegroundColor Yellow -NoNewline
         $Readhost = Read-Host
         Switch ($ReadHost)
         { 
@@ -80,6 +101,7 @@ do
             3 { $MCHasChosen = 1; $MCGradleCommand = 3 }
             4 { $MCHasChosen = 1; $MCGradleCommand = 4 }
             5 { $MCHasChosen = 1; $MCGradleCommand = 5 }
+            6 { $MCHasChosen = 1; $MCGradleCommand = 6 }
             C { $MCHasChosen = 1; $MCGradleCommand = 97; $MCShowOptionsAgain = 1 }
             A { $MCHasChosen = 1; $MCGradleCommand = 98 }
             Q { $MCHasChosen = 1; $MCGradleCommand = 99 }
@@ -98,31 +120,27 @@ do
 
     Switch ($MCGradleCommand)
     {
-        1 { & '.\Scripts\PowerShell Scripts\Build Project.ps1' "FromHub" }
-        2 { & '.\Scripts\PowerShell Scripts\Set up Eclipse.ps1' "FromHub" }
-        3 { & '.\Scripts\PowerShell Scripts\Set up IntelliJ.ps1' "FromHub" }
-        4 { & '.\Scripts\PowerShell Scripts\Make Eclipse Runs.ps1' "FromHub" }
-        5 { & '.\Scripts\PowerShell Scripts\Make IntelliJ Runs.ps1' "FromHub" }
+        1 { & '.\Scripts\PowerShell\build.ps1' "FromHub" }
+        2 { & '.\Scripts\PowerShell\setup_eclipse.ps1' "FromHub" }
+        3 { & '.\Scripts\PowerShell\setup_intellij.ps1' "FromHub" }
+        4 { & '.\Scripts\PowerShell\genEclipseRuns.ps1' "FromHub" }
+        5 { & '.\Scripts\PowerShell\genIntellijRuns.ps1' "FromHub" }
+        6 { & '.\Scripts\PowerShell\full_clean.ps1' "FromHub" }
         97 { Clear-Host }
         98
         {
-            $MCGradleAbout1 = "MCGradle Scripts is available on the following platforms:"
-            $MCGradleAbout2 = "Windows - Windows Commant Prompt, Windows PowerShell, PowerShell Core"
-            $MCGradleAbout3 = "macOS - PowerShell Core, GNU bash"
-            $MCGradleAbout4 = "GNU/Linux - PowerShell Core, GNU bash"
+            $MCGradleAbout1 = "MCGradle Scripts"
+            $MCGradleAbout2 = "Written and Maintained by " + $MCGradleAuthor
+            $MCGradlePlatformMsg = "Running on " + $MCGradlePlatform
 
             $MCGradleThanks1 = "Original Windows batch scripts written by Bailey (KingPhygieBoo)"
 
-            Write-Host $MCGradleGreeting1
+            Write-Host $MCGradleAbout1
             Write-Host $MCGradleGreeting2
-            Write-Host $MCGradleGreeting3
+            Write-Host $MCGradlePlatformMsg
+            Write-Host $MCGradleAbout2
             Write-Host ""
             Write-Host $MCGradleThanks1
-            Write-Host ""
-            Write-Host $MCGradleAbout1
-            Write-Host $MCGradleAbout2
-            Write-Host $MCGradleAbout3
-            Write-Host $MCGradleAbout4
             Write-Host ""
 
             Pause
@@ -137,6 +155,16 @@ while ($MCGradleCommand -ne 99)
 
 # Return to scripts directory
 Set-Location .\Scripts\
+
+# Revert PowerShell title (Windows Only)
+if ($PSVersionTable.Platform -eq "Win32NT")
+{
+    [System.Console]::Title = $MCCurrentTitle
+}
+else
+{
+    [System.Console]::Title = ""
+}
 
 Write-Host ""
 exit 0

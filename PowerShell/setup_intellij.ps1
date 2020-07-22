@@ -6,28 +6,32 @@ if ($MCGradleArg -ne "FromHub")
     # Clear the screen
     Clear-Host
 
+    # Get current PowerShell title (Windows Only)
+    if ($PSVersionTable.Platform -eq "Win32NT")
+    {
+        $MCCurrentTitle = [System.Console]::Title
+    }
+    
     $MCGradleAuthor = "Jonathing"
-    $MCGradleVersion = "0.5.0"
+    $MCGradleVersion = "0.5.1"
 
     # Print script information
-    $MCGradleGreeting1 = "MCGradle Scripts"
+    $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
     $MCGradleGreeting2 = "Version " + $MCGradleVersion
-    $MCGradleGreeting3 = "Written and Maintained by " + $MCGradleAuthor
     Write-Host $MCGradleGreeting1
     Write-Host $MCGradleGreeting2
-    Write-Host $MCGradleGreeting3
     Write-Host ""
 
     # Go to root project directory
     Set-Location ..\..
 
     # Check for update
-    & '.\Scripts\PowerShell Scripts\internal\check_update.ps1' $MCGradleVersion
+    & '.\Scripts\PowerShell\internal\check_update.ps1' $MCGradleVersion
 
     # Get Forge mod name
-    & '.\Scripts\PowerShell Scripts\internal\get_mod_name.ps1'
-    $MCProjectName = Get-Content '.\Scripts\PowerShell Scripts\internal\MODNAME'
-    Remove-Item '.\Scripts\PowerShell Scripts\internal\MODNAME'
+    & '.\Scripts\PowerShell\internal\get_mod_name.ps1'
+    $MCProjectName = Get-Content '.\Scripts\PowerShell\internal\MODNAME'
+    Remove-Item '.\Scripts\PowerShell\internal\MODNAME'
 }
 
 # Set the title of the Windows PowerShell console
@@ -43,12 +47,6 @@ Write-Host $MCIntellijMessage2
 Write-Host $MCIntellijMessage3
 Write-Host ""
 
-if ($MCGradleArg -ne "FromHub")
-{
-    # Return to scripts directory
-    Set-Location '.\Scripts\PowerShell Scripts\'
-}
-
 # END OF SCRIPT
 Pause
 
@@ -58,6 +56,33 @@ if ($MCGradleArg -eq "FromHub")
     $MCGradleTitle = $MCProjectName + ": MCGradle Scripts Hub"
     [System.Console]::Title = $MCGradleTitle
 }
+else
+{
+    Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
 
-Write-Host ""
+    # Return to scripts directory
+    if ($MCGradleArg -eq "FromCMD")
+    {
+        Set-Location '.\Scripts\Windows\'
+    }
+    else
+    {
+        Set-Location '.\Scripts\PowerShell\'
+    }
+
+    # Revert PowerShell title (Windows Only)
+    if ($PSVersionTable.Platform -eq "Win32NT")
+    {
+        [System.Console]::Title = $MCCurrentTitle
+    }
+    else
+    {
+        [System.Console]::Title = ""
+    }
+}
+
+if ($MCGradleArg -ne "FromCMD")
+{
+    Write-Host ""
+}
 exit 0

@@ -58,4 +58,4 @@ Are you a PowerShell supremecist? Not a problem! To run one of the PowerShell sc
 
 ### GNU bash
 
-Tired of Microsft spying on you? I've made MCGradle Scripts for bash as well! To run one of the shell scripts, run the script manually from the command line. If for some reason the shell script is not executable, run `chmod +x [script name here].sh` in your terminal, and then run the script.
+Tired of Microsft spying on you? I've made MCGradle Scripts for bash as well! To run one of the shell scripts, run the script manually from the command line. If for some reason the shell script is not executable, run `chmod +x [script_name_here].sh` in your terminal, and then run the script.

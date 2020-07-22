@@ -9,13 +9,13 @@ then
     clear
 
     MCGradleAuthor="Jonathing"
-    MCGradleVersion="0.5.0"
+    MCGradleVersion="0.5.1"
 
     # Print script information
-    echo "MCGradle Scripts"
-    echo "Version $MCGradleVersion"
-    echo "Written and Maintained by $MCGradleAuthor"
-    echo ""
+    MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
+    MCGradleGreeting2="Version $MCGradleVersion"
+    printf "$MCGradleGreeting1\n"
+    printf "$MCGradleGreeting2\n\n"
 
     # Check for update
     . ./internal/check_update.sh
@@ -28,21 +28,21 @@ then
     MCProjectName=${MCProjectName#*'"'}; MCProjectName=${MCProjectName%'"'*}
 fi
 
-# Inform user that IntelliJ set up is done by IntelliJ IDEA
-echo "The IntelliJ IDEA workspace for Forge is no longer set up through a command."
-echo "To import the project to IntelliJ IDEA, simply open the \"build.gradle\" file as a project."
-echo "Gradle will do the rest for you as it imports and indexes the project into IntelliJ."
-echo ""
+# Generate the IntelliJ IDEA run configs
+printf "Generating the IntelliJ IDEA run configurations for $MCProjectName...\n\n"
+./gradlew genIntellijRuns --warning-mode none
+printf "\nFinished generating the IntelliJ IDEA run configurations for $MCProjectName.\n"
 
 if [ "$MCGradleArgs" != "FromHub" ]
 then
     # Return to scripts directory
-    cd Scripts/bash\ Scripts/
+    cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
+    printf "\n\e[91mQuitting MCGradle Scripts...\e[39m\n"
 else
     read -s -n 1 -p "Press any key to return to the MCGradle Scripts Hub..."
+    printf "\n"
 fi
 
 # END OF SCRIPT
-echo ""
-echo ""
+printf "\n"

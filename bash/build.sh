@@ -9,13 +9,13 @@ then
     clear
 
     MCGradleAuthor="Jonathing"
-    MCGradleVersion="0.5.0"
+    MCGradleVersion="0.5.1"
 
     # Print script information
-    echo "MCGradle Scripts"
-    echo "Version $MCGradleVersion"
-    echo "Written and Maintained by $MCGradleAuthor"
-    echo ""
+    MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
+    MCGradleGreeting2="Version $MCGradleVersion"
+    printf "$MCGradleGreeting1\n"
+    printf "$MCGradleGreeting2\n\n"
 
     # Check for update
     . ./internal/check_update.sh
@@ -28,22 +28,22 @@ then
     MCProjectName=${MCProjectName#*'"'}; MCProjectName=${MCProjectName%'"'*}
 fi
 
-# Generate the Eclipse run configs
-echo "Generating the Eclipse run configurations for $MCProjectName..."
-echo ""
-./gradlew genEclipseRuns --warning-mode none
-echo ""
-echo "Finished generating the Eclipse run configurations for $MCProjectName."
+# Build the project
+printf "Building $MCProjectName...\n\n"
+./gradlew build --warning-mode none
+printf "\nFinished building $MCProjectName.\n"
+printf "If the build was successful, the output should be located under build\libs\n"
 
 if [ "$MCGradleArgs" != "FromHub" ]
 then
     # Return to scripts directory
-    cd Scripts/bash\ Scripts/
+    cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
+    printf "\n\e[91mQuitting MCGradle Scripts...\e[39m\n"
 else
     read -s -n 1 -p "Press any key to return to the MCGradle Scripts Hub..."
+    printf "\n"
 fi
 
 # END OF SCRIPT
-echo ""
-echo ""
+printf "\n"

@@ -1,5 +1,23 @@
 # MCGradle Scripts Changelog
 
+## 0.5.1
+
+- MCGradle Scripts is now licensed under GNU General Public License Version 2.
+- Tweaked PowerShell title change at the end of the script.
+  - Windows: The title will revert to what it was before the script ran.
+  - macOS and Linux: The title will be set to null.
+- The PowerShell script will now detect if you are running Windows PowerShell or PowerShell Core, and whether or not you are running it through Windows Command Prmopt.
+- Simplified the greeting screen to take up less space.
+- Refactored the scripts to be cli friendly.
+- Added an option to do a full cleanup of the workspace.
+  - This option will delete your build, eclipse, and .idea folders, along with any other cache files.
+- Fixed Gradle deleting the PowerShell title after it finishes running a task.
+- Fixed the bash version of MCGradle Scripts not accepting lower case values.
+- The colors in the bash version of MCGradle Scripts now match that of the PowerShell version.
+- Fixed genIntellijRuns for PowerShell not echoing a message to the console.
+- The Windows Command Prompt wrapper for PowerShell will now return to the Windows directory after it finished (for the subscripts).
+- General bug fixes and performance improvements (view commit history for more details).
+
 ## 0.5.0
 
 - Cleaned up the scripts and made them easier to read.

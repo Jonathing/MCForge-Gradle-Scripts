@@ -1,15 +1,13 @@
 # Get version number from arguments
 $MCGradleCurrentVer = $args[0]
 
-# Write-Host $MCGradleCurrentVer
-
 try
 {
     # Hide download progress from user
     $ProgressPreference = 'SilentlyContinue'
 
     # Attempt to download the update file
-    $MCResponse = Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt -OutFile '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt'
+    $MCResponse = Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/VERSIONS.txt -OutFile '.\Scripts\PowerShell\internal\VERSIONS.txt'
     
     # Revert environment variable change
     $ProgressPreference = 'Continue'
@@ -38,10 +36,10 @@ if ($StatusCode)
 else
 {
     # Get the LATESTVERSION line from the update file
-    $MCGradleUpdateVer = Get-Content '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt' | Where-Object {$_ -like '*LATESTVERSION=*'}
+    $MCGradleUpdateVer = Get-Content '.\Scripts\PowerShell\internal\VERSIONS.txt' | Where-Object {$_ -like '*LATESTVERSION=*'}
 
     # Ddelete the update file
-    Remove-Item '.\Scripts\PowerShell Scripts\internal\VERSIONS.txt'
+    Remove-Item '.\Scripts\PowerShell\internal\VERSIONS.txt'
 
     if ($MCGradleUpdateVer)
     {
