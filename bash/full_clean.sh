@@ -115,8 +115,7 @@ if [ "$MCHasConfirmed" -eq 1 ]; then
         printf "\n"
     fi
 
-    if [ "$MCGradleArgs" != "FromHub" ]
-    then
+    if [ "$MCGradleArgs" != "FromHub" ]; then
         # Return to scripts directory
         cd Scripts/bash/
         read -s -n 1 -p "Press any key to exit MCGradle Scripts..."

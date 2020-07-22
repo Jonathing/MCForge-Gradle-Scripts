@@ -3,8 +3,7 @@
 # Get arguments
 MCGradleArgs=$1
 
-if [ "$MCGradleArgs" != "FromHub" ]
-then
+if [ "$MCGradleArgs" != "FromHub" ]; then
     # Clear the screen
     clear
 
@@ -33,8 +32,7 @@ printf "Generating the Eclipse run configurations for $MCProjectName...\n\n"
 ./gradlew genEclipseRuns --warning-mode none
 printf "\nFinished generating the Eclipse run configurations for $MCProjectName.\n"
 
-if [ "$MCGradleArgs" != "FromHub" ]
-then
+if [ "$MCGradleArgs" != "FromHub" ]; then
     # Return to scripts directory
     cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."

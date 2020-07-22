@@ -3,8 +3,7 @@
 # Get arguments
 MCGradleArgs=$1
 
-if [ "$MCGradleArgs" != "FromHub" ]
-then
+if [ "$MCGradleArgs" != "FromHub" ]; then
     # Clear the screen
     clear
 
@@ -33,8 +32,7 @@ printf "The IntelliJ IDEA workspace for Forge is no longer set up through a comm
 printf "To import the project to IntelliJ IDEA, simply open the \"build.gradle\" file as a project.\n"
 printf "Gradle will do the rest for you as it imports and indexes the project into IntelliJ.\n\n"
 
-if [ "$MCGradleArgs" != "FromHub" ]
-then
+if [ "$MCGradleArgs" != "FromHub" ]; then
     # Return to scripts directory
     cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."

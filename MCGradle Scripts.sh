@@ -7,7 +7,7 @@ clear
 MCGradleArgs=$1
 
 MCGradleAuthor="Jonathing"
-MCGradleVersion="0.5.1"
+MCGradleVersion="0.5.2"
 
 # Print script information
 MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
@@ -53,8 +53,7 @@ if [ "$MCHubUpdVer" != "$MCGradleVersion" ]; then
         printf "We want to update\n"
 
         # Check for curl
-        if command -v git &> /dev/null
-        then
+        if command -v git &> /dev/null; then
             printf "Downloading MCGradle Scripts...\n"
             git clone https://github.com/Jonathing/MCGradle-Scripts.git update -q
 
@@ -132,8 +131,7 @@ if [ "$MCHasUpdated" -ne 1 ]; then
 
     while [ "$MCGradleCommand" -ne 99 ]; do
         while [ "$MCHasChosen" -eq 0 ]; do
-            if [ "$MCShowOptionsAgain" -eq 1 ]
-            then
+            if [ "$MCShowOptionsAgain" -eq 1 ]; then
                 printf "$MCGradleOptionInfo1\n"
                 printf "$MCGradleOption1\n"
                 printf "$MCGradleOption2\n"
@@ -205,8 +203,7 @@ if [ "$MCHasUpdated" -ne 1 ]; then
                 ;;
             esac
 
-            if [ "$MCHasChosen" -eq 0 -a "$MCShowOptionsAgain" -eq 0 ]
-            then
+            if [ "$MCHasChosen" -eq 0 -a "$MCShowOptionsAgain" -eq 0 ]; then
                 printf "\e[93mThat's not a valid option.\e[39m\n"
             fi
         done
