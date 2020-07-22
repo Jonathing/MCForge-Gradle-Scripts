@@ -26,7 +26,7 @@ if ($PSVersionTable.Platform -eq "Win32NT")
 }
 
 $MCGradleAuthor = "Jonathing"
-$MCGradleVersion = "0.5.0"
+$MCGradleVersion = "0.5.1"
 
 # Print script information
 $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
