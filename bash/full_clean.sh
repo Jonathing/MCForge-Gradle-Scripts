@@ -43,8 +43,7 @@ Y | y)
     ;;
 esac
 
-if [ "$MCHasConfirmed" -eq 1 ]
-then
+if [ "$MCHasConfirmed" -eq 1 ]; then
     echo "Deleting Eclipse run configs and other cache files..."
     if ls ./*.launch 1> /dev/null 2>&1; then
         rm *.launch
@@ -82,6 +81,54 @@ then
         rm ./*.iml
     fi
     
+    MCHasBuildFolder=0
+    MCHasEclipse=0
+    MCHasOneOrOther=0
+
+    if [ -d "./build" ]; then
+        MCHasBuildFolder=1
+    fi
+
+    if [ -f "./.classpath" ]; then
+        MCHasEclipse=1
+    fi
+
+    if [ "$MCHasBuildFolder" -eq 1 -a "$MCHasEclipse" -eq 1 ]; then
+        # Delete the folders via Gradle
+        echo "Calling Gradle to clean up the Eclipse workspace and build output..."
+        echo ""
+        ./gradlew clean cleanEclipse --warning-mode none
+        echo ""
+    else
+        MCHasOneOrOther=1
+    fi
+
+    if [ "$MCHasBuildFolder" -eq 1 -a "$MCHasOneOrOther" -eq 1 ]; then
+        # Delete the build folder via Gradle
+        echo "Calling Gradle to clean up the build output..."
+        echo ""
+        ./gradlew clean --warning-mode none
+        echo ""
+    fi
+
+    if [ "$MCHasEclipse" -eq 1 -a "$MCHasOneOrOther" -eq 1 ]; then
+        # Delete the eclipse folder via Gradle
+        echo "Calling Gradle to clean up the Eclipse workspace..."
+        echo ""
+        ./gradlew cleanEclipse --warning-mode none
+        echo ""
+    fi
+
+    if [ "$MCGradleArgs" != "FromHub" ]
+    then
+        # Return to scripts directory
+        cd Scripts/bash/
+        read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
+        echo ""
+        echo -e "\e[31mQuitting MCGradle Scripts...\e[39m"
+    else
+        read -s -n 1 -p "Press any key to return to the MCGradle Scripts Hub..."
+    fi
 fi
 
-# [ -d "${d}" ] &&  echo "Directory $d found." || echo "Directory $d not found."
+echo ""

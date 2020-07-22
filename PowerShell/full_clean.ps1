@@ -106,7 +106,7 @@ if ($MCHasConfirmed -eq 1)
     }
     elseif ($MCHasEclipse -eq 1)
     {
-        # Delete the eclipse via Gradle
+        # Delete the eclipse folder via Gradle
         $MCTaskMessage = "Calling Gradle to clean up the Eclipse workspace..."
         Write-Host $MCTaskMessage
         Write-Host ""
