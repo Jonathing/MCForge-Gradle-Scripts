@@ -32,6 +32,7 @@ MCGradleOption2="2. Set up your Eclipse workspace"
 MCGradleOption3="3. Set up your IntelliJ IDEA workspace"
 MCGradleOption4="4. Generate the Eclipse run configurations"
 MCGradleOption5="5. Generate the IntelliJ IDEA run configurations"
+MCGradleOption6="6. Do a full cleanup of the workspace"
 MCGradleOptionInfo2="MCGradle Scripts Options"
 MCGradleOptionC="C. Clear the screen"
 MCGradleOptionR="R. Show the options again"
@@ -55,6 +56,7 @@ while [ "$MCGradleCommand" -ne 99 ]; do
             echo "$MCGradleOption3"
             echo "$MCGradleOption4"
             echo "$MCGradleOption5"
+            echo "$MCGradleOption6"
             echo ""
             echo "$MCGradleOptionInfo2"
             echo "$MCGradleOptionC"
@@ -92,6 +94,10 @@ while [ "$MCGradleCommand" -ne 99 ]; do
         5)
             MCHasChosen=1
             MCGradleCommand=5
+            ;;
+        6)
+            MCHasChosen=1
+            MCGradleCommand=6
             ;;
         C | c)
             MCHasChosen=1
@@ -141,6 +147,10 @@ while [ "$MCGradleCommand" -ne 99 ]; do
         ;;
     5)
         . ./Scripts/bash/genIntellijRuns.sh FromHub
+        MCHasChosen=0
+        ;;
+    6)
+        . ./Scripts/bash/full_clean.sh FromHub
         MCHasChosen=0
         ;;
     97)

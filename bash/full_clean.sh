@@ -128,7 +128,7 @@ if [ "$MCHasConfirmed" -eq 1 ]; then
         echo -e "\e[31mQuitting MCGradle Scripts...\e[39m"
     else
         read -s -n 1 -p "Press any key to return to the MCGradle Scripts Hub..."
+        echo ""
+        echo ""
     fi
 fi
-
-echo ""
