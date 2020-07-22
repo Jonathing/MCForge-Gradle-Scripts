@@ -14,9 +14,8 @@ then
     # Print script information
     MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
     MCGradleGreeting2="Version $MCGradleVersion"
-    echo "$MCGradleGreeting1"
-    echo "$MCGradleGreeting2"
-    echo ""
+    printf "$MCGradleGreeting1\n"
+    printf "$MCGradleGreeting2\n\n"
 
     # Check for update
     . ./internal/check_update.sh
@@ -30,23 +29,21 @@ then
 fi
 
 # Build the project
-echo "Building $MCProjectName..."
-echo ""
+printf "Building $MCProjectName...\n\n"
 ./gradlew build --warning-mode none
-echo ""
-echo "Finished building $MCProjectName."
-echo "If the build was successful, the output should be located under build\libs"
+printf "\nFinished building $MCProjectName.\n"
+printf "If the build was successful, the output should be located under build\libs\n"
 
 if [ "$MCGradleArgs" != "FromHub" ]
 then
     # Return to scripts directory
     cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
-    echo ""
-    echo -e "\e[91mQuitting MCGradle Scripts...\e[39m"
+    printf "\n\e[91mQuitting MCGradle Scripts...\e[39m\n"
 else
     read -s -n 1 -p "Press any key to return to the MCGradle Scripts Hub..."
+    printf "\n"
 fi
 
 # END OF SCRIPT
-echo ""
+printf "\n"

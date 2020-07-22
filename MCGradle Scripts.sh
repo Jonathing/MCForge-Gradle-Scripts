@@ -12,9 +12,9 @@ MCGradleVersion="0.5.0"
 # Print script information
 MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
 MCGradleGreeting2="Version $MCGradleVersion"
-echo "$MCGradleGreeting1"
-echo "$MCGradleGreeting2"
-echo ""
+printf "$MCGradleGreeting1\n"
+printf "$MCGradleGreeting2\n"
+printf "\n"
 
 # Go to root project directory
 cd ..
@@ -38,8 +38,7 @@ MCGradleOptionC="C. Clear the screen"
 MCGradleOptionR="R. Show the options again"
 MCGradleOptionA="A. About MCGradle Scripts"
 MCGradleOptionQ="Q. Quit MCGradle Scripts"
-echo "What would you like to do today?"
-echo ""
+printf "What would you like to do today?\n\n"
 MCShowOptionsAgain=1
 
 MCGradleCommand=0
@@ -50,29 +49,28 @@ while [ "$MCGradleCommand" -ne 99 ]; do
     while [ "$MCHasChosen" -eq 0 ]; do
         if [ "$MCShowOptionsAgain" -eq 1 ]
         then
-            echo "$MCGradleOptionInfo1"
-            echo "$MCGradleOption1"
-            echo "$MCGradleOption2"
-            echo "$MCGradleOption3"
-            echo "$MCGradleOption4"
-            echo "$MCGradleOption5"
-            echo "$MCGradleOption6"
-            echo ""
-            echo "$MCGradleOptionInfo2"
-            echo "$MCGradleOptionC"
-            echo "$MCGradleOptionR"
-            echo "$MCGradleOptionA"
-            echo "$MCGradleOptionQ"
-            echo ""
+            printf "$MCGradleOptionInfo1\n"
+            printf "$MCGradleOption1\n"
+            printf "$MCGradleOption2\n"
+            printf "$MCGradleOption3\n"
+            printf "$MCGradleOption4\n"
+            printf "$MCGradleOption5\n"
+            printf "$MCGradleOption6\n"
+            printf "\n"
+            printf "$MCGradleOptionInfo2\n"
+            printf "$MCGradleOptionC\n"
+            printf "$MCGradleOptionR\n"
+            printf "$MCGradleOptionA\n"
+            printf "$MCGradleOptionQ\n\n"
         else
-            echo -e "\e[93mPress R to see the options again.\e[39m"
+            printf "\e[93mPress R to see the options again.\e[39m\n"
         fi
         
         MCShowOptionsAgain=0
         printf "\e[93mPlease pick an option [ 1-6, R, Q, ... ] \e[39m"
 
         read MCReadHost
-        echo ""
+        printf "\n"
 
         case $MCReadHost in
         1)
@@ -124,7 +122,7 @@ while [ "$MCGradleCommand" -ne 99 ]; do
 
         if [ "$MCHasChosen" -eq 0 -a "$MCShowOptionsAgain" -eq 0 ]
         then
-            echo -e "\e[93mThat's not a valid option.\e[39m"
+            printf "\e[93mThat's not a valid option.\e[39m\n"
         fi
     done
 
@@ -158,26 +156,24 @@ while [ "$MCGradleCommand" -ne 99 ]; do
         MCHasChosen=0
         ;;
     98)
-        echo "MCGradle Scripts"
-        echo "$MCGradleGreeting2"
-        echo "Running on GNU bash"
-        echo "Written and Maintained by $MCGradleAuthor"
-        echo ""
-        echo "Original Windows batch scripts written by Bailey (KingPhygieBoo)"
-        echo ""
+        printf "MCGradle Scripts\n"
+        printf "$MCGradleGreeting2\n"
+        printf "Running on GNU bash\n"
+        printf "Written and Maintained by $MCGradleAuthor\n\n"
+
+        printf "Original Windows batch scripts written by Bailey (KingPhygieBoo)\n\n"
 
         read -s -n 1 -p "Press any key to continue..."
 
-        echo ""
-        echo ""
+        printf "\n\n"
         MCHasChosen=0
         ;;
     99)
-        echo -e "\e[91mQuitting MCGradle Scripts...\e[39m"
+        printf "\e[91mQuitting MCGradle Scripts...\e[39m\n"
         MCHasChosen=0
         ;;
     *)
-        echo -e "\e[91mAn error has occured.\e[39m"
+        printf "\e[91mAn error has occured.\e[39m\n"
         MCHasChosen=0
         ;;
     esac
@@ -186,5 +182,5 @@ done
 # Return to scripts directory
 cd Scripts/
 
-echo ""
+printf "\n"
 exit 0

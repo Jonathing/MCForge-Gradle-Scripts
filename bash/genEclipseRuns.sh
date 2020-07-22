@@ -14,9 +14,8 @@ then
     # Print script information
     MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
     MCGradleGreeting2="Version $MCGradleVersion"
-    echo "$MCGradleGreeting1"
-    echo "$MCGradleGreeting2"
-    echo ""
+    printf "$MCGradleGreeting1\n"
+    printf "$MCGradleGreeting2\n\n"
 
     # Check for update
     . ./internal/check_update.sh
@@ -30,22 +29,20 @@ then
 fi
 
 # Generate the Eclipse run configs
-echo "Generating the Eclipse run configurations for $MCProjectName..."
-echo ""
+printf "Generating the Eclipse run configurations for $MCProjectName...\n\n"
 ./gradlew genEclipseRuns --warning-mode none
-echo ""
-echo "Finished generating the Eclipse run configurations for $MCProjectName."
+printf "\nFinished generating the Eclipse run configurations for $MCProjectName.\n"
 
 if [ "$MCGradleArgs" != "FromHub" ]
 then
     # Return to scripts directory
     cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
-    echo ""
-    echo -e "\e[91mQuitting MCGradle Scripts...\e[39m"
+    printf "\n\e[91mQuitting MCGradle Scripts...\e[39m\n"
 else
     read -s -n 1 -p "Press any key to return to the MCGradle Scripts Hub..."
+    printf "\n"
 fi
 
 # END OF SCRIPT
-echo ""
+printf "\n"

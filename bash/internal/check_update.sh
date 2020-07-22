@@ -11,9 +11,8 @@ fi
 # Cancel update if curl was not found
 if [ $CANNOTUPDATE -eq 1 ]
 then
-    echo "curl was not found on your Linux system!"
-    echo "MCGradle Scripts will not be able to check for updates."
-    echo ""
+    printf "curl was not found on your Linux system!\n"
+    printf "MCGradle Scripts will not be able to check for updates.\n\n"
 fi
 
 # Continue if curl was found
@@ -31,18 +30,16 @@ then
         # Inform the user if MCGradle Scripts can be updated
         if [ $MCGradleVersion != $MCGradleUpdateVer ]
         then
-            echo "An update is available for MCGradle Scripts! The latest version is $MCGradleUpdateVer"
-            echo "To update, read \"UPDATE.md\" on how to update MCGradle Scripts in your repository."
-            echo ""
+            printf "An update is available for MCGradle Scripts! The latest version is $MCGradleUpdateVer\n"
+            printf "To update, read \"UPDATE.md\" on how to update MCGradle Scripts in your repository.\n\n"
         fi
     fi
 
     # Cancel if the update file download failed
     if [ ! $MCGradleUpdateVer ]
     then
-        echo "MCGradle Scripts failed to check for updates!"
-        echo "If you are connected to the internet without issues, report this to the issue tracker!"
-        echo "https://github.com/Jonathing/MCGradle-Scripts/issues"
-        echo ""
+        printf "MCGradle Scripts failed to check for updates!\n"
+        printf "If you are connected to the internet without issues, report this to the issue tracker!\n"
+        printf "https://github.com/Jonathing/MCGradle-Scripts/issues\n\n"
     fi
 fi

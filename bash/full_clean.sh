@@ -13,9 +13,8 @@ if [ "$MCGradleArgs" != "FromHub" ]; then
     # Print script information
     MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
     MCGradleGreeting2="Version $MCGradleVersion"
-    echo "$MCGradleGreeting1"
-    echo "$MCGradleGreeting2"
-    echo ""
+    printf "$MCGradleGreeting1\n"
+    printf "$MCGradleGreeting2\n\n"
 
     # Check for update
     . ./internal/check_update.sh
@@ -28,11 +27,11 @@ if [ "$MCGradleArgs" != "FromHub" ]; then
     MCProjectName=${MCProjectName#*'"'}; MCProjectName=${MCProjectName%'"'*}
 fi
 
-echo -e "\e[93mWARNING: THIS ACTION WILL DELETE YOUR BUILD FOLDER, ECLIPSE/INTELLIJ WORKSPACE, AND ANY RUN CONFIGURATIONS!"
-echo "THE RUN FOLDER WILL NOT BE DELETED BECAUSE IT IS NOT REQUIRED FOR A FULL CLEANUP."
+printf "\e[93mWARNING: THIS ACTION WILL DELETE YOUR BUILD FOLDER, ECLIPSE/INTELLIJ WORKSPACE, AND ANY RUN CONFIGURATIONS!\n"
+printf "THE RUN FOLDER WILL NOT BE DELETED BECAUSE IT IS NOT REQUIRED FOR A FULL CLEANUP.\n"
 printf "ARE YOU SURE YOU WANT TO DO THIS? \e[91mTHIS ACTION CANNOT BE UNDONE! \e[93m[ y/N ] \e[39m"
 read MCReadHost
-echo ""
+printf "\n"
 
 case $MCReadHost in
 Y | y)
@@ -44,7 +43,7 @@ Y | y)
 esac
 
 if [ "$MCHasConfirmed" -eq 1 ]; then
-    echo "Deleting Eclipse run configs and other cache files..."
+    printf "Deleting Eclipse run configs and other cache files...\n"
     if ls ./*.launch 1> /dev/null 2>&1; then
         rm *.launch
     fi
@@ -52,7 +51,7 @@ if [ "$MCHasConfirmed" -eq 1 ]; then
         rm -r ./.settings
     fi
 
-    echo "Deleting IntelliJ run configs and other cache files..."
+    printf "Deleting IntelliJ run configs and other cache files...\n"
     if [ -d "./.idea/runConfigurations" ]; then
         rm -r ./.idea/runConfigurations
     fi
@@ -95,28 +94,25 @@ if [ "$MCHasConfirmed" -eq 1 ]; then
 
     if [ "$MCHasBuildFolder" -eq 1 -a "$MCHasEclipse" -eq 1 ]; then
         # Delete the folders via Gradle
-        echo "Calling Gradle to clean up the Eclipse workspace and build output..."
-        echo ""
+        printf "Calling Gradle to clean up the Eclipse workspace and build output...\n\n"
         ./gradlew clean cleanEclipse --warning-mode none
-        echo ""
+        printf "\n"
     else
         MCHasOneOrOther=1
     fi
 
     if [ "$MCHasBuildFolder" -eq 1 -a "$MCHasOneOrOther" -eq 1 ]; then
         # Delete the build folder via Gradle
-        echo "Calling Gradle to clean up the build output..."
-        echo ""
+        printf "Calling Gradle to clean up the build output...\n\n"
         ./gradlew clean --warning-mode none
-        echo ""
+        printf "\n"
     fi
 
     if [ "$MCHasEclipse" -eq 1 -a "$MCHasOneOrOther" -eq 1 ]; then
         # Delete the eclipse folder via Gradle
-        echo "Calling Gradle to clean up the Eclipse workspace..."
-        echo ""
+        printf "Calling Gradle to clean up the Eclipse workspace...\n\n"
         ./gradlew cleanEclipse --warning-mode none
-        echo ""
+        printf "\n"
     fi
 
     if [ "$MCGradleArgs" != "FromHub" ]
@@ -124,11 +120,9 @@ if [ "$MCHasConfirmed" -eq 1 ]; then
         # Return to scripts directory
         cd Scripts/bash/
         read -s -n 1 -p "Press any key to exit MCGradle Scripts..."
-        echo ""
-        echo -e "\e[91mQuitting MCGradle Scripts...\e[39m"
+        printf "\n\e[91mQuitting MCGradle Scripts...\e[39m"
     else
         read -s -n 1 -p "Press any key to return to the MCGradle Scripts Hub..."
-        echo ""
-        echo ""
+        printf "\n\n"
     fi
 fi
