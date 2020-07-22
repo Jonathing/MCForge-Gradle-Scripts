@@ -92,5 +92,8 @@ else
     }
 }
 
-Write-Host ""
+if ($MCGradleArg -ne "FromCMD")
+{
+    Write-Host ""
+}
 exit 0
