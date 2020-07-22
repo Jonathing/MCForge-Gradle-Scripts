@@ -68,13 +68,31 @@ if ($MCWantsToUpdate -eq 1)
     {
         git clone https://github.com/Jonathing/MCGradle-Scripts.git update -q
 
-        Remove-Item -Force -Recurse .\Windows\
-        Remove-Item -Force -Recurse .\PowerShell\
-        Remove-Item -Force -Recurse .\bash\
+        Remove-Item -Force -Recurse '.\Windows\'
+        Remove-Item -Force -Recurse '.\PowerShell\'
+        Remove-Item -Force -Recurse '.\bash\'
+        Remove-Item -Force '.\MCGradle Scripts.bat'
+        Remove-Item -Force '.\MCGradle Scripts.ps1'
+        Remove-Item -Force '.\MCGradle Scripts.sh'
+        Remove-Item -Force '.\LICENSE'
+        Remove-Item -Force '.\CHANGELOG.md'
+        Remove-Item -Force '.\README.md'
+        Remove-Item -Force '.\UPDATE.md'
+        Remove-Item -Force '.\.gitignore'
 
-        Move-Item -Force .\update\Windows\ .\Windows\
-        Move-Item -Force .\update\PowerShell\ .\PowerShell\
-        Move-Item -Force .\update\bash\ .\bash\
+        Move-Item -Force '.\update\Windows\' '.\Windows\'
+        Move-Item -Force '.\update\PowerShell\' '.\PowerShell\'
+        Move-Item -Force '.\update\bash\' '.\bash\'
+        Move-Item -Force '.\update\MCGradle Scripts.bat' '.\MCGradle Scripts.bat'
+        Move-Item -Force '.\update\MCGradle Scripts.ps1' '.\MCGradle Scripts.ps1'
+        Move-Item -Force '.\update\MCGradle Scripts.sh' '.\MCGradle Scripts.sh'
+        Move-Item -Force '.\update\LICNESE' '.\LICENSE'
+        Move-Item -Force '.\update\CHANGELOG.md' '.\CHANGELOG.md'
+        Move-Item -Force '.\update\README.md' '.\README.md'
+        Move-Item -Force '.\update\UPDATE.md' '.\UPDATE.md'
+        Move-Item -Force '.\update\.gitignore' '.\.gitignore'
+
+        Remove-Item -Force -Recurse .\update\
     }
     else
     {
