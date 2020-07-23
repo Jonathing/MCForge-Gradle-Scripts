@@ -86,11 +86,11 @@ if [ "$MCHubUpdVer" != "$MCGradleVersion" ]; then
             printf "\nMCGradle Scripts has been successfully updated!\n"
             printf "Restarting MCGradle Scripts...\n"
 
-            MCHasUpdated=1
-
             sleep 3s
 
             ./MCGradle\ Scripts.sh
+
+            MCHasUpdated=1
         else
             printf "We weren't able to find git on your system!\n"
             printf "MCGradle Scripts will not be able to update.\n\n"

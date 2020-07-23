@@ -116,9 +116,9 @@ if ($MCHubUpdVer -ne $MCGradleVersion)
 
             Start-Sleep -s 3
 
-            $MCHasUpdated = 1
-
             & '.\MCGradle Scripts.ps1'
+
+            $MCHasUpdated = 1
         }
         else
         {
