@@ -30,7 +30,7 @@ $MCGradleTitle = "MCGradle Scripts"
 [System.Console]::Title = $MCGradleTitle
 
 $MCGradleAuthor = "Jonathing"
-$MCGradleVersion = "0.5.2"
+$MCGradleVersion = "0.5.3"
 
 # Print script information
 $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor

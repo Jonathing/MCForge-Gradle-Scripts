@@ -2,11 +2,9 @@
 
 Ready to update MCGradle Scripts?
 
-## Update Automatically (PowerShell Only)
+## Update Automatically
 
 To update MCGradle Scripts automatically, run `MCGradle Scripts.ps1` or `MCGradle Scripts.bat` and follow through with the update process. MCGradle Scripts will take care of updating everything for you. Make sure you commit the update to your repo when you're finished!
-
-The auto-updater is currently only available for PowerShell. I hope to figure out how to write it for bash soon! If you do not want to download PowerShell Core for your macOS or Linux system, continue with the instructions below.
 
 ## Update Manually
 
