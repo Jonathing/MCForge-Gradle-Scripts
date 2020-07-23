@@ -50,8 +50,6 @@ if [ "$MCHubUpdVer" != "$MCGradleVersion" ]; then
     done
 
     if [ "$MCWantsToUpdate" -eq 1 ]; then
-        printf "We want to update\n"
-
         # Check for curl
         if command -v git &> /dev/null; then
             printf "Downloading MCGradle Scripts...\n"

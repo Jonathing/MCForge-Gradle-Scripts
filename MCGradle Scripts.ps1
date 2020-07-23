@@ -70,8 +70,6 @@ if ($MCHubUpdVer -ne $MCGradleVersion)
 
     if ($MCWantsToUpdate -eq 1)
     {
-        Write-Host "We want to update."
-
         $MCOldPreference = $ErrorActionPreference
         $ErrorActionPreference = "SilentlyContinue"
 
