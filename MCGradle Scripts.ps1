@@ -25,8 +25,12 @@ if ($PSVersionTable.Platform -eq "Win32NT")
     $MCCurrentTitle = [System.Console]::Title
 }
 
+# Set the title of the Windows PowerShell or PowerShell Core console
+$MCGradleTitle = "MCGradle Scripts"
+[System.Console]::Title = $MCGradleTitle
+
 $MCGradleAuthor = "Jonathing"
-$MCGradleVersion = "0.5.2"
+$MCGradleVersion = "0.5.3"
 
 # Print script information
 $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
@@ -73,6 +77,10 @@ if ($MCHubUpdVer -ne $MCGradleVersion)
 
         if (Get-Command git)
         {
+            # Set the title of the Windows PowerShell or PowerShell Core console
+            $MCGradleTitle = "Updating MCGradle Scripts..."
+            [System.Console]::Title = $MCGradleTitle
+
             Write-Host "Downloading MCGradle Scripts..."
             git clone https://github.com/Jonathing/MCGradle-Scripts.git update -q
 

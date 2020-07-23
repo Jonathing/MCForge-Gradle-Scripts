@@ -3,13 +3,12 @@
 # Get arguments
 MCGradleArgs=$1
 
-if [ "$MCGradleArgs" != "FromHub" ]
-then
+if [ "$MCGradleArgs" != "FromHub" ]; then
     # Clear the screen
     clear
 
     MCGradleAuthor="Jonathing"
-    MCGradleVersion="0.5.2"
+    MCGradleVersion="0.5.3"
 
     # Print script information
     MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
@@ -34,8 +33,7 @@ printf "Building $MCProjectName...\n\n"
 printf "\nFinished building $MCProjectName.\n"
 printf "If the build was successful, the output should be located under build\libs\n"
 
-if [ "$MCGradleArgs" != "FromHub" ]
-then
+if [ "$MCGradleArgs" != "FromHub" ]; then
     # Return to scripts directory
     cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."

@@ -8,7 +8,7 @@ if [ "$MCGradleArgs" != "FromHub" ]; then
     clear
 
     MCGradleAuthor="Jonathing"
-    MCGradleVersion="0.5.2"
+    MCGradleVersion="0.5.3"
 
     # Print script information
     MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
@@ -115,8 +115,7 @@ if [ "$MCHasConfirmed" -eq 1 ]; then
         printf "\n"
     fi
 
-    if [ "$MCGradleArgs" != "FromHub" ]
-    then
+    if [ "$MCGradleArgs" != "FromHub" ]; then
         # Return to scripts directory
         cd Scripts/bash/
         read -s -n 1 -p "Press any key to exit MCGradle Scripts..."

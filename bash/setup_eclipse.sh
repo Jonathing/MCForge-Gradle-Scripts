@@ -3,13 +3,12 @@
 # Get arguments
 MCGradleArgs=$1
 
-if [ "$MCGradleArgs" != "FromHub" ]
-then
+if [ "$MCGradleArgs" != "FromHub" ]; then
     # Clear the screen
     clear
 
     MCGradleAuthor="Jonathing"
-    MCGradleVersion="0.5.2"
+    MCGradleVersion="0.5.3"
 
     # Print script information
     MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"
@@ -39,8 +38,7 @@ printf "Generating the Eclipse run configurations for $MCProjectName...\n\n"
 printf "\nInitial set up for Eclipse complete.\n"
 printf "If you need to generate the run configurations again, run the \"Make Eclipse Runs.ps1\" script.\n"
 
-if [ "$MCGradleArgs" != "FromHub" ]
-then
+if [ "$MCGradleArgs" != "FromHub" ]; then
     # Return to scripts directory
     cd Scripts/bash/
     read -s -n 1 -p "Press any key to exit MCGradle Scripts..."

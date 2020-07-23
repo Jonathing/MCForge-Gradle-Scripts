@@ -1,5 +1,10 @@
 # MCGradle Scripts Changelog
 
+## 0.5.3
+
+- Ported the auto-updater for the bash scripts. PowerShell superiority is no more.
+- Dropped support for using MCGradle Scripts as a Git submodule. It's too risky with the new auto-updater I made.
+
 ## 0.5.2
 
 - Added an auto-updater for the PowerShell scripts. Support for the bash scripts coming soon!

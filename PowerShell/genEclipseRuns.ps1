@@ -13,7 +13,7 @@ if ($MCGradleArg -ne "FromHub")
     }
 
     $MCGradleAuthor = "Jonathing"
-    $MCGradleVersion = "0.5.2"
+    $MCGradleVersion = "0.5.3"
 
     # Print script information
     $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
