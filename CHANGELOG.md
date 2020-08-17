@@ -1,5 +1,9 @@
 # MCGradle Scripts Changelog
 
+## 0.5.4
+
+- After building your mod, you will be prompted if you want to open the `build\libs` folder. This is only for Windows users.
+
 ## 0.5.3
 
 - Ported the auto-updater for the bash scripts. PowerShell superiority is no more.
