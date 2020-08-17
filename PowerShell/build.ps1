@@ -51,6 +51,25 @@ Write-Host $MCExitMessage
 $MCExitMessage2 = "If the build was successful, the output should be located under build\libs"
 Write-Host $MCExitMessage2
 
+if ($PSVersionTable.Platform -eq "Win32NT")
+{
+    Write-Host "Would you like to open the build\libs folder now? " -ForegroundColor Yellow -NoNewline
+    Write-Host "[ y/N ] " -ForegroundColor Yellow -NoNewline
+    $Readhost = Read-Host
+    Switch ($ReadHost)
+    {
+        Y { $MCHasConfirmed = 1}
+        Default { $MCHasConfirmed = 0}
+    }
+
+    if ($MCHasConfirmed -eq 1)
+    {
+        start .\build\libs
+    }
+
+    Write-Host ""
+}
+
 # END OF SCRIPT
 Pause
 
