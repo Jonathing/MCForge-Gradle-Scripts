@@ -7,13 +7,13 @@ if ($MCGradleArg -ne "FromHub")
     Clear-Host
 
     # Get current PowerShell title (Windows Only)
-    if ($PSVersionTable.Platform -eq "Win32NT")
+    if ($PSVersionTable.Platform -eq "Win32NT" -xor $PSVersionTable.PSEdition -eq "Desktop")
     {
         $MCCurrentTitle = [System.Console]::Title
     }
 
     $MCGradleAuthor = "Jonathing"
-    $MCGradleVersion = "0.5.4"
+    $MCGradleVersion = "0.5.5"
 
     # Print script information
     $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
@@ -51,7 +51,7 @@ Write-Host $MCExitMessage
 $MCExitMessage2 = "If the build was successful, the output should be located under build\libs"
 Write-Host $MCExitMessage2
 
-if ($PSVersionTable.Platform -eq "Win32NT")
+if ($PSVersionTable.Platform -eq "Win32NT" -xor $PSVersionTable.PSEdition -eq "Desktop")
 {
     Write-Host "Would you like to open the build\libs folder now? " -ForegroundColor Yellow -NoNewline
     Write-Host "[ y/N ] " -ForegroundColor Yellow -NoNewline
@@ -94,7 +94,7 @@ else
     }
 
     # Revert PowerShell title (Windows Only)
-    if ($PSVersionTable.Platform -eq "Win32NT")
+    if ($PSVersionTable.Platform -eq "Win32NT" -xor $PSVersionTable.PSEdition -eq "Desktop")
     {
         [System.Console]::Title = $MCCurrentTitle
     }

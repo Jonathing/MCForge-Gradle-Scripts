@@ -20,7 +20,7 @@ if ($MCGradleArg -eq "FromCMD")
 }
 
 # Get current PowerShell title (Windows Only)
-if ($PSVersionTable.Platform -eq "Win32NT")
+if ($PSVersionTable.Platform -eq "Win32NT" -xor $PSVersionTable.PSEdition -eq "Desktop")
 {
     $MCCurrentTitle = [System.Console]::Title
 }
@@ -30,7 +30,7 @@ $MCGradleTitle = "MCGradle Scripts"
 [System.Console]::Title = $MCGradleTitle
 
 $MCGradleAuthor = "Jonathing"
-$MCGradleVersion = "0.5.4"
+$MCGradleVersion = "0.5.5"
 
 # Print script information
 $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
@@ -257,7 +257,7 @@ if ($MCHasUpdated -ne 1)
     Set-Location .\Scripts\
 
     # Revert PowerShell title (Windows Only)
-    if ($PSVersionTable.Platform -eq "Win32NT")
+    if ($PSVersionTable.Platform -eq "Win32NT" -xor $PSVersionTable.PSEdition -eq "Desktop")
     {
         [System.Console]::Title = $MCCurrentTitle
     }

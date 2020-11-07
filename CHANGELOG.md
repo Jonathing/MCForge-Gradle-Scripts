@@ -1,5 +1,9 @@
 # MCGradle Scripts Changelog
 
+## 0.5.5
+
+- Fixed a bug where Windows PowerShell would not prompt to open the `build\libs` folder.
+
 ## 0.5.4
 
 - After building your mod, you will be prompted if you want to open the `build\libs` folder. This is only for Windows users.
