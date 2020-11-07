@@ -7,7 +7,7 @@ clear
 MCGradleArgs=$1
 
 MCGradleAuthor="Jonathing"
-MCGradleVersion="0.5.4"
+MCGradleVersion="0.5.5"
 
 # Print script information
 MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"

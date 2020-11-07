@@ -8,7 +8,7 @@ if [ "$MCGradleArgs" != "FromHub" ]; then
     clear
 
     MCGradleAuthor="Jonathing"
-    MCGradleVersion="0.5.4"
+    MCGradleVersion="0.5.5"
 
     # Print script information
     MCGradleGreeting1="MCGradle Scripts by $MCGradleAuthor"

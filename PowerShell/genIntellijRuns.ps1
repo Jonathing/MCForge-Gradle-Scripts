@@ -7,13 +7,13 @@ if ($MCGradleArg -ne "FromHub")
     Clear-Host
 
     # Get current PowerShell title (Windows Only)
-    if ($PSVersionTable.Platform -eq "Win32NT")
+    if ($PSVersionTable.Platform -eq "Win32NT" -xor $PSVersionTable.PSEdition -eq "Desktop")
     {
         $MCCurrentTitle = [System.Console]::Title
     }
 
     $MCGradleAuthor = "Jonathing"
-    $MCGradleVersion = "0.5.4"
+    $MCGradleVersion = "0.5.5"
 
     # Print script information
     $MCGradleGreeting1 = "MCGradle Scripts by " + $MCGradleAuthor
@@ -73,7 +73,7 @@ else
     }
 
     # Revert PowerShell title (Windows Only)
-    if ($PSVersionTable.Platform -eq "Win32NT")
+    if ($PSVersionTable.Platform -eq "Win32NT" -xor $PSVersionTable.PSEdition -eq "Desktop")
     {
         [System.Console]::Title = $MCCurrentTitle
     }
