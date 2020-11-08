@@ -61,6 +61,7 @@ class Updater
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/MCGradle%20Scripts.bat -OutFile '.\MCGradle Scripts.bat'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/build.bat -OutFile '.\build.bat'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/clean.bat -OutFile '.\clean.bat'
+            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/createMcpToSrg.bat -OutFile '.\createMcpToSrg.bat'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/eclipse.bat -OutFile '.\eclipse.bat'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/genEclipseRuns.bat -OutFile '.\genEclipseRuns.bat'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/genIntellijRuns.bat -OutFile '.\genIntellijRuns.bat'
@@ -77,6 +78,11 @@ class Updater
             $StatusCode = $_.Exception.MCResponse.StatusCode.value__
         }
     }
+
+    static [void] CreateUpdateMarker()
+    {
+        New-Item -Path . -Name "HAS_UPDATED" -ItemType "file" -Value "This file will be deleted the next time MCGradle Scripts is ran. It is simply here to aid the script in the updating process."
+    }
 }
 
 Write-Host "Preparing to install MCGradle Scripts..."
@@ -90,11 +96,10 @@ Write-Host "Installing MCGradle Scripts..."
 [Updater]::RemoveLegacyFiles()
 [Updater]::RemoveFiles()
 [Updater]::DownloadNewFiles()
+[Updater]::CreateUpdateMarker()
 
 Write-Host ""
 Write-Host "Finished installing MCGradle Scripts!" -ForegroundColor Green
-Write-Host ""
-Pause
 Write-Host ""
 
 $ErrorActionPreference = $OldPreferences.OldActionPreference

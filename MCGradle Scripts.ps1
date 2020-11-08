@@ -94,6 +94,11 @@ class SessionInfo
         }
     }
 
+    [bool] isFromCmd()
+    {
+        return $this.IsFromCMD
+    }
+
     [string] getOldTitle()
     {
         return $this.OldTitle
@@ -476,6 +481,117 @@ function ChangeWindowTitle
     [System.Console]::Title = $NewTitle
 }
 
+function CheckForUpdates
+{
+    param
+    (
+        [parameter(Mandatory)][string]$CurrentVersion,
+        [parameter(Mandatory)][string]$OldWindowTitle,
+        [parameter(Mandatory)][bool]$IsFromCMD,
+        [bool]$ShouldNotUpdate
+    )
+    
+    try
+    {
+        # Hide download progress from user
+        $ProgressPreference = 'SilentlyContinue'
+
+        # Attempt to download the update file
+        $UpdateFile = Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/VERSIONS.txt -OutFile '.\VERSIONS.txt'
+        
+        # Revert environment variable change
+        $ProgressPreference = 'Continue'
+
+        # Get status code from web request
+        $StatusCode = $UpdateFile.StatusCode
+    }
+    catch
+    {
+        Write-Host "Exception caught"
+        $StatusCode = $_.Exception.UpdateFile.StatusCode.value__
+    }
+
+    if ($StatusCode)
+    {
+        # Inform user that the update check failed.
+        Write-Host "MCGradle Scripts failed to check for updates!"
+        Write-Host "We got a $StatusCode error when downloading latest version file."
+        Write-Host "Please report this to the MCGradle Scripts issue tracker!"
+        Write-Host "https://github.com/Jonathing/MCGradle-Scripts/issues"
+
+        if (Test-Path .\VERSIONS.txt)
+        {
+            Remove-Item -Force .\VERSIONS.txt
+        }
+    }
+    else
+    {
+        $VersionFileContents = Get-Content '.\VERSIONS.txt' | Where-Object {$_ -like '*REWRITEVERSION=*'}
+
+        Remove-Item -Force .\VERSIONS.txt
+
+        if ($VersionFileContents)
+        {
+            # Extract string within double quotes
+            $LatestVersion = $VersionFileContents|%{$_.split('"')[1]}
+        }
+    }
+
+    if ($LatestVersion)
+    {
+        if ($LatestVersion -ne $CurrentVersion)
+        {
+            Write-Host "An update is available for MCGradle Scripts! The latest version is $LatestVersion" -ForegroundColor Green
+            Write-Host ""
+            if (!$ShouldNotUpdate)
+            {
+                Write-Host "Would you like to update now? [ y/N ] " -ForegroundColor Yellow -NoNewline
+                $UserInput = Read-Host
+                Switch ($UserInput)
+                {
+                    Y
+                    {
+                        Write-Host ""
+                        . { Invoke-WebRequest -useb https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/update.ps1 } | Invoke-Expression
+                        if ($IsFromCMD)
+                        {
+                            Write-Host "Restarting MCGradle Scripts..."
+                        }
+                        else
+                        {
+                            Write-Host "Quitting MCGradle Scripts..."
+                        }
+
+                        ChangeWindowTitle $OldWindowTitle
+
+                        Write-Host ""
+
+                        exit 0
+                    }
+                    Default
+                    {
+                        Write-Host ""
+                        if ($UserInput -ne "n")
+                        {
+                            Write-Host "Unknown option selected, assuming that we do not want to update." -ForegroundColor Yellow
+                        }
+                        Write-Host "Continuing to MCGradle Scripts..." -ForegroundColor
+                        Write-Host ""
+                        Break
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        Write-Host "MCGradle Scripts failed to check for updates!" -ForegroundColor Red
+        Write-Host "Please report this to the MCGradle Scripts issue tracker!" -ForegroundColor Red
+        Write-Host "https://github.com/Jonathing/MCGradle-Scripts/issues" -ForegroundColor Red
+        Write-Host ""
+    }
+}
+
 function RunGradleCommand
 {
     param
@@ -542,6 +658,17 @@ ChangeWindowTitle "MCGradle Scripts"
 # Print script information
 $ScriptInfo.print()
 Write-Host ""
+
+if ([string]::IsNullOrEmpty($args[2]) -or $args[2] -ne "NoUpdate")
+{
+    CheckForUpdates $ScriptInfo.getScriptVersion() $SessionInfo.getOldTitle() $SessionInfo.isFromCmd()
+}
+else
+{
+    CheckForUpdates $ScriptInfo.getScriptVersion() $SessionInfo.getOldTitle() $SessionInfo.isFromCmd() 1
+}
+
+Pause
 
 # Go to root project directory
 Set-Location ..
