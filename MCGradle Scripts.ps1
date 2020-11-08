@@ -137,6 +137,14 @@ class GradleCommandInfo
             {
                 return "$($this.ModName): IntelliJ IDEA Run Configurations"
             }
+            "createMcpToSrg"
+            {
+                return "$($this.ModName): MCP to Searge Mappings"
+            }
+            Default
+            {
+                return "$($this.ModName): $($this.CommandCall)"
+            }
         }
 
         return ""
@@ -164,6 +172,15 @@ class GradleCommandInfo
             "genIntellijRuns"
             {
                 Write-Host "Generating the IntelliJ IDEA run configurations for $($this.ModName)..."
+                Break
+            }
+            "createMcpToSrg"
+            {
+                Write-Host "Generating the Searge mappings from the MCP mappings..."
+            }
+            Default
+            {
+                Write-Host "Running a custom command ($($this.CommandCall)) for $($this.ModName)..."
                 Break
             }
         }
@@ -197,6 +214,14 @@ class GradleCommandInfo
             {
                 Write-Host "Finished generating the IntelliJ IDEA configurations for $($this.ModName)." -ForegroundColor Green
                 Break
+            }
+            "createMcpToSrg"
+            {
+                Write-Host "Finished generating the Searge mappings from the MCP mappings." -ForegroundColor Green
+            }
+            Default
+            {
+                Write-Host "Finished the custom task for $($this.ModName)." -ForegroundColor Green
             }
         }
 
@@ -233,6 +258,18 @@ class GradleCommandInfo
                 Write-Host "Make sure you check the error that Gradle threw before trying again." -ForegroundColor Red
                 Break
             }
+            "createMcpToSrg"
+            {
+                Write-Host "Gradle failed to generate the Searge mappings from the MCP mappings!" -ForegroundColor Red
+                Write-Host "Make sure you check the error that Gradle threw before trying again." -ForegroundColor Red
+                Break
+            }
+            Default
+            {
+                Write-Host "Gradle failed to complete the custom command for $($this.ModName)!" -ForegroundColor Red
+                Write-Host "Make sure you check the error that Gradle threw before trying again." -ForegroundColor Red
+                Break
+            }
         }
 
         Write-Host ""
@@ -263,6 +300,7 @@ class GradleCommands
     [GradleCommandInfo]$EclipseCommand
     [GradleCommandInfo]$GenEclipseRunsCommand
     [GradleCommandInfo]$GenIntellijRunsCommand
+    [GradleCommandInfo]$CreateMcpToSrg
 
     [string]$ModName
 
@@ -274,6 +312,7 @@ class GradleCommands
         $this.EclipseCommand = [GradleCommandInfo]::new("eclipse", $this.ModName)
         $this.GenEclipseRunsCommand = [GradleCommandInfo]::new("genEclipseRuns", $this.ModName)
         $this.GenIntellijRunsCommand = [GradleCommandInfo]::new("genIntellijRuns", $this.ModName)
+        $this.CreateMcpToSrg = [GradleCommandInfo]::new("createMcpToSrg", $this.ModName)
     }
 
     [GradleCommandInfo] getCommand([string]$CommandCall)
@@ -296,6 +335,10 @@ class GradleCommands
             {
                 return $this.GenIntellijRunsCommand
             }
+            "createMcpToSrg"
+            {
+                return $this.CreateMcpToSrg
+            }
             Default
             {
                 return [GradleCommandInfo]::new("$($CommandCall)", $this.ModName)
@@ -303,26 +346,6 @@ class GradleCommands
         }
 
         return [GradleCommandInfo]::new("$($CommandCall)", $this.ModName)
-    }
-
-    [GradleCommandInfo] build()
-    {
-        return $this.BuildCommand
-    }
-
-    [GradleCommandInfo] eclipse()
-    {
-        return $this.EclipseCommand
-    }
-
-    [GradleCommandInfo] genEclipseRuns()
-    {
-        return $this.GenEclipseRunsCommand
-    }
-
-    [GradleCommandInfo] genIntellijRuns()
-    {
-        return $this.GenIntellijRunsCommand
     }
 }
 
@@ -416,6 +439,8 @@ class Hub
         Write-Host "4. Generate the Eclipse run configurations"
         Write-Host "5. Generate the IntelliJ IDEA run configurations"
         Write-Host "6. Do a full cleanup of the workspace"
+        Write-Host "7. Generate Searge mappings from MCP (fixes potential mapping issues)"
+        Write-Host "8. Run a different gradle command"
         Write-Host ""
         Write-Host "MCGradle Scripts Options"
         Write-Host "C. Clear the screen"
@@ -535,181 +560,191 @@ ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
 
 $GradleCommands = [GradleCommands]::new($ModInfo.getModName())
 
-switch ($args[1])
+if ([string]::IsNullOrEmpty($args[1]))
 {
-    "build"
-    {
-        RunGradleCommand $GradleCommands.build() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-        FinalTask $SessionInfo.getOldTitle()
-    }
-    "eclipse"
-    {
-        RunGradleCommand $GradleCommands.eclipse() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-        Write-Host "Would you also like to generate the Eclipse run configurations? " -ForegroundColor Yellow -NoNewline
-        Write-Host "[ y/N ] " -ForegroundColor Yellow -NoNewline
-    
-        if ($(Read-Host) -eq "y")
-        {
-            RunGradleCommand $GradleCommands.genEclipseRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-        }
+    [Hub]::printInitialGreeting()
 
-        FinalTask $SessionInfo.getOldTitle()
-    }
-    "intellij"
-    {
-        ChangeWindowTitle "$($ModInfo.getModName()): IntelliJ IDEA Workspace"
-        Write-Host "The IntelliJ IDEA workspace for Forge is no longer set up through a command."
-        Write-Host "To import the project to IntelliJ IDEA, simply open your workspace folder as a project."
-        Write-Host "Gradle will do the rest for you as it imports and indexes the project into IntelliJ."
-        Write-Host ""
-        Pause
-        Write-Host ""
-        ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
-        FinalTask $SessionInfo.getOldTitle()
-    }
-    "genEclipseRuns"
-    {
-        RunGradleCommand $GradleCommands.genEclipseRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-        FinalTask $SessionInfo.getOldTitle()
-    }
-    "genIntellijRuns"
-    {
-        RunGradleCommand $GradleCommands.genIntellijRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-        FinalTask $SessionInfo.getOldTitle()
-    }
-    "clean"
-    {
-        ChangeWindowTitle "$($ModInfo.getModName()): Clean Up Workspace"
-        Write-Host "This option will be re-added soon..." -ForegroundColor Yellow
-        Write-Host ""
-        Pause
-        Write-Host ""
-        ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
-        FinalTask $SessionInfo.getOldTitle()
-    }
-    Default
-    {
-        [Hub]::printInitialGreeting()
+    [bool]$ShowOptionsAgain = 1
+    [bool]$HasChosen = 0
+    [int]$ScriptOption = 0
 
-        [bool]$ShowOptionsAgain = 1
-        [bool]$HasChosen = 0
-        [int]$ScriptOption = 0
-
+    do
+    {
         do
         {
-            do
+            if ($ShowOptionsAgain)
             {
-                if ($ShowOptionsAgain)
-                {
-                    [Hub]::printHubOptions($ModInfo.getModName())
-                }
-                else
-                {
-                    Write-Host "Press R to see the options again." -ForegroundColor Yellow
-                }
-                $ShowOptionsAgain = 0
-                Write-Host "Please pick an option [ 1-6, R, Q, ... ] " -ForegroundColor Yellow -NoNewline
-
-                Switch ($(Read-Host))
-                { 
-                    1 { $HasChosen = 1; $ScriptOption = 1 }
-                    2 { $HasChosen = 1; $ScriptOption = 2 }
-                    3 { $HasChosen = 1; $ScriptOption = 3 }
-                    4 { $HasChosen = 1; $ScriptOption = 4 }
-                    5 { $HasChosen = 1; $ScriptOption = 5 }
-                    6 { $HasChosen = 1; $ScriptOption = 6 }
-                    C { $HasChosen = 1; $ScriptOption = 97; $ShowOptionsAgain = 1 }
-                    A { $HasChosen = 1; $ScriptOption = 98 }
-                    Q { $HasChosen = 1; $ScriptOption = 99 }
-                    R { $HasChosen = 0; $ShowOptionsAgain = 1 }
-                    Default { $HasChosen = 0; $ScriptOption = 0 }
-                }
-
-                Write-Host ""
-
-                if (!$HasChosen -and !$ShowOptionsAgain)
-                {
-                    Write-Host "That's not a valid option." -ForegroundColor Yellow
-                }
+                [Hub]::printHubOptions($ModInfo.getModName())
             }
-            while (!$HasChosen)
-
-            switch ($ScriptOption)
+            else
             {
-                1
-                {
-                    RunGradleCommand $GradleCommands.build() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-                    Break
-                }
-                2
-                {
-                    RunGradleCommand $GradleCommands.eclipse() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-                    Break
-                }
-                3
-                {
-                    ChangeWindowTitle "$($ModInfo.getModName()): IntelliJ IDEA Workspace"
-                    Write-Host "The IntelliJ IDEA workspace for Forge is no longer set up through a command."
-                    Write-Host "To import the project to IntelliJ IDEA, simply open your workspace folder as a project."
-                    Write-Host "Gradle will do the rest for you as it imports and indexes the project into IntelliJ."
-                    Write-Host ""
-                    Pause
-                    Write-Host ""
-                    ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
-                    Break
-                }
-                4
-                {
-                    RunGradleCommand $GradleCommands.genEclipseRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-                    Write-Host "Would you also like to generate the Eclipse run configurations? " -ForegroundColor Yellow -NoNewline
-                    Write-Host "[ y/N ] " -ForegroundColor Yellow -NoNewline
-                
-                    if ($(Read-Host) -eq "y")
-                    {
-                        RunGradleCommand $GradleCommands.genEclipseRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-                    }
-                }
-                5
-                {
-                    RunGradleCommand $GradleCommands.genIntellijRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-                }
-                6
-                {
-                    ChangeWindowTitle "$($ModInfo.getModName()): Clean Up Workspace"
-                    Write-Host "This option will be re-added soon..." -ForegroundColor Yellow
-                    Write-Host ""
-                    Pause
-                    Write-Host ""
-                    ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
-                    Break
-                }
-                97
-                {
-                    Clear-Host
-                    $ScriptInfo.print()
-                    Write-Host ""
-                    Break
-                }
-                98
-                {
-                    ChangeWindowTitle "About MCGradle Scripts"
-                    [Hub]::printAboutInfo($ScriptInfo, $SessionInfo)
-                    ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
-                    Break
-                }
-                99
-                {
-                    Break
-                }
-                Default
-                {
-                    Write-Host "An unknown error has occurred..." -ForegroundColor Red
-                    Break
-                }
+                Write-Host "Press R to see the options again." -ForegroundColor Yellow
+            }
+            $ShowOptionsAgain = 0
+            Write-Host "Please pick an option [ 1-8, R, Q, ... ] " -ForegroundColor Yellow -NoNewline
+
+            Switch ($(Read-Host))
+            { 
+                1 { $HasChosen = 1; $ScriptOption = 1 }
+                2 { $HasChosen = 1; $ScriptOption = 2 }
+                3 { $HasChosen = 1; $ScriptOption = 3 }
+                4 { $HasChosen = 1; $ScriptOption = 4 }
+                5 { $HasChosen = 1; $ScriptOption = 5 }
+                6 { $HasChosen = 1; $ScriptOption = 6 }
+                7 { $HasChosen = 1; $ScriptOption = 7 }
+                8 { $HasChosen = 1; $ScriptOption = 8 }
+                C { $HasChosen = 1; $ScriptOption = 97; $ShowOptionsAgain = 1 }
+                A { $HasChosen = 1; $ScriptOption = 98 }
+                Q { $HasChosen = 1; $ScriptOption = 99 }
+                R { $HasChosen = 0; $ShowOptionsAgain = 1 }
+                Default { $HasChosen = 0; $ScriptOption = 0 }
+            }
+
+            Write-Host ""
+
+            if (!$HasChosen -and !$ShowOptionsAgain)
+            {
+                Write-Host "That's not a valid option." -ForegroundColor Yellow
             }
         }
-        while ($ScriptOption -ne 99)
+        while (!$HasChosen)
 
-        FinalTask $SessionInfo.getOldTitle()
+        switch ($ScriptOption)
+        {
+            1
+            {
+                RunGradleCommand $GradleCommands.getCommand("build") $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+                Break
+            }
+            2
+            {
+                RunGradleCommand $GradleCommands.getCommand("eclipse") $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+                Write-Host "Would you also like to generate the Eclipse run configurations? " -ForegroundColor Yellow -NoNewline
+                Write-Host "[ y/N ] " -ForegroundColor Yellow -NoNewline
+            
+                if ($(Read-Host) -eq "y")
+                {
+                    RunGradleCommand $GradleCommands.getCommand("genEclipseRuns") $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+                }
+                Break
+            }
+            3
+            {
+                ChangeWindowTitle "$($ModInfo.getModName()): IntelliJ IDEA Workspace"
+                Write-Host "The IntelliJ IDEA workspace for Forge is no longer set up through a command."
+                Write-Host "To import the project to IntelliJ IDEA, simply open your workspace folder as a project."
+                Write-Host "Gradle will do the rest for you as it imports and indexes the project into IntelliJ."
+                Write-Host ""
+                Pause
+                Write-Host ""
+                ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
+                Break
+            }
+            4
+            {
+                RunGradleCommand $GradleCommands.getCommand("genEclipseRuns") $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+            }
+            5
+            {
+                RunGradleCommand $GradleCommands.getCommand("genIntellijRuns") $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+            }
+            6
+            {
+                ChangeWindowTitle "$($ModInfo.getModName()): Clean Up Workspace"
+                Write-Host "This option will be re-added soon..." -ForegroundColor Yellow
+                Write-Host ""
+                Pause
+                Write-Host ""
+                ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
+                Break
+            }
+            7
+            {
+                RunGradleCommand $GradleCommands.getCommand("createMcpToSrg") $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+            }
+            8
+            {
+                Write-Host "Enter the command you would like to run below..."
+                Write-Host ".\gradlew " -NoNewline
+
+                $CustomCommand = $(Read-Host)
+                Write-Host ""
+            
+                RunGradleCommand $GradleCommands.getCommand($CustomCommand) $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+                Break
+            }
+            97
+            {
+                Clear-Host
+                $ScriptInfo.print()
+                Write-Host ""
+                Break
+            }
+            98
+            {
+                ChangeWindowTitle "About MCGradle Scripts"
+                [Hub]::printAboutInfo($ScriptInfo, $SessionInfo)
+                ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
+                Break
+            }
+            99
+            {
+                Break
+            }
+            Default
+            {
+                Write-Host "An unknown error has occurred..." -ForegroundColor Red
+                Break
+            }
+        }
+    }
+    while ($ScriptOption -ne 99)
+
+    FinalTask $SessionInfo.getOldTitle()
+}
+else 
+{
+    switch ($args[1])
+    {
+        "eclipse"
+        {
+            RunGradleCommand $GradleCommands.eclipse() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+            Write-Host "Would you also like to generate the Eclipse run configurations? " -ForegroundColor Yellow -NoNewline
+            Write-Host "[ y/N ] " -ForegroundColor Yellow -NoNewline
+        
+            if ($(Read-Host) -eq "y")
+            {
+                RunGradleCommand $GradleCommands.genEclipseRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+            }
+
+            FinalTask $SessionInfo.getOldTitle()
+        }
+        "intellij"
+        {
+            ChangeWindowTitle "$($ModInfo.getModName()): IntelliJ IDEA Workspace"
+            Write-Host "The IntelliJ IDEA workspace for Forge is no longer set up through a command."
+            Write-Host "To import the project to IntelliJ IDEA, simply open your workspace folder as a project."
+            Write-Host "Gradle will do the rest for you as it imports and indexes the project into IntelliJ."
+            Write-Host ""
+            Pause
+            Write-Host ""
+            ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
+            FinalTask $SessionInfo.getOldTitle()
+        }
+        "clean"
+        {
+            ChangeWindowTitle "$($ModInfo.getModName()): Clean Up Workspace"
+            Write-Host "This option will be re-added soon..." -ForegroundColor Yellow
+            Write-Host ""
+            Pause
+            Write-Host ""
+            ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
+            FinalTask $SessionInfo.getOldTitle()
+        }
+        Default
+        {
+            RunGradleCommand $GradleCommands.getCommand($args[1]) $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+            FinalTask $SessionInfo.getOldTitle()
+        }
     }
 }

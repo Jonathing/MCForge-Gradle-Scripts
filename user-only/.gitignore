@@ -5,3 +5,4 @@ genEclipseRuns.bat
 genIntellijRuns.bat
 intellij.bat
 update.ps1
+MCGradle Scripts.ps1
