@@ -58,7 +58,7 @@ class Updater
         {
             # Attempt to download the update file
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/MCGradle%20Scripts.ps1 -OutFile '.\MCGradle Scripts.ps1'
-            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/warppers/MCGradle%20Scripts.bat -OutFile '.\MCGradle Scripts.bat'
+            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/wrappers/MCGradle%20Scripts.bat -OutFile '.\MCGradle Scripts.bat'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/wrappers/tasks/build.bat -OutFile '.\build.bat'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/wrappers/tasks/clean.bat -OutFile '.\clean.bat'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/master/wrappers/tasks/createMcpToSrg.bat -OutFile '.\createMcpToSrg.bat'
@@ -72,7 +72,6 @@ class Updater
         {
             $StatusCode = $_.Exception.MCResponse.StatusCode.value__
             Write-Host "Unable to download MCGradle Scripts!" -ForegroundColor Red
-            Write-Host "Recieved an error code of $StatusCode"
             Write-Host ""
             Pause
             Write-Host ""
