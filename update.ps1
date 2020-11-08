@@ -71,11 +71,13 @@ class Updater
         }
         catch
         {
+            $StatusCode = $_.Exception.MCResponse.StatusCode.value__
             Write-Host "Unable to download MCGradle Scripts!" -ForegroundColor Red
+            Write-Host "Recieved an error code of $StatusCode"
             Write-Host ""
             Pause
             Write-Host ""
-            $StatusCode = $_.Exception.MCResponse.StatusCode.value__
+            exit 1
         }
     }
 

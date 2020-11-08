@@ -566,7 +566,7 @@ function CheckForUpdates
         if ($VersionFileContents)
         {
             # Extract string within double quotes
-            $LatestVersion = $VersionFileContents|%{$_.split('"')[1]}
+            $LatestVersion = $VersionFileContents|ForEach-Object{$_.split('"')[1]}
         }
     }
 
@@ -591,6 +591,7 @@ function CheckForUpdates
                         }
                         else
                         {
+                            Pause
                             Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
                         }
 
@@ -607,7 +608,7 @@ function CheckForUpdates
                         {
                             Write-Host "Unknown option selected, assuming that we do not want to update." -ForegroundColor Yellow
                         }
-                        Write-Host "Continuing to MCGradle Scripts..." -ForegroundColor
+                        Write-Host "Continuing to MCGradle Scripts..." -ForegroundColor Yellow
                         Write-Host ""
                         Break
                     }
