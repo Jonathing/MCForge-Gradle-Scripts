@@ -1,0 +1,7 @@
+build.bat
+clean.bat
+eclipse.bat
+genEclipseRuns.bat
+genIntellijRuns.bat
+intellij.bat
+update.ps1

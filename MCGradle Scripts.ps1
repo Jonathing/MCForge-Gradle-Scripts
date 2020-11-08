@@ -480,6 +480,29 @@ function RunGradleCommand
     }
 
     ChangeWindowTitle $OldWindowTitle
+
+    Pause
+    Write-Host ""
+}
+
+function FinalTask
+{
+    param
+    (
+        [parameter(Mandatory)][string]$OldWindowTitle
+    )
+
+    Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
+    
+    # Go back to scripts
+    Set-Location .\Scripts\
+
+    # Revert old title (on Mac and Linux, give empty title)
+    ChangeWindowTitle $OldWindowTitle
+
+    Write-Host ""
+
+    exit 0
 }
 
 # Get session information
@@ -512,129 +535,181 @@ ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
 
 $GradleCommands = [GradleCommands]::new($ModInfo.getModName())
 
-# RunGradleCommand $GradleCommands.build() $SessionInfo.isOnWindows() "MCGradle Scripts"
-
-[Hub]::printInitialGreeting()
-
-[bool]$ShowOptionsAgain = 1
-[bool]$HasChosen = 0
-[int]$ScriptOption = 0
-
-do
+switch ($args[1])
 {
-    do
+    "build"
     {
-        if ($ShowOptionsAgain)
-        {
-            [Hub]::printHubOptions($ModInfo.getModName())
-        }
-        else
-        {
-            Write-Host "Press R to see the options again." -ForegroundColor Yellow
-        }
-        $ShowOptionsAgain = 0
-        Write-Host "Please pick an option [ 1-6, R, Q, ... ] " -ForegroundColor Yellow -NoNewline
-
-        Switch ($(Read-Host))
-        { 
-            1 { $HasChosen = 1; $ScriptOption = 1 }
-            2 { $HasChosen = 1; $ScriptOption = 2 }
-            3 { $HasChosen = 1; $ScriptOption = 3 }
-            4 { $HasChosen = 1; $ScriptOption = 4 }
-            5 { $HasChosen = 1; $ScriptOption = 5 }
-            6 { $HasChosen = 1; $ScriptOption = 6 }
-            C { $HasChosen = 1; $ScriptOption = 97; $ShowOptionsAgain = 1 }
-            A { $HasChosen = 1; $ScriptOption = 98 }
-            Q { $HasChosen = 1; $ScriptOption = 99 }
-            R { $HasChosen = 0; $ShowOptionsAgain = 1 }
-            Default { $HasChosen = 0; $ScriptOption = 0 }
-        }
-
-        Write-Host ""
-
-        if (!$HasChosen -and !$ShowOptionsAgain)
-        {
-            Write-Host "That's not a valid option." -ForegroundColor Yellow
-        }
+        RunGradleCommand $GradleCommands.build() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+        FinalTask $SessionInfo.getOldTitle()
     }
-    while (!$HasChosen)
-
-    switch ($ScriptOption) {
-        1
-        {
-            RunGradleCommand $GradleCommands.build() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-            Break
-        }
-        2
-        {
-            RunGradleCommand $GradleCommands.eclipse() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
-            Break
-        }
-        3
-        {
-            ChangeWindowTitle "$($ModInfo.getModName()): IntelliJ IDEA Workspace"
-            Write-Host "The IntelliJ IDEA workspace for Forge is no longer set up through a command."
-            Write-Host "To import the project to IntelliJ IDEA, simply open your workspace folder as a project."
-            Write-Host "Gradle will do the rest for you as it imports and indexes the project into IntelliJ."
-            Write-Host ""
-            Pause
-            Write-Host ""
-            ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
-            Break
-        }
-        4
+    "eclipse"
+    {
+        RunGradleCommand $GradleCommands.eclipse() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+        Write-Host "Would you also like to generate the Eclipse run configurations? " -ForegroundColor Yellow -NoNewline
+        Write-Host "[ y/N ] " -ForegroundColor Yellow -NoNewline
+    
+        if ($(Read-Host) -eq "y")
         {
             RunGradleCommand $GradleCommands.genEclipseRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
         }
-        5
+
+        FinalTask $SessionInfo.getOldTitle()
+    }
+    "intellij"
+    {
+        ChangeWindowTitle "$($ModInfo.getModName()): IntelliJ IDEA Workspace"
+        Write-Host "The IntelliJ IDEA workspace for Forge is no longer set up through a command."
+        Write-Host "To import the project to IntelliJ IDEA, simply open your workspace folder as a project."
+        Write-Host "Gradle will do the rest for you as it imports and indexes the project into IntelliJ."
+        Write-Host ""
+        Pause
+        Write-Host ""
+        ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
+        FinalTask $SessionInfo.getOldTitle()
+    }
+    "genEclipseRuns"
+    {
+        RunGradleCommand $GradleCommands.genEclipseRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+        FinalTask $SessionInfo.getOldTitle()
+    }
+    "genIntellijRuns"
+    {
+        RunGradleCommand $GradleCommands.genIntellijRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+        FinalTask $SessionInfo.getOldTitle()
+    }
+    "clean"
+    {
+        ChangeWindowTitle "$($ModInfo.getModName()): Clean Up Workspace"
+        Write-Host "This option will be re-added soon..." -ForegroundColor Yellow
+        Write-Host ""
+        Pause
+        Write-Host ""
+        ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
+        FinalTask $SessionInfo.getOldTitle()
+    }
+    Default
+    {
+        [Hub]::printInitialGreeting()
+
+        [bool]$ShowOptionsAgain = 1
+        [bool]$HasChosen = 0
+        [int]$ScriptOption = 0
+
+        do
         {
-            RunGradleCommand $GradleCommands.genIntellijRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+            do
+            {
+                if ($ShowOptionsAgain)
+                {
+                    [Hub]::printHubOptions($ModInfo.getModName())
+                }
+                else
+                {
+                    Write-Host "Press R to see the options again." -ForegroundColor Yellow
+                }
+                $ShowOptionsAgain = 0
+                Write-Host "Please pick an option [ 1-6, R, Q, ... ] " -ForegroundColor Yellow -NoNewline
+
+                Switch ($(Read-Host))
+                { 
+                    1 { $HasChosen = 1; $ScriptOption = 1 }
+                    2 { $HasChosen = 1; $ScriptOption = 2 }
+                    3 { $HasChosen = 1; $ScriptOption = 3 }
+                    4 { $HasChosen = 1; $ScriptOption = 4 }
+                    5 { $HasChosen = 1; $ScriptOption = 5 }
+                    6 { $HasChosen = 1; $ScriptOption = 6 }
+                    C { $HasChosen = 1; $ScriptOption = 97; $ShowOptionsAgain = 1 }
+                    A { $HasChosen = 1; $ScriptOption = 98 }
+                    Q { $HasChosen = 1; $ScriptOption = 99 }
+                    R { $HasChosen = 0; $ShowOptionsAgain = 1 }
+                    Default { $HasChosen = 0; $ScriptOption = 0 }
+                }
+
+                Write-Host ""
+
+                if (!$HasChosen -and !$ShowOptionsAgain)
+                {
+                    Write-Host "That's not a valid option." -ForegroundColor Yellow
+                }
+            }
+            while (!$HasChosen)
+
+            switch ($ScriptOption)
+            {
+                1
+                {
+                    RunGradleCommand $GradleCommands.build() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+                    Break
+                }
+                2
+                {
+                    RunGradleCommand $GradleCommands.eclipse() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+                    Break
+                }
+                3
+                {
+                    ChangeWindowTitle "$($ModInfo.getModName()): IntelliJ IDEA Workspace"
+                    Write-Host "The IntelliJ IDEA workspace for Forge is no longer set up through a command."
+                    Write-Host "To import the project to IntelliJ IDEA, simply open your workspace folder as a project."
+                    Write-Host "Gradle will do the rest for you as it imports and indexes the project into IntelliJ."
+                    Write-Host ""
+                    Pause
+                    Write-Host ""
+                    ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
+                    Break
+                }
+                4
+                {
+                    RunGradleCommand $GradleCommands.genEclipseRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+                    Write-Host "Would you also like to generate the Eclipse run configurations? " -ForegroundColor Yellow -NoNewline
+                    Write-Host "[ y/N ] " -ForegroundColor Yellow -NoNewline
+                
+                    if ($(Read-Host) -eq "y")
+                    {
+                        RunGradleCommand $GradleCommands.genEclipseRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+                    }
+                }
+                5
+                {
+                    RunGradleCommand $GradleCommands.genIntellijRuns() $SessionInfo.isOnWindows() "$($ModInfo.getModName()): MCGradle Scripts"
+                }
+                6
+                {
+                    ChangeWindowTitle "$($ModInfo.getModName()): Clean Up Workspace"
+                    Write-Host "This option will be re-added soon..." -ForegroundColor Yellow
+                    Write-Host ""
+                    Pause
+                    Write-Host ""
+                    ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
+                    Break
+                }
+                97
+                {
+                    Clear-Host
+                    $ScriptInfo.print()
+                    Write-Host ""
+                    Break
+                }
+                98
+                {
+                    ChangeWindowTitle "About MCGradle Scripts"
+                    [Hub]::printAboutInfo($ScriptInfo, $SessionInfo)
+                    ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
+                    Break
+                }
+                99
+                {
+                    Break
+                }
+                Default
+                {
+                    Write-Host "An unknown error has occurred..." -ForegroundColor Red
+                    Break
+                }
+            }
         }
-        6
-        {
-            ChangeWindowTitle "$($ModInfo.getModName()): Clean Up Workspace"
-            Write-Host "This option will be re-added soon..." -ForegroundColor Yellow
-            Write-Host ""
-            Pause
-            Write-Host ""
-            ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
-            Break
-        }
-        97
-        {
-            Clear-Host
-            $ScriptInfo.print()
-            Write-Host ""
-            Break
-        }
-        98
-        {
-            ChangeWindowTitle "About MCGradle Scripts"
-            [Hub]::printAboutInfo($ScriptInfo, $SessionInfo)
-            ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
-            Break
-        }
-        99
-        {
-            Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
-            Break
-        }
-        Default
-        {
-            Write-Host "An unknown error has occurred..." -ForegroundColor Red
-            Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
-            Break
-        }
+        while ($ScriptOption -ne 99)
+
+        FinalTask $SessionInfo.getOldTitle()
     }
 }
-while ($ScriptOption -ne 99)
-
-# Go back to scripts
-Set-Location .\Scripts\
-
-# Revert old title (on Mac and Linux, give empty title)
-ChangeWindowTitle $SessionInfo.getOldTitle()
-
-Write-Host ""
-
-exit 0
