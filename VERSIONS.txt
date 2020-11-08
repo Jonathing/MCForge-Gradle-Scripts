@@ -1,1 +1,5 @@
+# New version getter for the rewrite.
+REWRITEVERSION="0.6.0"
+
+#For legacy versions. Will delete later.
 LATESTVERSION="0.5.5"

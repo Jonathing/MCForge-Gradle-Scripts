@@ -4,7 +4,7 @@ Ready to update MCGradle Scripts?
 
 ## Update Automatically
 
-To update MCGradle Scripts automatically, run `MCGradle Scripts.ps1` or `MCGradle Scripts.bat` and follow through with the update process. MCGradle Scripts will take care of updating everything for you. Make sure you commit the update to your repo when you're finished!
+To update MCGradle Scripts automatically, run `MCGradle Scripts.ps1` via "Run with PowerShell" or double-click `MCGradle Scripts.bat` and follow through with the update process. MCGradle Scripts will take care of updating everything for you.
 
 ## Update Manually
 

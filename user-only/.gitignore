@@ -1,0 +1,17 @@
+# Script Wrappers
+build.bat
+clean.bat
+createMcpToSrg.bat
+eclipse.bat
+genEclipseRuns.bat
+genIntellijRuns.bat
+intellij.bat
+
+# Supplementary Scripts
+update.ps1
+
+# Main script
+MCGradle Scripts.ps1
+
+# Temporary file that aids the update checker
+VERSIONS.txt

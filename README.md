@@ -8,42 +8,25 @@ In a nutshell, MCGradle Scripts makes building, running, or setting up your work
 
 ## Installation
 
-To install MCGradle Scripts, go to [GitHub Releases](https://github.com/Jonathing/MCGradle-Scripts/releases/) and download the latest `MCGradle-Scripts.zip` file! Then, unzip the file as-is in your root project directory. Please don't change any of the folder names, I haven't yet added support for that in the scripts.
+To install MCGradle Scripts, go to [GitHub Releases](https://github.com/Jonathing/MCGradle-Scripts/releases/) and download the latest `MCGradle-Scripts.zip` file! Then, unzip the file as-is in your root project directory. Please don't change any of the folder names, I haven't yet added support for that in the scripts. You'll notice that the only thing there is a file called "MCGradle Scripts.bat". The program now self-installs itself by downloading the files from this repository, so all you need to do is run that batch script and it will install itself. It will even download a .gitignore for you which ignores all files except for the main batch script, so all you need to do is commit the `MCGradle Scripts.bat` file.
 
 ## Features
 
 Right now, MCGradle Scripts:
 
 - Is fully compatible with ForgeGradle 3.
-- Can get your mod's display name from mods.toml (it only picks up the first occurrence of `displayName=`.
-- Can change the title of your terminal shell (if possible, I couldn't find a way to do this for bash).
-- Can check for updates from this repo by reading the `VERSIONS.txt` file.
+- Can detect ForgeGradle 2 and Fabric workspaces but is not yet compatible with them.
+- Can get your mod's display name from mods.toml (it only picks up the first occurrence of `displayName=` on ForgeGradle 3 workspaces.
+- Can change the title of your window depending on the current action.
+- Can check for updates and has a fully-fledged auto-updater that will use the `update.ps1` script from this repo to update the program for you.
 - Has a main script where all the other scripts can be executed through.
-- Has a fully-fledged auto-updater.
+- Has seperate wrapper batch scripts if you only need to execute a single task and don't have the patience to go through the main script.
 
 Some of the planned features for MCGradle Scripts are to:
 
 - Have full compatability with ForgeGradle 2 and Fabric workspaces.
-- Be able to decide what to run depending if the workspace is for ForgeGradle 3, ForgeGradle 2, or Fabric.
-- And some other things I may not have thought up as of right now!
+- Change the tasks on the main menu depending on what workspace you have.
 
 ## How to Run
 
-MCGradle Scripts is written in three different languages for three different shell interpreters: **Batch for Windows Command Prompt**, **PowerShell for Windows PowerShell and PowerShell Core**, and **GNU bash for GNU/Linux**
-
-### Windows Command Prompt
-
-To launch MCGradle Scripts, simply double click the `MCGradle Scripts.bat` file in the Scripts directory.
-
-Windows Command Prompt now acts as a wrapper for the PowerShell scripts! Writing MCGradle Scripts has never been easier for me, and launching MCGradle Scripts has never been easier for you!
-
-### PowerShell
-
-Are you a PowerShell supremecist? Not a problem! To run one of the PowerShell scripts, do one of the following:
-
-- For Windows PowerShell, right click on the script and click on `Run with PowerShell`.
-- For PowerShell Core, run the script manually from the command line. It is written to work for both Windows PowerShell and PowerShell Core.
-
-### GNU bash
-
-Tired of Microsft spying on you? I've made MCGradle Scripts for bash as well! To run one of the shell scripts, run the script manually from the command line. If for some reason the shell script is not executable, run `chmod +x [script_name_here].sh` in your terminal, and then run the script.
+Because MCGradle Scripts is now written using Object-Oriented Programming in PowerShell, the main demographic for this program is users on Windows who want to double click a batch script to have it run a gradle task for them without needing to type it out themselves. All you need to do to run the program is double click the main `MCGradle Scripts.bat` file or run of the single task batch scripts.
