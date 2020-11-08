@@ -58,15 +58,14 @@ class Updater
         {
             # Attempt to download the update file
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/MCGradle%20Scripts.ps1 -OutFile '.\MCGradle Scripts.ps1'
-            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/MCGradle%20Scripts.bat -OutFile '.\MCGradle Scripts.bat'
-            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/build.bat -OutFile '.\build.bat'
-            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/clean.bat -OutFile '.\clean.bat'
-            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/createMcpToSrg.bat -OutFile '.\createMcpToSrg.bat'
-            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/eclipse.bat -OutFile '.\eclipse.bat'
-            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/genEclipseRuns.bat -OutFile '.\genEclipseRuns.bat'
-            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/genIntellijRuns.bat -OutFile '.\genIntellijRuns.bat'
-            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/intellij.bat -OutFile '.\intellij.bat'
-            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/.gitignore -OutFile '.\.gitignore'
+            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/warppers/MCGradle%20Scripts.bat -OutFile '.\MCGradle Scripts.bat'
+            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/wrappers/tasks/build.bat -OutFile '.\build.bat'
+            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/wrappers/tasks/clean.bat -OutFile '.\clean.bat'
+            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/wrappers/tasks/createMcpToSrg.bat -OutFile '.\createMcpToSrg.bat'
+            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/wrappers/tasks/eclipse.bat -OutFile '.\eclipse.bat'
+            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/wrappers/tasks/genEclipseRuns.bat -OutFile '.\genEclipseRuns.bat'
+            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/wrappers/tasks/genIntellijRuns.bat -OutFile '.\genIntellijRuns.bat'
+            Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/wrappers/tasks/intellij.bat -OutFile '.\intellij.bat'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/user-only/.gitignore -OutFile '.\.gitignore'
         }
         catch

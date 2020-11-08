@@ -540,7 +540,6 @@ function CheckForUpdates
     }
     catch
     {
-        Write-Host "Exception caught"
         $StatusCode = $_.Exception.UpdateFile.StatusCode.value__
     }
 
@@ -584,7 +583,7 @@ function CheckForUpdates
                     Y
                     {
                         Write-Host ""
-                        . { Invoke-WebRequest -useb https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/update.ps1 } | Invoke-Expression
+                        . { Invoke-WebRequest -useb https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/updater/update.ps1 } | Invoke-Expression
                         if ($IsFromCMD)
                         {
                             Write-Host "Restarting MCGradle Scripts..." -ForegroundColor Red
