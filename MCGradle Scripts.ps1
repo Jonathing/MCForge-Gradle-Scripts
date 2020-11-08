@@ -100,6 +100,26 @@ class SessionInfo
     }
 }
 
+function FinalTask
+{
+    param
+    (
+        [parameter(Mandatory)][string]$OldWindowTitle
+    )
+
+    Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
+    
+    # Go back to scripts
+    Set-Location .\Scripts\
+
+    # Revert old title (on Mac and Linux, give empty title)
+    ChangeWindowTitle $OldWindowTitle
+
+    Write-Host ""
+
+    exit 0
+}
+
 class GradleCommandInfo
 {
     [string]$CommandCall
@@ -386,7 +406,7 @@ class ModInfo
         }
     }
 
-    static [int] getToolchainId([string]$ScriptTitle)
+    static [int] getToolchainId([string]$ScriptTitle, [string]$OldWindowTitle)
     {
         if ($(Get-Content .\build.gradle | Where-Object { $_ -like '*classpath*' }) -like "*ForgeGradle', version: '3*" -or $(Get-Content .\build.gradle | Where-Object { $_ -like '*classpath*' }) -like "*ForgeGradle:3*")
         {
@@ -398,6 +418,13 @@ class ModInfo
             if ($(Get-Content .\build.gradle | Where-Object { $_ -like '*classpath*' }) -like "*classpath 'net.minecraftforge.gradle:ForgeGradle:2*" -or $(Get-Content .\build.gradle | Where-Object { $_ -like '*classpath*' }) -like "*ForgeGradle', version: '2*")
             {
                 Write-Host "Detected a workspace using Forge prior to 14.23.5.2847 or Minecraft 1.12.2 and below."
+                Write-Host ""
+                Write-Host "$ScriptTitle has not yet added support for workspaces using ForgeGradle 2." -ForegroundColor Red
+                Write-Host "Support will be added in a future update. Until then, please use a ForgeGradle 3 workspace." -ForegroundColor Red
+                Write-Host ""
+                Pause
+                Write-Host ""
+                FinalTask $OldWindowTitle
                 return 1
             }
             else
@@ -405,11 +432,22 @@ class ModInfo
                 if ($(Get-Content .\build.gradle | Where-Object { $_ -like "*id 'fabric-loom'*" }) -like "*id 'fabric-loom' version*")
                 {
                     Write-Host "Detected a workspace using Fabric."
+                    Write-Host ""
+                    Write-Host "$ScriptTitle has not yet added support for workspaces using Fabric." -ForegroundColor Red
+                    Write-Host "Support will be added in a future update. Until then, please use a ForgeGradle 3 workspace." -ForegroundColor Red
+                    Write-Host ""
+                    Pause
+                    Write-Host ""
+                    FinalTask $OldWindowTitle
                     return 2
                 }
                 else
                 {
                     Write-Host "$ScriptTitle was unable to find a valid Forge or Fabric workspace!" -ForegroundColor Red
+                    Write-Host ""
+                    Pause
+                    Write-Host ""
+                    FinalTask $OldWindowTitle
                     exit 1
                 }
             }
@@ -621,26 +659,6 @@ function RunGradleCommand
     Write-Host ""
 }
 
-function FinalTask
-{
-    param
-    (
-        [parameter(Mandatory)][string]$OldWindowTitle
-    )
-
-    Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
-    
-    # Go back to scripts
-    Set-Location .\Scripts\
-
-    # Revert old title (on Mac and Linux, give empty title)
-    ChangeWindowTitle $OldWindowTitle
-
-    Write-Host ""
-
-    exit 0
-}
-
 # Get session information
 $SessionInfo = [SessionInfo]::new($args[0], $PSVersionTable.PSEdition, $PSVersionTable.Platform)
 
@@ -673,7 +691,7 @@ if (!$(Test-Path -Path .\build.gradle))
     exit 1
 }
 
-$ModInfo = [ModInfo]::new([ModInfo]::getToolchainId($ScriptInfo.getScriptTitle()))
+$ModInfo = [ModInfo]::new([ModInfo]::getToolchainId($ScriptInfo.getScriptTitle(), $SessionInfo.getOldTitle()))
 Write-Host ""
 
 ChangeWindowTitle "$($ModInfo.getModName()): MCGradle Scripts"
