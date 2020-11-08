@@ -591,6 +591,7 @@ function CheckForUpdates
                         }
                         else
                         {
+                            Remove-Item -Force .\HAS_UPDATED
                             Pause
                             Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
                         }
