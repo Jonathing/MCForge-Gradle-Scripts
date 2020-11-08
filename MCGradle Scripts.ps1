@@ -663,8 +663,6 @@ else
     CheckForUpdates $ScriptInfo.getScriptVersion() $SessionInfo.getOldTitle() $SessionInfo.IsFromCMD 1
 }
 
-Pause
-
 # Go to root project directory
 Set-Location ..
 
