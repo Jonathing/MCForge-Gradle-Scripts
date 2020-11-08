@@ -588,11 +588,11 @@ function CheckForUpdates
                         . { Invoke-WebRequest -useb https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/update.ps1 } | Invoke-Expression
                         if ($IsFromCMD)
                         {
-                            Write-Host "Restarting MCGradle Scripts..."
+                            Write-Host "Restarting MCGradle Scripts..." -ForegroundColor Red
                         }
                         else
                         {
-                            Write-Host "Quitting MCGradle Scripts..."
+                            Write-Host "Quitting MCGradle Scripts..." -ForegroundColor Red
                         }
 
                         ChangeWindowTitle $OldWindowTitle
