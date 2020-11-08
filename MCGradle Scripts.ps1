@@ -388,14 +388,14 @@ class ModInfo
 
     static [int] getToolchainId([string]$ScriptTitle)
     {
-        if ($(Get-Content .\build.gradle | Where-Object { $_ -like '*classpath*' }) -like "*ForgeGradle', version: '3*")
+        if ($(Get-Content .\build.gradle | Where-Object { $_ -like '*classpath*' }) -like "*ForgeGradle', version: '3*" -or $(Get-Content .\build.gradle | Where-Object { $_ -like '*classpath*' }) -like "*ForgeGradle:3*")
         {
             Write-Host "Detected a workspace using Forge since 14.23.5.2851 or since Minecraft 1.13.2."
             return 0
         }
         else
         {
-            if ($(Get-Content .\build.gradle | Where-Object { $_ -like '*classpath*' }) -like "*classpath 'net.minecraftforge.gradle:ForgeGradle:2*")
+            if ($(Get-Content .\build.gradle | Where-Object { $_ -like '*classpath*' }) -like "*classpath 'net.minecraftforge.gradle:ForgeGradle:2*" -or $(Get-Content .\build.gradle | Where-Object { $_ -like '*classpath*' }) -like "*ForgeGradle', version: '2*")
             {
                 Write-Host "Detected a workspace using Forge prior to 14.23.5.2847 or Minecraft 1.12.2 and below."
                 return 1
