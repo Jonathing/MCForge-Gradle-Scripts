@@ -1,8 +1,7 @@
 :: Disable echoing commands onto the console
 @ECHO off
 
-DIR /ad /b "MCGradle Scripts.ps1" 1> NUL 2> NUL
-if %ERRORLEVEL% EQU 0 (
+if exist "MCGradle Scripts.ps1" (
     :: If PowerShell Core is installed, run the script on there. If not, run via Windows PowerShell.
     where /q pwsh
     IF ERRORLEVEL 1 (
@@ -16,14 +15,12 @@ if %ERRORLEVEL% EQU 0 (
     where /q pwsh
     IF ERRORLEVEL 1 (
         PowerShell -ExecutionPolicy Bypass -NoLogo -NoProfile -Command ". { iwr -useb https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/update.ps1 } | iex"
-        DIR /ad /b "MCGradle Scripts.ps1" 1> NUL 2> NUL
-        if %ERRORLEVEL% EQU 0 (
+        if exist "MCGradle Scripts.ps1" (
             PowerShell -ExecutionPolicy Bypass -NoLogo -NoProfile -File ".\MCGradle Scripts.ps1" FromCMD
         )
     ) ELSE (
         pwsh -ExecutionPolicy Bypass -NoLogo -NoProfile -Command ". { iwr -useb https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/update.ps1 } | iex"
-        DIR /ad /b "MCGradle Scripts.ps1" 1> NUL 2> NUL
-        if %ERRORLEVEL% EQU 0 (
+        if exist "MCGradle Scripts.ps1" (
             pwsh -ExecutionPolicy Bypass -NoLogo -NoProfile -File ".\MCGradle Scripts.ps1" FromCMD
         )
     )
