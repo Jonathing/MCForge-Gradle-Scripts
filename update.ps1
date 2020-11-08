@@ -1,12 +1,10 @@
 class OldPreferences
 {
     $OldActionPreference
-    $OldProgressPreference
 
-    OldPreferences($OldActionPreference, $OldProgressPreference)
+    OldPreferences($OldActionPreference)
     {
         $this.OldActionPreference = $OldActionPreference
-        $this.$OldProgressPreference = $OldProgressPreference
     }
 }
 
@@ -83,7 +81,7 @@ class Updater
 
 Write-Host "Preparing to install MCGradle Scripts..."
 
-$OldPreferences = [OldPreferences]::new($ErrorActionPreference, $ProgressPreference)
+$OldPreferences = [OldPreferences]::new($ErrorActionPreference)
 $ErrorActionPreference = "SilentlyContinue"
 $ProgressPreference = "SilentlyContinue"
 
@@ -99,5 +97,5 @@ Write-Host ""
 Pause
 Write-Host ""
 
-$ErrorActionPreference = $OldPreferences.ActionPreference
-$ProgressPreference = $OldPreferences.OldProgressPreference
+$ErrorActionPreference = $OldPreferences.OldActionPreference
+$ProgressPreference = "Continue"
