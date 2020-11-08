@@ -575,7 +575,6 @@ function CheckForUpdates
         if ($LatestVersion -ne $CurrentVersion)
         {
             Write-Host "An update is available for MCGradle Scripts! The latest version is $LatestVersion" -ForegroundColor Green
-            Write-Host ""
             if (!$ShouldNotUpdate)
             {
                 Write-Host "Would you like to update now? [ y/N ] " -ForegroundColor Yellow -NoNewline
@@ -613,6 +612,11 @@ function CheckForUpdates
                         Break
                     }
                 }
+            }
+            else
+            {
+                Write-Host "To update, run the main script and follow through with the update process." -ForegroundColor Green
+                Write-Host ""
             }
         }
     }
