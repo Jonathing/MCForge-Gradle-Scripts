@@ -94,11 +94,6 @@ class SessionInfo
         }
     }
 
-    [bool] isFromCmd()
-    {
-        return $this.IsFromCMD
-    }
-
     [string] getOldTitle()
     {
         return $this.OldTitle
@@ -661,11 +656,11 @@ Write-Host ""
 
 if ([string]::IsNullOrEmpty($args[2]) -or $args[2] -ne "NoUpdate")
 {
-    CheckForUpdates $ScriptInfo.getScriptVersion() $SessionInfo.getOldTitle() $SessionInfo.isFromCmd()
+    CheckForUpdates $ScriptInfo.getScriptVersion() $SessionInfo.getOldTitle() $SessionInfo.IsFromCMD
 }
 else
 {
-    CheckForUpdates $ScriptInfo.getScriptVersion() $SessionInfo.getOldTitle() $SessionInfo.isFromCmd() 1
+    CheckForUpdates $ScriptInfo.getScriptVersion() $SessionInfo.getOldTitle() $SessionInfo.IsFromCMD 1
 }
 
 Pause
