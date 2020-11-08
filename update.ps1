@@ -1,10 +1,12 @@
-class ActionPreference
+class OldPreferences
 {
-    $ActionPreference
+    $OldActionPreference
+    $OldProgressPreference
 
-    ActionPreference($ActionPreference)
+    OldPreferences($OldActionPreference, $OldProgressPreference)
     {
-        $this.ActionPreference = $ActionPreference
+        $this.OldActionPreference = $OldActionPreference
+        $this.$OldProgressPreference = $OldProgressPreference
     }
 }
 
@@ -37,7 +39,6 @@ class Updater
 {
     static [void] RemoveLegacyFiles()
     {
-        Write-Host "Removing legacy files..."
         CheckAndDeleteFolder "Windows"
         CheckAndDeleteFolder "PowerShell"
         CheckAndDeleteFolder "bash"
@@ -48,7 +49,6 @@ class Updater
 
     static [void] RemoveFiles()
     {
-        Write-Host "Removing files..."
         CheckAndDelete "MCGradle Scripts.bat"
         CheckAndDelete "MCGradle Scripts.ps1"
         CheckAndDelete ".gitignore"
@@ -56,12 +56,8 @@ class Updater
 
     static [void] DownloadNewFiles()
     {
-        Write-Host "Downloading updated version..."
         try
         {
-            # Hide download progress from user
-            $ProgressPreference = 'SilentlyContinue'
-
             # Attempt to download the update file
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/MCGradle%20Scripts.ps1 -OutFile '.\MCGradle Scripts.ps1'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/MCGradle%20Scripts.bat -OutFile '.\MCGradle Scripts.bat'
@@ -73,9 +69,6 @@ class Updater
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/intellij.bat -OutFile '.\intellij.bat'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/.gitignore -OutFile '.\.gitignore'
             Invoke-WebRequest -TimeoutSec 10 https://raw.githubusercontent.com/Jonathing/MCGradle-Scripts/develop/user-only/.gitignore -OutFile '.\.gitignore'
-            
-            # Revert environment variable change
-            $ProgressPreference = 'Continue'
         }
         catch
         {
@@ -88,17 +81,23 @@ class Updater
     }
 }
 
-$ActionPreference = [ActionPreference]::new($ErrorActionPreference)
+Write-Host "Preparing to install MCGradle Scripts..."
+
+$OldPreferences = [OldPreferences]::new($ErrorActionPreference, $ProgressPreference)
 $ErrorActionPreference = "SilentlyContinue"
+$ProgressPreference = "SilentlyContinue"
+
+Write-Host "Installing MCGradle Scripts..."
 
 [Updater]::RemoveLegacyFiles()
 [Updater]::RemoveFiles()
 [Updater]::DownloadNewFiles()
 
-Write-Host "Finished!"
-
+Write-Host ""
+Write-Host "Finished installing MCGradle Scripts!" -ForegroundColor Green
 Write-Host ""
 Pause
 Write-Host ""
 
-$ErrorActionPreference = $ActionPreference.ActionPreference
+$ErrorActionPreference = $OldPreferences.ActionPreference
+$ProgressPreference = $OldPreferences.OldProgressPreference
