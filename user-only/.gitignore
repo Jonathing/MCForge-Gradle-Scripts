@@ -1,6 +1,7 @@
 # Script Wrappers
 build.bat
 clean.bat
+createMcpToSrg.bat
 eclipse.bat
 genEclipseRuns.bat
 genIntellijRuns.bat
